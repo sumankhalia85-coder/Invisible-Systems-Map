@@ -1,0 +1,12 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/backend"
+  ],
+  "python.analysis.venvPath": "${workspaceFolder}/backend",
+  "python.analysis.venv": "venv",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.reportMissingModuleSource": "none",
+  "pyrefly.pythonInterpreterPath": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+  "pyrefly.disableLsp": true
+}
