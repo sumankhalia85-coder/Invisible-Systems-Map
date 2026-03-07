@@ -17,7 +17,7 @@ Run from: backend/ directory
 import json, os, requests, csv, io, math
 from typing import Optional
 
-ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 DATASETS_DIR = os.path.join(ROOT, 'datasets')
 os.makedirs(DATASETS_DIR, exist_ok=True)
 

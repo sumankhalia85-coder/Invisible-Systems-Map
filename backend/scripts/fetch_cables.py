@@ -7,7 +7,7 @@ Run: python scripts/fetch_cables.py
 import json, os
 from datetime import datetime
 
-ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 DATASETS_DIR = os.path.join(ROOT, 'datasets')
 
 nodes_path = os.path.join(DATASETS_DIR, 'nodes.json')

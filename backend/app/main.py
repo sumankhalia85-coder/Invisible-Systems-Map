@@ -25,7 +25,7 @@ app.add_middleware(
 # ── Data paths ──────────────────────────────────────────────
 # main.py is at backend/app/ → go up 2 dirs to project root → datasets/
 DATASETS_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'datasets')
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets')
 )
 
 def load_json(filename):

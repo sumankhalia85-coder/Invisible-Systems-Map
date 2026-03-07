@@ -1,7 +1,7 @@
 import requests  # type: ignore[import-not-found]
 import json, os, datetime, zipfile, io, csv, itertools
 
-DATASETS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'datasets'))
+DATASETS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets'))
 CONFLICTS_FILE = os.path.join(DATASETS_DIR, 'conflicts.json')
 os.makedirs(DATASETS_DIR, exist_ok=True)
 
