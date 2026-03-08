@@ -400,9 +400,17 @@ export default function GlobeComponent({
       g.controls().dampingFactor = 0.05;
       g.controls().minDistance = 150;
 
-      // Feed data RIGHT NOW using the ref (has latest props!)
+      console.log("!!! GLOBE INIT SUCCESS - FORCING TEST DATA !!!");
+      g.pointsData([
+        { lat: 10, lng: 10, size: 5, color: '#FF0000', text: 'TEST POINT' }
+      ]);
+      g.pointColor('color');
+      g.pointRadius('size');
+
+      // Feed real data
       syncDataToGlobe(g);
       setGlobeReady(true);
+      console.log("!!! GLOBE READY SET TO TRUE !!!");
     };
 
     init();
