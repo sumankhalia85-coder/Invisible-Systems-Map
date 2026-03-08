@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface GlobeComponentProps {
   layersData: any;
@@ -32,8 +32,6 @@ const CABLE_RAINBOW = [
 ];
 
 // ── Per-system arc visual signature ───────────────────────────────
-// cables:   very thin, glowing, elegant sweeping curves
-// shipping: thick, low, fast
 const ARC_STYLE: Record<string, { stroke: number; alt: number; dashLen: number; dashGap: number; animMs: number }> = {
   cables:         { stroke: 0.4, alt: 0.35, dashLen: 0.4,  dashGap: 0.15, animMs: 3000 },
   shipping:       { stroke: 1.0, alt: 0.08, dashLen: 0.35, dashGap: 0.2,  animMs: 2500 },
@@ -81,6 +79,17 @@ const COUNTRY_LABELS = [
   { lat: 120.9765, lng: 24.7861, text: 'Taiwan', size: 0.6 },
 ];
 
+// ── Temperature → color ──────────────────────────────────────────
+function tempColor(temp: number) {
+  if (temp > 42) return '#DC2626';
+  if (temp > 35) return '#F97316';
+  if (temp > 25) return '#FBBF24';
+  if (temp > 15) return '#34D399';
+  if (temp > 5)  return '#2DD4BF';
+  if (temp > -5) return '#38BDF8';
+  return '#818CF8';
+}
+
 export default function GlobeComponent({
   layersData, activeSystems, onNodeClick, conflictsData = []
 }: GlobeComponentProps) {
@@ -88,27 +97,24 @@ export default function GlobeComponent({
   const globeRef = useRef<any>(null);
   const [globeReady, setGlobeReady] = useState(false);
 
-  // ── Temperature → color mapping for climate nodes ──────────
-  const tempColor = (temp: number) => {
-    if (temp > 42) return '#DC2626'; // extreme heat → red
-    if (temp > 35) return '#F97316'; // hot → orange
-    if (temp > 25) return '#FBBF24'; // warm → amber
-    if (temp > 15) return '#34D399'; // mild → green
-    if (temp > 5)  return '#2DD4BF'; // cool → teal
-    if (temp > -5) return '#38BDF8'; // cold → blue
-    return '#818CF8';                // freezing → indigo
-  };
+  // ── Store props in refs so the async init closure always gets FRESH data ──
+  const propsRef = useRef({ layersData, activeSystems, onNodeClick, conflictsData });
+  propsRef.current = { layersData, activeSystems, onNodeClick, conflictsData };
 
-  // ── Build flat points array for non-energy systems ─────────────
-  const buildPoints = useCallback(() => {
+  // ════════════════════════════════════════════════════════════
+  // SYNC FUNCTION — builds all data from latest props & feeds to globe
+  // ════════════════════════════════════════════════════════════
+  const syncDataToGlobe = (g: any) => {
+    const { layersData: ld, activeSystems: as2, conflictsData: cd } = propsRef.current;
+
+    // ── Points ──
     const pts: any[] = [];
-    Object.keys(activeSystems).forEach(sys => {
-      if (!activeSystems[sys] || sys === 'conflicts' || sys === 'energy') return;
-      const sd = layersData[sys];
+    Object.keys(as2).forEach(sys => {
+      if (!as2[sys] || sys === 'conflicts' || sys === 'energy') return;
+      const sd = ld[sys];
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        // Climate nodes: bigger dots colored by temperature
         if (sys === 'climate') {
           const temp = f.properties.temperature_c ?? 20;
           pts.push({ lat, lng, size: 1.0, color: tempColor(temp), props: f.properties, system: sys });
@@ -117,9 +123,8 @@ export default function GlobeComponent({
         }
       });
     });
-    // Conflict events
-    if (activeSystems['conflicts']) {
-      conflictsData.forEach((f: any) => {
+    if (as2['conflicts']) {
+      cd.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
         if (!lat || !lng) return;
         const evtType = f.properties.event_type || 'default';
@@ -127,14 +132,12 @@ export default function GlobeComponent({
         pts.push({ lat, lng, size: SEVERITY_SIZE[sev] ?? 0.4, color: CONFLICT_COLORS[evtType] ?? '#FFFFFF', props: f.properties, system: 'conflicts' });
       });
     }
-    return pts;
-  }, [layersData, activeSystems, conflictsData]);
+    g.pointsData(pts);
 
-  // ── Build Pulsing Rings for nodes ──────────
-  const buildRings = useCallback(() => {
+    // ── Rings ──
     const rings: any[] = [];
-    if (activeSystems['conflicts']) {
-      conflictsData.forEach((f: any) => {
+    if (as2['conflicts']) {
+      cd.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
         if (!lat || !lng) return;
         const evtType = f.properties.event_type || 'default';
@@ -142,13 +145,12 @@ export default function GlobeComponent({
         rings.push({ lat, lng, maxRadius: 5, speed: 3, period: Math.random() * 500 + 1000, color: (t: number) => `${hex}${Math.floor((1-t)*255).toString(16).padStart(2, '0')}` });
       });
     }
-    Object.keys(activeSystems).forEach(sys => {
-      if (!activeSystems[sys] || sys === 'conflicts' || sys === 'energy') return;
-      const sd = layersData[sys];
+    Object.keys(as2).forEach(sys => {
+      if (!as2[sys] || sys === 'conflicts' || sys === 'energy') return;
+      const sd = ld[sys];
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        // Climate rings: wider, slower = weather system feel
         if (sys === 'climate') {
           const temp = f.properties?.temperature_c ?? 20;
           const hex = tempColor(temp);
@@ -159,46 +161,20 @@ export default function GlobeComponent({
         }
       });
     });
-    return rings;
-  }, [layersData, activeSystems, conflictsData]);
+    g.ringsData(rings);
 
-  // ── Dynamic Atmosphere Color + Altitude ──────────
-  const getAtmosphereColor = useCallback(() => {
-    if (activeSystems['conflicts']) return '#DC2626'; // crimson
-    if (activeSystems['climate']) return '#34D399';   // green biosphere glow
-    if (activeSystems['food']) return '#34D399';      // soft green
-    if (activeSystems['minerals']) return '#A78BFA';  // soft purple
-    if (activeSystems['energy']) return '#FBBF24';    // amber
-    if (activeSystems['cables']) return '#818CF8';    // electric blue
-    return '#4BB3FD'; // default
-  }, [activeSystems]);
-
-  // ── Build energy hexbin points (for 3D bar extrusion) ──────────
-  const buildEnergyHexPoints = useCallback(() => {
-    if (!activeSystems['energy']) return [];
-    const sd = layersData['energy'];
-    if (!sd?.nodes?.features) return [];
-    return sd.nodes.features.map((f: any) => {
-      const [lng, lat] = f.geometry.coordinates;
-      const cap = Number(f.properties.capacity_mw || 100);
-      return { lat, lng, weight: cap, props: f.properties };
-    });
-  }, [layersData, activeSystems]);
-
-  // ── Build unified arcs array (all systems, differentiated by style) ─
-  const buildArcs = useCallback(() => {
+    // ── Arcs ──
     const arcs: any[] = [];
     let cableIdx = 0;
-    Object.keys(activeSystems).forEach(sys => {
-      if (!activeSystems[sys] || sys === 'conflicts' || sys === 'energy') return;
-      const sd = layersData[sys];
+    Object.keys(as2).forEach(sys => {
+      if (!as2[sys] || sys === 'conflicts' || sys === 'energy') return;
+      const sd = ld[sys];
       if (!sd?.connections?.features) return;
       const style = ARC_STYLE[sys] || ARC_STYLE.shipping;
       sd.connections.features.forEach((f: any) => {
         const src = f.properties.source_position;
         const tgt = f.properties.target_position;
         if (!src || !tgt) return;
-        // Cables get a glowing gradient or a distinct vibrant color
         const arcColor = sys === 'cables'
           ? [CABLE_RAINBOW[cableIdx % CABLE_RAINBOW.length], CABLE_RAINBOW[(cableIdx+1) % CABLE_RAINBOW.length]]
           : SYSTEM_COLORS[sys] ?? '#FFFFFF';
@@ -206,12 +182,9 @@ export default function GlobeComponent({
         arcs.push({
           startLat: src[1], startLng: src[0],
           endLat: tgt[1], endLng: tgt[0],
-          color: arcColor,
-          system: sys,
-          stroke: style.stroke,
-          alt: style.alt,
-          dashLen: style.dashLen,
-          dashGap: style.dashGap,
+          color: arcColor, system: sys,
+          stroke: style.stroke, alt: style.alt,
+          dashLen: style.dashLen, dashGap: style.dashGap,
           animMs: style.animMs,
           fromName: f.properties.from_name || f.properties.cable_name || 'Origin',
           toName: f.properties.to_name || 'Destination',
@@ -219,8 +192,33 @@ export default function GlobeComponent({
         });
       });
     });
-    return arcs;
-  }, [layersData, activeSystems]);
+    g.arcsData(arcs);
+
+    // ── Energy hexbins ──
+    let hexPts: any[] = [];
+    if (as2['energy']) {
+      const sd = ld['energy'];
+      if (sd?.nodes?.features) {
+        hexPts = sd.nodes.features.map((f: any) => {
+          const [lng, lat] = f.geometry.coordinates;
+          const cap = Number(f.properties.capacity_mw || 100);
+          return { lat, lng, weight: cap, props: f.properties };
+        });
+      }
+    }
+    g.hexBinPointsData(hexPts);
+
+    // ── Atmosphere ──
+    let atmoColor = '#4BB3FD';
+    if (as2['conflicts']) atmoColor = '#DC2626';
+    else if (as2['climate']) atmoColor = '#34D399';
+    else if (as2['food']) atmoColor = '#34D399';
+    else if (as2['minerals']) atmoColor = '#A78BFA';
+    else if (as2['energy']) atmoColor = '#FBBF24';
+    else if (as2['cables']) atmoColor = '#818CF8';
+    g.atmosphereColor(atmoColor);
+    g.atmosphereAltitude(as2['climate'] ? 0.35 : 0.28);
+  };
 
   // ── Initialise globe once ──────────────────────────────────────
   useEffect(() => {
@@ -233,13 +231,12 @@ export default function GlobeComponent({
 
       const w = containerRef.current.clientWidth || window.innerWidth;
       const h = containerRef.current.clientHeight || window.innerHeight;
+      const nodeClick = propsRef.current.onNodeClick;
 
       const GlobeFactory = GlobeLib as any;
       const g = GlobeFactory()(containerRef.current)
         .width(w).height(h)
         .backgroundColor('#020617')
-
-        // ── Bright Earth with city lights, stars & atmosphere ──
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
@@ -247,17 +244,15 @@ export default function GlobeComponent({
         .atmosphereColor('#4BB3FD')
         .atmosphereAltitude(0.28)
 
-        // ── Points (shrink energy to nothing; it gets hex-bars instead) ──
         .pointsData([])
         .pointLat('lat').pointLng('lng')
         .pointColor('color').pointRadius('size')
         .pointAltitude(0.01).pointResolution(8)
-        .onPointClick((p: any) => { if (p?.props) onNodeClick({ ...p.props }); })
+        .onPointClick((p: any) => { if (p?.props) propsRef.current.onNodeClick({ ...p.props }); })
         .onPointHover((p: any) => {
           if (containerRef.current) (containerRef.current as any).style.cursor = p ? 'pointer' : 'default';
         })
-        
-        // ── Pulsing Rings around Nodes ──
+
         .ringsData([])
         .ringLat('lat').ringLng('lng')
         .ringColor('color')
@@ -265,7 +260,6 @@ export default function GlobeComponent({
         .ringPropagationSpeed('speed')
         .ringRepeatPeriod('period')
 
-        // ── Unified arcs with per-arc accessor functions ──
         .arcsData([])
         .arcStartLat('startLat').arcStartLng('startLng')
         .arcEndLat('endLat').arcEndLng('endLng')
@@ -277,12 +271,10 @@ export default function GlobeComponent({
         .arcDashAnimateTime((d: any) => d.animMs ?? 2000)
         .onArcClick((arc: any) => {
           if (arc) {
-            onNodeClick({
+            propsRef.current.onNodeClick({
               name: `${arc.fromName} → ${arc.toName}`,
-              type: arc.system + ' route',
-              system: arc.system,
-              from: arc.fromName,
-              to: arc.toName,
+              type: arc.system + ' route', system: arc.system,
+              from: arc.fromName, to: arc.toName,
               coordinates: [arc.startLng, arc.startLat],
               ...arc.props,
             });
@@ -292,17 +284,15 @@ export default function GlobeComponent({
           if (containerRef.current) (containerRef.current as any).style.cursor = arc ? 'pointer' : 'default';
         })
 
-        // ── Energy: 3D extruded hexagonal bars (Spikes) ──
-        // High resolution for needle-like spikes, colored by intensity
         .hexBinPointsData([])
         .hexBinPointWeight('weight')
         .hexBinResolution(3)
         .hexTopColor((d: any) => {
           const v = d.sumWeight;
-          if (v > 10000) return '#EF4444';    // pure red
-          if (v > 3000)  return '#F97316';    // intense orange
-          if (v > 500)   return '#FBBF24';    // bright amber
-          return '#FDE047';                   // yellow 
+          if (v > 10000) return '#EF4444';
+          if (v > 3000)  return '#F97316';
+          if (v > 500)   return '#FBBF24';
+          return '#FDE047';
         })
         .hexSideColor((d: any) => {
           const v = d.sumWeight;
@@ -311,14 +301,13 @@ export default function GlobeComponent({
           return 'rgba(251,191,36,0.3)';
         })
         .hexBinMerge(true)
-        .hexAltitude((d: any) => Math.min(0.80, d.sumWeight / 15000))   // much taller spikes
+        .hexAltitude((d: any) => Math.min(0.80, d.sumWeight / 15000))
         .onHexBinClick((bin: any) => {
-           // Provide info for the heaviest energy node in that bin
            if (bin?.points?.length > 0) {
               const pts = [...bin.points].sort((a: any, b: any) => b.weight - a.weight);
               if (pts[0].props) {
                 const p = pts[0];
-                onNodeClick({ ...p.props, system: 'energy', coordinates: [p.lng, p.lat] });
+                propsRef.current.onNodeClick({ ...p.props, system: 'energy', coordinates: [p.lng, p.lat] });
               }
            }
         })
@@ -326,7 +315,6 @@ export default function GlobeComponent({
           if (containerRef.current) (containerRef.current as any).style.cursor = bin ? 'pointer' : 'default';
         })
 
-        // ── Country labels (visible on zoom) ──
         .labelsData(COUNTRY_LABELS)
         .labelLat('lat').labelLng('lng').labelText('text').labelSize('size')
         .labelColor(() => 'rgba(255,255,255,0.40)')
@@ -334,21 +322,14 @@ export default function GlobeComponent({
 
       globeRef.current = g;
 
-      // Deep space inertia and auto-rotate
       g.controls().autoRotate = true;
       g.controls().autoRotateSpeed = 0.5;
       g.controls().enableDamping = true;
       g.controls().dampingFactor = 0.05;
       g.controls().minDistance = 150;
 
-      // ── CRITICAL: Feed data immediately after init to avoid race condition ──
-      g.pointsData(buildPoints());
-      g.ringsData(buildRings());
-      g.arcsData(buildArcs());
-      g.hexBinPointsData(buildEnergyHexPoints());
-      g.atmosphereColor(getAtmosphereColor());
-
-      // Signal that globe is ready for reactive updates
+      // Feed data RIGHT NOW using the ref (has latest props!)
+      syncDataToGlobe(g);
       setGlobeReady(true);
     };
 
@@ -357,17 +338,12 @@ export default function GlobeComponent({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ── Reactively update every data layer when dependencies change ─
+  // ── Re-sync whenever props change AND globe is ready ─────────
   useEffect(() => {
-    if (!globeRef.current || !globeReady) return;
-    globeRef.current.pointsData(buildPoints());
-    globeRef.current.ringsData(buildRings());
-    globeRef.current.arcsData(buildArcs());
-    globeRef.current.hexBinPointsData(buildEnergyHexPoints());
-    globeRef.current.atmosphereColor(getAtmosphereColor());
-    // Dynamic atmosphere altitude for climate mode
-    globeRef.current.atmosphereAltitude(activeSystems['climate'] ? 0.35 : 0.28);
-  }, [globeReady, buildPoints, buildRings, buildArcs, buildEnergyHexPoints, getAtmosphereColor, activeSystems]);
+    if (!globeReady || !globeRef.current) return;
+    syncDataToGlobe(globeRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globeReady, layersData, activeSystems, conflictsData]);
 
   return (
     <div ref={containerRef}
