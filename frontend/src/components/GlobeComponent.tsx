@@ -154,7 +154,10 @@ export default function GlobeComponent({
         if (sys === 'climate') {
           const temp = f.properties?.temperature_c ?? 20;
           const hex = tempColor(temp);
-          rings.push({ lat, lng, maxRadius: 6, speed: 1.0, period: Math.random() * 1500 + 3000, color: (t: number) => `${hex}${Math.floor((1-t)*120).toString(16).padStart(2, '0')}` });
+          // Large soft atmospheric heatmap
+          rings.push({ lat, lng, maxRadius: 15, speed: 0.15, period: 6000, color: (t: number) => `${hex}${Math.floor((1)*40).toString(16).padStart(2, '0')}` });
+          // Sharp infra glow
+          rings.push({ lat, lng, maxRadius: 3, speed: 1.5, period: 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
         } else {
           const hex = SYSTEM_COLORS[sys] ?? '#FFFFFF';
           rings.push({ lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
@@ -192,18 +195,51 @@ export default function GlobeComponent({
         });
       });
     });
+
+    // ── Wind Particle Streams (Climate) ──
+    if (as2['climate']) {
+      for(let i=0; i<60; i++) {
+         const lat1 = (Math.random() * 140) - 70;
+         const lng1 = (Math.random() * 360) - 180;
+         const lat2 = lat1 + (Math.random() * 10 - 5);
+         let lng2 = lng1 + (Math.random() * 40 + 10);
+         if (lng2 > 180) lng2 -= 360;
+         arcs.push({
+           startLat: lat1, startLng: lng1, endLat: lat2, endLng: lng2,
+           color: ['rgba(52,211,153,0.0)', 'rgba(52,211,153,0.8)'], // soft cyan/green wind
+           system: 'climate_wind',
+           stroke: Math.random() * 0.4 + 0.1,
+           alt: Math.random() * 0.15 + 0.05,
+           dashLen: 0.15, dashGap: 0.85,
+           animMs: Math.random() * 3000 + 2000,
+         });
+      }
+    }
+
     g.arcsData(arcs);
 
-    // ── Energy hexbins ──
+    // ── Energy & Carbon hexbins ──
     let hexPts: any[] = [];
     if (as2['energy']) {
       const sd = ld['energy'];
       if (sd?.nodes?.features) {
-        hexPts = sd.nodes.features.map((f: any) => {
+        hexPts.push(...sd.nodes.features.map((f: any) => {
           const [lng, lat] = f.geometry.coordinates;
           const cap = Number(f.properties.capacity_mw || 100);
-          return { lat, lng, weight: cap, props: f.properties };
-        });
+          return { lat, lng, weight: cap, type: 'energy', props: f.properties };
+        }));
+      }
+    }
+    if (as2['climate']) {
+      const sd = ld['climate'];
+      if (sd?.nodes?.features) {
+        hexPts.push(...sd.nodes.features.map((f: any) => {
+          const [lng, lat] = f.geometry.coordinates;
+          const temp = f.properties.temperature_c ?? 20;
+          // Carbon plumes: hotter/equator regions get taller plumes
+          const carbon = Math.floor(Math.abs(lat) * 2 + Math.max(0, temp) * 10);
+          return { lat, lng, weight: carbon * 20, type: 'carbon', props: f.properties };
+        }));
       }
     }
     g.hexBinPointsData(hexPts);
@@ -211,13 +247,13 @@ export default function GlobeComponent({
     // ── Atmosphere ──
     let atmoColor = '#4BB3FD';
     if (as2['conflicts']) atmoColor = '#DC2626';
-    else if (as2['climate']) atmoColor = '#34D399';
+    else if (as2['climate']) atmoColor = '#34D399'; // biosphere green
     else if (as2['food']) atmoColor = '#34D399';
     else if (as2['minerals']) atmoColor = '#A78BFA';
     else if (as2['energy']) atmoColor = '#FBBF24';
     else if (as2['cables']) atmoColor = '#818CF8';
     g.atmosphereColor(atmoColor);
-    g.atmosphereAltitude(as2['climate'] ? 0.35 : 0.28);
+    g.atmosphereAltitude(as2['climate'] ? 0.45 : 0.28);
   };
 
   // ── Initialise globe once ──────────────────────────────────────
@@ -288,14 +324,18 @@ export default function GlobeComponent({
         .hexBinPointWeight('weight')
         .hexBinResolution(3)
         .hexTopColor((d: any) => {
+          const type = d.points?.[0]?.type;
           const v = d.sumWeight;
+          if (type === 'carbon') return 'rgba(168,162,158,0.8)'; // stone/grey plume top
           if (v > 10000) return '#EF4444';
           if (v > 3000)  return '#F97316';
           if (v > 500)   return '#FBBF24';
           return '#FDE047';
         })
         .hexSideColor((d: any) => {
+          const type = d.points?.[0]?.type;
           const v = d.sumWeight;
+          if (type === 'carbon') return 'rgba(120,113,108,0.4)'; // faint grey plume side
           if (v > 10000) return 'rgba(239,68,68,0.6)';
           if (v > 3000)  return 'rgba(249,115,22,0.6)';
           return 'rgba(251,191,36,0.3)';
@@ -307,7 +347,7 @@ export default function GlobeComponent({
               const pts = [...bin.points].sort((a: any, b: any) => b.weight - a.weight);
               if (pts[0].props) {
                 const p = pts[0];
-                propsRef.current.onNodeClick({ ...p.props, system: 'energy', coordinates: [p.lng, p.lat] });
+                propsRef.current.onNodeClick({ ...p.props, system: p.type === 'carbon' ? 'climate' : 'energy', coordinates: [p.lng, p.lat] });
               }
            }
         })

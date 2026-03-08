@@ -191,7 +191,7 @@ export default function LayerPanel({ activeSystems, toggleSystem, liveConflictCo
                         {sys.isLive && isActive && (
                           <span className="text-[9px] text-emerald-400 flex items-center gap-1 mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
-                            {liveConflictCount ? `${liveConflictCount} events` : 'Live feed'}
+                            {sys.id === 'conflicts' && liveConflictCount ? `${liveConflictCount} events` : 'Live feed'}
                           </span>
                         )}
                       </div>

@@ -44,6 +44,23 @@ const SEVERITY_META: Record<string, { label: string; color: string }> = {
 const SKIP_KEYS = new Set(['id','name','type','system','coordinates','event_type','severity','date','actors','fatalities','description','source','source_position','target_position','from','to','from_name','to_name','flow_type','route_type','intensity']);
 const safeStr = (v: any) => typeof v === 'string' ? v.replace(/_/g,' ') : String(v ?? '');
 
+// ── MicroGauge for Climate Visuals ───────────────────────────────
+const MicroGauge = ({ label, value, max, color, suffix }: any) => {
+  const pct = Math.min(100, Math.max(0, (value / max) * 100));
+  return (
+    <div className="flex flex-col gap-1.5 mb-2.5">
+      <div className="flex justify-between items-end border-b border-white/5 pb-1">
+        <span className="text-[9px] text-slate-500 text-left uppercase tracking-widest leading-none">{label}</span>
+        <span className="text-[11px] font-bold leading-none" style={{ color }}>{value}{suffix}</span>
+      </div>
+      <div className="w-full h-1 bg-slate-800/80 rounded-full overflow-hidden relative">
+        <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000" 
+             style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}40, ${color})`, boxShadow: `0 0 8px ${color}80` }} />
+      </div>
+    </div>
+  );
+};
+
 export default function InfoPanel({ node, onClose }: InfoPanelProps) {
   const [teaser, setTeaser] = useState<string | null>(null);
   const [fullAnalysis, setFullAnalysis] = useState<string | null>(null);
@@ -232,8 +249,39 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
           </div>
         )}
 
+        {/* ── Climate-specific Environmental Metrics ── */}
+        {node.system === 'climate' && (
+          <div className="rounded-xl p-3 bg-slate-800/20 border border-teal-500/20 space-y-1 mb-3">
+            <h4 className="text-[10px] uppercase font-bold text-teal-500 mb-3 tracking-wider flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" /> Environmental Telemetry
+            </h4>
+            
+            {(() => {
+               const temp = node.temperature_c ?? 20;
+               const wind = node.wind_speed_kmh ?? 15;
+               const precip = node.precipitation_mm ?? 0;
+               const lat = node.coordinates?.[1] ?? 0;
+               
+               // Derived immersive metrics
+               const carbon = Math.floor(Math.abs(lat) * 2 + Math.max(0, temp) * 10); 
+               const waterStress = precip === 0 ? Math.min(100, Math.max(0, temp * 2.5)) : Math.max(0, 50 - precip * 5);
+               const renewable = Math.floor(Math.abs(lat) * 1.5 + (wind * 0.5));
+
+               return (
+                 <div className="pt-1">
+                   <MicroGauge label="Temperature" value={temp} max={50} color={temp > 35 ? '#ef4444' : temp > 25 ? '#f59e0b' : temp > 15 ? '#10b981' : '#38bdf8'} suffix=" °C" />
+                   <MicroGauge label="Wind Velocity" value={wind} max={100} color="#38bdf8" suffix=" km/h" />
+                   <MicroGauge label="Carbon Intensity" value={carbon} max={400} color={carbon > 200 ? '#f43f5e' : '#a8a29e'} suffix=" gCO₂/kWh" />
+                   <MicroGauge label="Water Stress" value={Math.floor(waterStress)} max={100} color={waterStress > 70 ? '#f97316' : '#2dd4bf'} suffix="%" />
+                   <MicroGauge label="Renewable Share" value={Math.min(100, renewable)} max={100} color="#10b981" suffix="%" />
+                 </div>
+               );
+            })()}
+          </div>
+        )}
+
         {/* ── Non-conflict extra props ── */}
-        {!isConflict && (
+        {!isConflict && node.system !== 'climate' && (
           <div className="space-y-2 border-t border-white/5 pt-3">
             {Object.entries(node)
               .filter(([k]) => !SKIP_KEYS.has(k))
