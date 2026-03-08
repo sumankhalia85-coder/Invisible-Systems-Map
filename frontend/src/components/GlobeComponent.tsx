@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 interface GlobeComponentProps {
   layersData: any;
@@ -86,6 +86,18 @@ export default function GlobeComponent({
 }: GlobeComponentProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const globeRef = useRef<any>(null);
+  const [globeReady, setGlobeReady] = useState(false);
+
+  // ── Temperature → color mapping for climate nodes ──────────
+  const tempColor = (temp: number) => {
+    if (temp > 42) return '#DC2626'; // extreme heat → red
+    if (temp > 35) return '#F97316'; // hot → orange
+    if (temp > 25) return '#FBBF24'; // warm → amber
+    if (temp > 15) return '#34D399'; // mild → green
+    if (temp > 5)  return '#2DD4BF'; // cool → teal
+    if (temp > -5) return '#38BDF8'; // cold → blue
+    return '#818CF8';                // freezing → indigo
+  };
 
   // ── Build flat points array for non-energy systems ─────────────
   const buildPoints = useCallback(() => {
@@ -96,7 +108,13 @@ export default function GlobeComponent({
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        pts.push({ lat, lng, size: 0.5, color: SYSTEM_COLORS[sys] ?? '#FFFFFF', props: f.properties, system: sys });
+        // Climate nodes: bigger dots colored by temperature
+        if (sys === 'climate') {
+          const temp = f.properties.temperature_c ?? 20;
+          pts.push({ lat, lng, size: 1.0, color: tempColor(temp), props: f.properties, system: sys });
+        } else {
+          pts.push({ lat, lng, size: 0.5, color: SYSTEM_COLORS[sys] ?? '#FFFFFF', props: f.properties, system: sys });
+        }
       });
     });
     // Conflict events
@@ -130,17 +148,24 @@ export default function GlobeComponent({
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        const hex = SYSTEM_COLORS[sys] ?? '#FFFFFF';
-        rings.push({ lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
+        // Climate rings: wider, slower = weather system feel
+        if (sys === 'climate') {
+          const temp = f.properties?.temperature_c ?? 20;
+          const hex = tempColor(temp);
+          rings.push({ lat, lng, maxRadius: 6, speed: 1.0, period: Math.random() * 1500 + 3000, color: (t: number) => `${hex}${Math.floor((1-t)*120).toString(16).padStart(2, '0')}` });
+        } else {
+          const hex = SYSTEM_COLORS[sys] ?? '#FFFFFF';
+          rings.push({ lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
+        }
       });
     });
     return rings;
   }, [layersData, activeSystems, conflictsData]);
 
-  // ── Dynamic Atmosphere Color ──────────
+  // ── Dynamic Atmosphere Color + Altitude ──────────
   const getAtmosphereColor = useCallback(() => {
     if (activeSystems['conflicts']) return '#DC2626'; // crimson
-    if (activeSystems['climate']) return '#2DD4BF';   // teal
+    if (activeSystems['climate']) return '#34D399';   // green biosphere glow
     if (activeSystems['food']) return '#34D399';      // soft green
     if (activeSystems['minerals']) return '#A78BFA';  // soft purple
     if (activeSystems['energy']) return '#FBBF24';    // amber
@@ -315,6 +340,16 @@ export default function GlobeComponent({
       g.controls().enableDamping = true;
       g.controls().dampingFactor = 0.05;
       g.controls().minDistance = 150;
+
+      // ── CRITICAL: Feed data immediately after init to avoid race condition ──
+      g.pointsData(buildPoints());
+      g.ringsData(buildRings());
+      g.arcsData(buildArcs());
+      g.hexBinPointsData(buildEnergyHexPoints());
+      g.atmosphereColor(getAtmosphereColor());
+
+      // Signal that globe is ready for reactive updates
+      setGlobeReady(true);
     };
 
     init();
@@ -324,13 +359,15 @@ export default function GlobeComponent({
 
   // ── Reactively update every data layer when dependencies change ─
   useEffect(() => {
-    if (!globeRef.current) return;
+    if (!globeRef.current || !globeReady) return;
     globeRef.current.pointsData(buildPoints());
     globeRef.current.ringsData(buildRings());
     globeRef.current.arcsData(buildArcs());
     globeRef.current.hexBinPointsData(buildEnergyHexPoints());
     globeRef.current.atmosphereColor(getAtmosphereColor());
-  }, [buildPoints, buildRings, buildArcs, buildEnergyHexPoints, getAtmosphereColor]);
+    // Dynamic atmosphere altitude for climate mode
+    globeRef.current.atmosphereAltitude(activeSystems['climate'] ? 0.35 : 0.28);
+  }, [globeReady, buildPoints, buildRings, buildArcs, buildEnergyHexPoints, getAtmosphereColor, activeSystems]);
 
   return (
     <div ref={containerRef}
