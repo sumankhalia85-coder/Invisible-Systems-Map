@@ -284,7 +284,7 @@ export default function GlobeComponent({
     else if (as2['energy']) atmoColor = '#FBBF24';
     else if (as2['cables']) atmoColor = '#818CF8';
     g.atmosphereColor(atmoColor);
-    g.atmosphereAltitude(as2['climate'] ? 0.45 : 0.28);
+    g.atmosphereAltitude(0.08); // Fixed low altitude so data stays visible
   };
 
   // ── Initialise globe once ──────────────────────────────────────
