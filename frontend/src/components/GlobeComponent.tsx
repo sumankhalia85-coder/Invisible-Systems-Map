@@ -97,9 +97,6 @@ export default function GlobeComponent({
   const globeRef = useRef<any>(null);
   const [globeReady, setGlobeReady] = useState(false);
 
-  // Safely avoid SSR for globe.gl
-  const isServer = typeof window === 'undefined';
-
   // ── Store props in refs so the async init closure always gets FRESH data ──
   const propsRef = useRef({ layersData, activeSystems, onNodeClick, conflictsData });
   propsRef.current = { layersData, activeSystems, onNodeClick, conflictsData };
@@ -147,7 +144,13 @@ export default function GlobeComponent({
         if (!lat || !lng) return;
         const evtType = f.properties.event_type || 'default';
         const hex = CONFLICT_COLORS[evtType] ?? '#FFFFFF';
-        rings.push({ lat, lng, maxRadius: 5, speed: 3, period: Math.random() * 500 + 1000, color: (t: number) => `${hex}${Math.floor((1-t)*255).toString(16).padStart(2, '0')}` });
+        rings.push({ 
+          lat, lng, maxRadius: 5, speed: 3, period: Math.random() * 500 + 1000, 
+          color: (t: number) => {
+            const alpha = Math.max(0, Math.min(255, Math.floor((1 - t) * 255)));
+            return `${hex}${alpha.toString(16).padStart(2, '0')}`;
+          }
+        });
       });
     }
     Object.keys(as2).forEach(sys => {
@@ -160,12 +163,27 @@ export default function GlobeComponent({
           const temp = f.properties?.temperature_c ?? 20;
           const hex = tempColor(temp);
           // Large soft atmospheric heatmap
-          rings.push({ lat, lng, maxRadius: 15, speed: 0.15, period: 6000, color: (t: number) => `${hex}${Math.floor((1)*40).toString(16).padStart(2, '0')}` });
+          rings.push({ 
+            lat, lng, maxRadius: 15, speed: 0.15, period: 6000, 
+            color: (t: number) => `${hex}28` // Fixed constant soft alpha (approx 40/255)
+          });
           // Sharp infra glow
-          rings.push({ lat, lng, maxRadius: 3, speed: 1.5, period: 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
+          rings.push({ 
+            lat, lng, maxRadius: 3, speed: 1.5, period: 2000, 
+            color: (t: number) => {
+              const alpha = Math.max(0, Math.min(255, Math.floor((1 - t) * 150)));
+              return `${hex}${alpha.toString(16).padStart(2, '0')}`;
+            }
+          });
         } else {
           const hex = SYSTEM_COLORS[sys] ?? '#FFFFFF';
-          rings.push({ lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
+          rings.push({ 
+            lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, 
+            color: (t: number) => {
+              const alpha = Math.max(0, Math.min(255, Math.floor((1 - t) * 150)));
+              return `${hex}${alpha.toString(16).padStart(2, '0')}`;
+            }
+          });
         }
       });
     });
@@ -211,7 +229,7 @@ export default function GlobeComponent({
          if (lng2 > 180) lng2 -= 360;
          arcs.push({
            startLat: lat1, startLng: lng1, endLat: lat2, endLng: lng2,
-           color: ['rgba(52,211,153,0.0)', 'rgba(52,211,153,0.8)'], // soft cyan/green wind
+           color: ['#34D399', '#34D399'], // pure solid cyan/green wind
            system: 'climate_wind',
            stroke: Math.random() * 0.4 + 0.1,
            alt: Math.random() * 0.15 + 0.05,
@@ -278,7 +296,7 @@ export default function GlobeComponent({
       const g = GlobeFactory()(containerRef.current)
         .width(w).height(h)
         .backgroundColor('#020617')
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg') // Restored dark map for country borders!
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .showAtmosphere(true)
@@ -331,7 +349,7 @@ export default function GlobeComponent({
         .hexTopColor((d: any) => {
           const type = d.points?.[0]?.type;
           const v = d.sumWeight;
-          if (type === 'carbon') return 'rgba(168,162,158,0.8)'; // stone/grey plume top
+          if (type === 'carbon') return '#A8A29E'; // stone/grey plume 
           if (v > 10000) return '#EF4444';
           if (v > 3000)  return '#F97316';
           if (v > 500)   return '#FBBF24';
@@ -340,10 +358,10 @@ export default function GlobeComponent({
         .hexSideColor((d: any) => {
           const type = d.points?.[0]?.type;
           const v = d.sumWeight;
-          if (type === 'carbon') return 'rgba(120,113,108,0.4)'; // faint grey plume side
-          if (v > 10000) return 'rgba(239,68,68,0.6)';
-          if (v > 3000)  return 'rgba(249,115,22,0.6)';
-          return 'rgba(251,191,36,0.3)';
+          if (type === 'carbon') return '#78716C'; // faint grey plume
+          if (v > 10000) return '#EF4444';
+          if (v > 3000)  return '#F97316';
+          return '#FBBF24';
         })
         .hexBinMerge(true)
         .hexAltitude((d: any) => Math.min(0.80, d.sumWeight / 15000))
@@ -389,8 +407,6 @@ export default function GlobeComponent({
     syncDataToGlobe(globeRef.current);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globeReady, layersData, activeSystems, conflictsData]);
-
-  if (isServer) return null;
 
   return (
     <div ref={containerRef}
