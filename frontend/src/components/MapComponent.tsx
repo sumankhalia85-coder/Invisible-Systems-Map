@@ -39,19 +39,14 @@ const SYSTEM_PALETTE: Record<string, { node: [number,number,number], glow: [numb
   climate:        { node: [45,212,191],  glow: [45,212,191,40],   arc: [[45,212,191,180],[16,185,129,100]] },
 };
 
-// Conflict event type → color [r,g,b,a]
-const CONFLICT_COLORS: Record<string, [number,number,number,number]> = {
-  battle:            [239, 68,  68,  230],
-  airstrike:         [249, 115, 22,  230],
-  missile:           [234, 179, 8,   230],
-  bombing:           [168, 85,  247, 230],
-  civilian_violence: [236, 72,  153, 230],
-  protest:           [59,  130, 246, 230],
-  riot:              [20,  184, 166, 230],
-  geopolitical:      [148, 163, 184, 200],
-  massacre:          [127, 29,  29,  230],
-  default:           [255, 255, 255, 180],
-};
+// ── Fatality Heatmap Color Scale (RGBA) ────────────────────────
+function getSeverityColorRgba(fatalities: number): [number, number, number, number] {
+  if (fatalities >= 100) return [255, 0, 0, 230];       // Red
+  if (fatalities >= 50) return [255, 69, 0, 230];       // Orange-Red
+  if (fatalities >= 20) return [255, 130, 0, 230];      // Orange
+  if (fatalities >= 5) return [255, 215, 0, 230];       // Yellow
+  return [255, 20, 147, 230];                           // DeepPink
+}
 
 const SEVERITY_RADIUS: Record<string, number> = {
   low: 6, medium: 9, high: 14, critical: 20
@@ -178,7 +173,8 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
           getPosition: (d: any) => d.geometry.coordinates,
           getRadius: (d: any) => (SEVERITY_RADIUS[d.properties.severity || 'low'] ?? 8) * 2.5,
           getFillColor: (d: any) => {
-            const c = CONFLICT_COLORS[d.properties.event_type] ?? CONFLICT_COLORS.default;
+            const fatalities = Math.max(0, d.properties.fatalities || 0);
+            const c = getSeverityColorRgba(fatalities);
             return [c[0], c[1], c[2], 60];
           },
         })
@@ -197,8 +193,11 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
           lineWidthMinPixels: 1.5,
           getPosition: (d: any) => d.geometry.coordinates,
           getRadius: (d: any) => SEVERITY_RADIUS[d.properties.severity || 'low'] ?? 6,
-          getFillColor: (d: any) => CONFLICT_COLORS[d.properties.event_type] ?? CONFLICT_COLORS.default,
-          getLineColor: [255, 255, 255, 80],
+          getFillColor: (d: any) => getSeverityColorRgba(Math.max(0, d.properties.fatalities || 0)),
+          getLineColor: (d: any) => {
+            const c = getSeverityColorRgba(Math.max(0, d.properties.fatalities || 0));
+            return [c[0], c[1], c[2], 90]; // glowing outline matching color
+          },
         })
       );
     }

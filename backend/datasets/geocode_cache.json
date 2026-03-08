@@ -550,5 +550,153 @@
   "new delhi, delhi, india": {
     "lat": 28.6138954,
     "lon": 77.2090057
+  },
+  "sarajevo, federation of bosnia and herzegovina, bosnia-herzegovina": {
+    "lat": 43.8570713,
+    "lon": 18.4126147
+  },
+  "tabriz, az¯arbayjan-e sharqi, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "bristol, bristol, city of, united kingdom": {
+    "lat": 51.4503631,
+    "lon": -2.600511
+  },
+  "amsterdam, noord-holland, netherlands": {
+    "lat": 52.3730796,
+    "lon": 4.8924534
+  },
+  "pahlavi, gilan, iran": {
+    "lat": 37.4716356,
+    "lon": 49.4685904
+  },
+  "el fasher, shamal darfur, sudan": {
+    "lat": null,
+    "lon": null
+  },
+  "unrwa, gaza strip (general), gaza strip": {
+    "lat": null,
+    "lon": null
+  },
+  "shahran, khorasan-e ra?avi, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "red sea, djibouti (general), djibouti": {
+    "lat": null,
+    "lon": null
+  },
+  "bihar, bihar, india": {
+    "lat": 25.1672903,
+    "lon": 85.5502398
+  },
+  "dhanbad, jharkhand, india": {
+    "lat": 23.7952809,
+    "lon": 86.4309638
+  },
+  "barwara, uttar pradesh, india": {
+    "lat": null,
+    "lon": null
+  },
+  "sydney, new south wales, australia": {
+    "lat": -33.8698439,
+    "lon": 151.2082848
+  },
+  "patna, bihar, india": {
+    "lat": 25.6093239,
+    "lon": 85.1235252
+  },
+  "ranchi, jharkhand, india": {
+    "lat": 23.3700501,
+    "lon": 85.3250387
+  },
+  "garhwa, uttar pradesh, india": {
+    "lat": 26.0178333,
+    "lon": 80.3591202
+  },
+  "bethlehem, west bank (general), west bank": {
+    "lat": null,
+    "lon": null
+  },
+  "alexandria, al iskandariyah, egypt": {
+    "lat": 31.1991806,
+    "lon": 29.8951716
+  },
+  "al qawzah, nabatî, lebanon": {
+    "lat": null,
+    "lon": null
+  },
+  "shahed, fars, iran": {
+    "lat": 29.6662456,
+    "lon": 52.4865241
+  },
+  "ramada, saudi arabia (general), saudi arabia": {
+    "lat": null,
+    "lon": null
+  },
+  "jeddah, makkah, saudi arabia": {
+    "lat": 21.5504432,
+    "lon": 39.1742363
+  },
+  "drogheda, louth, ireland": {
+    "lat": 53.7149877,
+    "lon": -6.3524183
+  },
+  "mehregan, kerman, iran": {
+    "lat": 30.2954884,
+    "lon": 57.0685679
+  },
+  "kurdistan, khuzestan, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "aziz ahmad, diyaláz, iraq": {
+    "lat": null,
+    "lon": null
+  },
+  "sumy, sums'ka oblast', ukraine": {
+    "lat": null,
+    "lon": null
+  },
+  "la libertad, lima, peru": {
+    "lat": -11.9573015,
+    "lon": -77.049757
+  },
+  "warrnambool, victoria, australia": {
+    "lat": -38.3826242,
+    "lon": 142.4814199
+  },
+  "kwinana, western australia, australia": {
+    "lat": -32.233854,
+    "lon": 115.8211484
+  },
+  "perth, western australia, australia": {
+    "lat": -31.9558967,
+    "lon": 115.8605784
+  },
+  "ningaloo, western australia, australia": {
+    "lat": -22.7031015,
+    "lon": 113.7161661
+  },
+  "yardie creek, western australia, australia": {
+    "lat": -22.2896453,
+    "lon": 113.908931
+  },
+  "burlington, newfoundland, canada": {
+    "lat": 49.7572067,
+    "lon": -56.0075685
+  },
+  "lusaka, lusaka, zambia": {
+    "lat": -15.4163395,
+    "lon": 28.2818414
+  },
+  "metro manila, philippines (general), philippines": {
+    "lat": null,
+    "lon": null
+  },
+  "shifa, beijing, china": {
+    "lat": 39.5657659,
+    "lon": 116.2526223
   }
 }

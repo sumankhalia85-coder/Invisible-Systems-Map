@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
 
 interface GlobeComponentProps {
   layersData: any;
@@ -43,13 +44,34 @@ const ARC_STYLE: Record<string, { stroke: number; alt: number; dashLen: number; 
   aviation:       { stroke: 0.5, alt: 0.5,  dashLen: 0.1,  dashGap: 0.5,  animMs: 1000 }, // Fast
 };
 
-// ── Conflict colors by event type ────────────────────────────────
-const CONFLICT_COLORS: Record<string, string> = {
-  battle: '#EF4444', airstrike: '#F97316', missile: '#EAB308',
-  bombing: '#A855F7', civilian_violence: '#EC4899', protest: '#3B82F6',
-  riot: '#14B8A6', geopolitical: '#94A3B8', massacre: '#7F1D1D', default: '#FFFFFF',
-};
-const SEVERITY_SIZE: Record<string, number> = { low: 0.3, medium: 0.5, high: 0.8, critical: 1.3 };
+// ── Fatality Heatmap Color Scale ────────────────────────────────
+function getSeverityColor(fatalities: number): string {
+  if (fatalities >= 100) return '#FF0000'; // Red
+  if (fatalities >= 50) return '#FF4500';  // Orange-Red
+  if (fatalities >= 20) return '#FF8200';  // Orange
+  if (fatalities >= 5) return '#FFD700';   // Yellow
+  return '#FF1493';                        // DeepPink / Purple for minor
+}
+
+function getFatalityHeight(fatalities: number): number {
+  if (fatalities >= 100) return 0.6;   // Very tall
+  if (fatalities >= 50) return 0.35;   // Tall
+  if (fatalities >= 20) return 0.15;   // Medium
+  if (fatalities >= 5) return 0.08;    // Small
+  return 0.02;                         // Very short
+}
+
+function getRecencyPulse(dateStr: string): { radius: number, speed: number } {
+  if (!dateStr) return { radius: 0, speed: 0 };
+  const d = new Date(dateStr).getTime();
+  if (isNaN(d)) return { radius: 0, speed: 0 };
+  const hours = (Date.now() - d) / (1000 * 60 * 60);
+  
+  if (hours <= 6) return { radius: 5, speed: 4 };      // Strong fast pulse
+  if (hours <= 24) return { radius: 3, speed: 2 };     // Moderate pulse
+  if (hours <= 72) return { radius: 2, speed: 0.5 };   // Slow faint pulse
+  return { radius: 0, speed: 0 };                      // Static without pulses
+}
 
 // ── Country labels visible on zoom ───────────────────────────────
 const COUNTRY_LABELS = [
@@ -149,6 +171,8 @@ export default function GlobeComponent({
          .arcDashGap((d: any) => d.dashGap ?? 0.15)
          .arcDashAnimateTime((d: any) => d.animMs ?? 3000);
         g.labelsData(COUNTRY_LABELS).labelLat('lat').labelLng('lng').labelText('text').labelSize('size').labelColor(() => 'rgba(255,255,255,0.4)');
+        g.hexBinPointsData([]).hexBinPointLat('lat').hexBinPointLng('lng');
+        g.customLayerData([]);
 
         // 4. Build and Inject Data
         const isValid = (lat: number, lng: number) => !isNaN(lat) && !isNaN(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
@@ -159,18 +183,39 @@ export default function GlobeComponent({
 
         // Conflicts
         if (activeSystems['conflicts']) {
+          const processedConflicts: any[] = [];
+          
           (conflictsData || []).forEach((f: any) => {
-            const coords = f.geometry?.coordinates || f.coordinates;
-            if (!coords) return;
-            const [lng, lat] = coords;
+            const lat = f.latitude !== undefined ? f.latitude : (f.coordinates ? f.coordinates[1] : (f.geometry?.coordinates ? f.geometry.coordinates[1] : undefined));
+            const lng = f.longitude !== undefined ? f.longitude : (f.coordinates ? f.coordinates[0] : (f.geometry?.coordinates ? f.geometry.coordinates[0] : undefined));
+            
             if (isValid(lat, lng)) {
-              const evt = f.properties?.event_type || 'default';
-              const sev = f.properties?.severity || 'low';
-              const color = CONFLICT_COLORS[evt] ?? '#FFFFFF';
-              pts.push({ lat, lng, size: SEVERITY_SIZE[sev] ?? 0.4, alt: 0.01, color, props: { ...f.properties, coordinates: [lng, lat], system: 'conflicts' } });
-              rings.push({ lat, lng, radius: 4, speed: 2, color: (t: number) => `${color}${Math.floor((1-t)*255).toString(16).padStart(2,'0')}` });
+              const evtType = f.event_type || f.properties?.event_type || 'default';
+              const fatalities = Math.max(0, f.fatalities || f.properties?.fatalities || 0);
+              const dateStr = f.date || f.properties?.date || '';
+              
+              const color = getSeverityColor(fatalities);
+              const pulse = getRecencyPulse(dateStr);
+              const displayProps = { ...f, ...f.properties, coordinates: [lng, lat], system: 'conflicts' };
+              
+              // Scale flat points smoothly by fatalities
+              const baseSize = fatalities >= 100 ? 0.9 : fatalities >= 50 ? 0.6 : fatalities >= 20 ? 0.4 : fatalities >= 5 ? 0.3 : 0.2;
+              pts.push({ lat, lng, size: baseSize, alt: 0.01, color: color, props: displayProps });
+              
+              // Recency Pulse Rings mapped by exact time
+              if (pulse.radius > 0) {
+                 rings.push({ 
+                     lat, lng, 
+                     radius: pulse.radius, 
+                     speed: pulse.speed, 
+                     color: (t: number) => `${color}${Math.floor((1-t)*255).toString(16).padStart(2,'0')}` 
+                 });
+              }
             }
           });
+          
+          g.hexBinPointsData([]);
+          g.customLayerData([]);
         }
 
         // Systems
