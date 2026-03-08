@@ -76,7 +76,7 @@ const COUNTRY_LABELS = [
   { lat: 15.6, lng: 32.5, text: 'Sudan', size: 0.65 },
   { lat: 31.0, lng: 34.9, text: 'Israel', size: 0.6 },
   { lat: 15.8, lng: -90.2, text: 'Mexico', size: 0.7 },
-  { lat: 120.9765, lng: 24.7861, text: 'Taiwan', size: 0.6 },
+  { lat: 23.7861, lng: 120.9765, text: 'Taiwan', size: 0.6 }, // Fixed: swapped lat/lng
 ];
 
 // ── Temperature → color ──────────────────────────────────────────
@@ -109,7 +109,11 @@ export default function GlobeComponent({
 
     console.log("GLOBE SYNC TICK", { activeSystems: as2, layersDataKeys: Object.keys(ld), climateData: ld['climate'] });
 
-    // ── Points ──
+    // ── Pre-Filter and Build Data Layers ──
+    const isValidCoord = (lat: number, lng: number) => {
+      return !isNaN(lat) && !isNaN(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+    };
+
     const pts: any[] = [];
     Object.keys(as2).forEach(sys => {
       if (!as2[sys] || sys === 'conflicts' || sys === 'energy') return;
@@ -117,6 +121,7 @@ export default function GlobeComponent({
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
+        if (!isValidCoord(lat, lng)) return;
         if (sys === 'climate') {
           const temp = f.properties.temperature_c ?? 20;
           pts.push({ lat, lng, size: 1.0, color: tempColor(temp), props: f.properties, system: sys });
@@ -128,7 +133,7 @@ export default function GlobeComponent({
     if (as2['conflicts']) {
       cd.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        if (!lat || !lng) return;
+        if (!isValidCoord(lat, lng)) return;
         const evtType = f.properties.event_type || 'default';
         const sev = f.properties.severity || 'low';
         pts.push({ lat, lng, size: SEVERITY_SIZE[sev] ?? 0.4, color: CONFLICT_COLORS[evtType] ?? '#FFFFFF', props: f.properties, system: 'conflicts' });
@@ -141,7 +146,7 @@ export default function GlobeComponent({
     if (as2['conflicts']) {
       cd.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
-        if (!lat || !lng) return;
+        if (!isValidCoord(lat, lng)) return;
         const evtType = f.properties.event_type || 'default';
         const hex = CONFLICT_COLORS[evtType] ?? '#FFFFFF';
         rings.push({ 
@@ -159,6 +164,7 @@ export default function GlobeComponent({
       if (!sd?.nodes?.features) return;
       sd.nodes.features.forEach((f: any) => {
         const [lng, lat] = f.geometry.coordinates;
+        if (!isValidCoord(lat, lng)) return;
         if (sys === 'climate') {
           const temp = f.properties?.temperature_c ?? 20;
           const hex = tempColor(temp);
@@ -200,7 +206,7 @@ export default function GlobeComponent({
       sd.connections.features.forEach((f: any) => {
         const src = f.properties.source_position;
         const tgt = f.properties.target_position;
-        if (!src || !tgt) return;
+        if (!src || !tgt || !isValidCoord(src[1], src[0]) || !isValidCoord(tgt[1], tgt[0])) return;
         const arcColor = sys === 'cables'
           ? [CABLE_RAINBOW[cableIdx % CABLE_RAINBOW.length], CABLE_RAINBOW[(cableIdx+1) % CABLE_RAINBOW.length]]
           : SYSTEM_COLORS[sys] ?? '#FFFFFF';
@@ -246,23 +252,25 @@ export default function GlobeComponent({
     if (as2['energy']) {
       const sd = ld['energy'];
       if (sd?.nodes?.features) {
-        hexPts.push(...sd.nodes.features.map((f: any) => {
+        sd.nodes.features.forEach((f: any) => {
           const [lng, lat] = f.geometry.coordinates;
+          if (!isValidCoord(lat, lng)) return;
           const cap = Number(f.properties.capacity_mw || 100);
-          return { lat, lng, weight: cap, type: 'energy', props: f.properties };
-        }));
+          hexPts.push({ lat, lng, weight: cap, type: 'energy', props: f.properties });
+        });
       }
     }
     if (as2['climate']) {
       const sd = ld['climate'];
       if (sd?.nodes?.features) {
-        hexPts.push(...sd.nodes.features.map((f: any) => {
+        sd.nodes.features.forEach((f: any) => {
           const [lng, lat] = f.geometry.coordinates;
+          if (!isValidCoord(lat, lng)) return;
           const temp = f.properties.temperature_c ?? 20;
           // Carbon plumes: hotter/equator regions get taller plumes
           const carbon = Math.floor(Math.abs(lat) * 2 + Math.max(0, temp) * 10);
-          return { lat, lng, weight: carbon * 20, type: 'carbon', props: f.properties };
-        }));
+          hexPts.push({ lat, lng, weight: carbon * 20, type: 'carbon', props: f.properties });
+        });
       }
     }
     g.hexBinPointsData(hexPts);
@@ -301,7 +309,7 @@ export default function GlobeComponent({
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .showAtmosphere(true)
         .atmosphereColor('#4BB3FD')
-        .atmosphereAltitude(0.28)
+        .atmosphereAltitude(0.08) // Drastically reduced from 0.28 to prevent hiding data
 
         .pointsData([])
         .pointLat('lat').pointLng('lng')
@@ -323,7 +331,7 @@ export default function GlobeComponent({
         .arcStartLat('startLat').arcStartLng('startLng')
         .arcEndLat('endLat').arcEndLng('endLng')
         .arcColor('color')
-        .arcAltitude((d: any) => d.alt ?? 0.15)
+        .arcAltitude((d: any) => d.alt ?? 0.21) // Raised default altitude to 0.21
         .arcStroke((d: any) => d.stroke ?? 0.5)
         .arcDashLength((d: any) => d.dashLen ?? 0.4)
         .arcDashGap((d: any) => d.dashGap ?? 0.2)

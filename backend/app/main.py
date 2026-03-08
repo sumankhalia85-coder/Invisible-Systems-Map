@@ -227,6 +227,15 @@ def _build_conflict_features(events: list) -> list:
         coords = e.get('coordinates', [0, 0])
         if not coords or coords == [0.0, 0.0]:
             continue
+        
+        # ── CRITICAL: Filter out mathematically impossible coordinates (Globe-crashing) ──
+        try:
+            lng, lat = coords
+            if not (-90 <= lat <= 90) or not (-180 <= lng <= 180):
+                continue
+        except:
+            continue
+
         features.append({
             "type": "Feature",
             "geometry": {"type": "Point", "coordinates": coords},

@@ -100,7 +100,11 @@ def fetch_gdelt_csv():
                     
                     try:
                         lat, lng = float(row[39]), float(row[40]) # indices: 39=Lat, 40=Lon
+                        # ── CRITICAL: Coordinate Safety Guard ──
                         if lat == 0.0 and lng == 0.0: continue
+                        if not (-90 <= lat <= 90) or not (-180 <= lng <= 180):
+                            print(f"  ⚠️ GDELT poisoning detected: Invalid coords [{lat}, {lng}] for row {row[0]}")
+                            continue
                     except: continue
                     
                     # Determine specific type from base code
