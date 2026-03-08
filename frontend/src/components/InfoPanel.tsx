@@ -233,18 +233,42 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
 
         {/* ── Non-conflict extra props ── */}
         {!isConflict && (
-          <div className="space-y-1.5 border-t border-white/5 pt-2">
+          <div className="space-y-2 border-t border-white/5 pt-3">
             {Object.entries(node)
               .filter(([k]) => !SKIP_KEYS.has(k))
               .slice(0, 6)
-              .map(([k, v]) => (
-                <div key={k} className="flex justify-between items-start gap-2">
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wide capitalize flex-shrink-0 w-24">{k.replace(/_/g,' ')}</span>
-                  <span className="text-[11px] text-slate-300 text-right font-medium">
-                    {typeof v === 'object' ? JSON.stringify(v) : String(v)}
-                  </span>
-                </div>
-              ))
+              .map(([k, v]) => {
+                const label = k.replace(/_/g,' ');
+                let isMetric = false;
+                let metricPct = 10;
+                
+                // Add mini visual progress bars for known capacity metrics
+                const ns = String(v).replace(/,/g, '').match(/([\d.]+)/);
+                if (label.includes('capacity') || label.includes('volume') || label.includes('tonnage')) {
+                  if (ns && ns[1]) {
+                    isMetric = true;
+                    // Visual flair: normalize random large numbers across a scale
+                    metricPct = Math.min(100, Math.max(10, (parseFloat(ns[1]) / 100000) * 100));
+                    if (label.includes('capacity')) metricPct = Math.min(100, Math.max(10, (parseFloat(ns[1]) / 15000) * 100));
+                  }
+                }
+
+                return (
+                  <div key={k} className="flex flex-col gap-1">
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-[10px] text-slate-500 uppercase tracking-wide capitalize flex-shrink-0">{label}</span>
+                      <span className="text-[11px] text-slate-300 text-right font-medium">
+                        {typeof v === 'object' ? JSON.stringify(v) : String(v)}
+                      </span>
+                    </div>
+                    {isMetric && (
+                      <div className="w-full h-[3px] bg-slate-800/80 rounded-full overflow-hidden mt-0.5 opacity-80">
+                        <div className="h-full rounded-full" style={{ width: `${metricPct}%`, background: `linear-gradient(90deg, ${meta.color}40, ${meta.color})` }} />
+                      </div>
+                    )}
+                  </div>
+                );
+              })
             }
           </div>
         )}
@@ -277,11 +301,13 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
         {/* ══════════════════════════════════════════
             PREMIUM TIER — Full AI Brief
         ══════════════════════════════════════════ */}
-        <div className="rounded-xl overflow-hidden border border-indigo-500/20"
-             style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05))' }}>
+        <div className="rounded-xl overflow-hidden border border-slate-700/50 bg-slate-800/20 backdrop-blur-md mt-4 opacity-70 relative cursor-not-allowed group transition-all duration-300 hover:opacity-100 hover:border-indigo-500/50">
+          <div className="absolute inset-0 bg-slate-900/60 z-10 flex items-center justify-center transition-all group-hover:bg-slate-900/70 font-medium space-x-2 text-[11px] text-slate-300">
+             <Lock size={12} className="text-indigo-400" />
+             <span>Unlock Premium Intelligence Brief</span>
+          </div>
 
-          {/* Header */}
-          <div className="px-3 py-2.5 flex items-center justify-between">
+          <div className="px-3 py-2.5 flex items-center justify-between filter blur-[2px]">
             <div className="flex items-center gap-1.5">
               <Sparkles size={11} className="text-indigo-400" />
               <span style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
@@ -290,37 +316,16 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
               </span>
               <span className="text-[9px] bg-indigo-500/30 text-indigo-300 px-1.5 py-0.5 rounded-full font-bold">PRO</span>
             </div>
-            {fullAnalysis && (
-              <button onClick={() => setPremiumExpanded(e => !e)}
-                      className="text-slate-500 hover:text-slate-300 transition-colors">
-                {premiumExpanded ? <ChevronUp size={12}/> : <ChevronDown size={12}/>}
-              </button>
-            )}
+            <button className="text-slate-500">
+               <ChevronDown size={12}/>
+            </button>
           </div>
-
-          {/* Content */}
-          <div className="px-3 pb-3">
-            {!hasApiKey ? (
-              /* No API key — show lock */
-              <div className="text-center py-3">
-                <Lock size={18} className="text-slate-600 mx-auto mb-1.5" />
-                <p className="text-[10px] text-slate-500">Set <code className="text-indigo-400">OPENAI_API_KEY</code> in <code className="text-slate-400">.env</code> to unlock</p>
-              </div>
-            ) : loadingPremium ? (
-              <div className="space-y-1.5">
-                {[1, 0.9, 0.8, 0.6].map((w, i) => <div key={i} className="shimmer h-2 rounded-full" style={{ width: `${w*100}%` }} />)}
-              </div>
-            ) : fullAnalysis && premiumExpanded ? (
-              <p className="text-[11px] text-slate-300 leading-relaxed whitespace-pre-wrap">{fullAnalysis}</p>
-            ) : !fullAnalysis ? (
-              /* CTA to unlock */
-              <button onClick={fetchPremium}
-                      className="w-full py-2 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2"
-                      style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.4), rgba(139,92,246,0.4))', color: '#C7D2FE', border: '1px solid rgba(99,102,241,0.4)' }}>
-                <BrainCircuit size={13} />
-                Generate Full Intelligence Brief
-              </button>
-            ) : null}
+          <div className="px-3 pb-3 filter blur-[2px]">
+             <div className="w-full py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-2"
+                  style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.4), rgba(139,92,246,0.4))', color: '#C7D2FE', border: '1px solid rgba(99,102,241,0.4)' }}>
+              <BrainCircuit size={13} />
+              Generate Full Intelligence Brief
+            </div>
           </div>
         </div>
 

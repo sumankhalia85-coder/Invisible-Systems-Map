@@ -34,13 +34,13 @@ const CABLE_RAINBOW = [
 // cables:   very thin, glowing, elegant sweeping curves
 // shipping: thick, low, fast
 const ARC_STYLE: Record<string, { stroke: number; alt: number; dashLen: number; dashGap: number; animMs: number }> = {
-  cables:         { stroke: 0.1, alt: 0.35, dashLen: 0.3, dashGap: 0.05, animMs: 4000 },
-  shipping:       { stroke: 0.8, alt: 0.08, dashLen: 0.55, dashGap: 0.25, animMs: 1800 },
-  oil_gas:        { stroke: 0.9, alt: 0.06, dashLen: 0.65, dashGap: 0.20, animMs: 1500 },
-  food:           { stroke: 0.4, alt: 0.12, dashLen: 0.40, dashGap: 0.30, animMs: 2500 },
-  minerals:       { stroke: 0.3, alt: 0.14, dashLen: 0.35, dashGap: 0.18, animMs: 3000 },
-  semiconductors: { stroke: 0.2, alt: 0.20, dashLen: 0.20, dashGap: 0.08, animMs: 1400 },
-  aviation:       { stroke: 0.3, alt: 0.45, dashLen: 0.70, dashGap: 0.12, animMs: 1000 },
+  cables:         { stroke: 0.2, alt: 0.35, dashLen: 0.1, dashGap: 0.05, animMs: 2000 },
+  shipping:       { stroke: 0.8, alt: 0.08, dashLen: 0.05, dashGap: 0.8, animMs: 3000 },
+  oil_gas:        { stroke: 0.9, alt: 0.06, dashLen: 0.06, dashGap: 0.8, animMs: 3500 },
+  food:           { stroke: 0.4, alt: 0.12, dashLen: 0.08, dashGap: 0.6, animMs: 4000 },
+  minerals:       { stroke: 0.3, alt: 0.14, dashLen: 0.07, dashGap: 0.7, animMs: 3800 },
+  semiconductors: { stroke: 0.2, alt: 0.20, dashLen: 0.15, dashGap: 0.4, animMs: 1500 },
+  aviation:       { stroke: 0.3, alt: 0.45, dashLen: 0.20, dashGap: 0.5, animMs: 2000 },
 };
 
 // ── Conflict colors by event type ────────────────────────────────
@@ -111,6 +111,41 @@ export default function GlobeComponent({
     return pts;
   }, [layersData, activeSystems, conflictsData]);
 
+  // ── Build Pulsing Rings for nodes ──────────
+  const buildRings = useCallback(() => {
+    const rings: any[] = [];
+    if (activeSystems['conflicts']) {
+      conflictsData.forEach((f: any) => {
+        const [lng, lat] = f.geometry.coordinates;
+        if (!lat || !lng) return;
+        const evtType = f.properties.event_type || 'default';
+        const hex = CONFLICT_COLORS[evtType] ?? '#FFFFFF';
+        rings.push({ lat, lng, maxRadius: 5, speed: 3, period: Math.random() * 500 + 1000, color: (t: number) => `${hex}${Math.floor((1-t)*255).toString(16).padStart(2, '0')}` });
+      });
+    }
+    Object.keys(activeSystems).forEach(sys => {
+      if (!activeSystems[sys] || sys === 'conflicts' || sys === 'energy') return;
+      const sd = layersData[sys];
+      if (!sd?.nodes?.features) return;
+      sd.nodes.features.forEach((f: any) => {
+        const [lng, lat] = f.geometry.coordinates;
+        const hex = SYSTEM_COLORS[sys] ?? '#FFFFFF';
+        rings.push({ lat, lng, maxRadius: 2.5, speed: 1.5, period: Math.random() * 1000 + 2000, color: (t: number) => `${hex}${Math.floor((1-t)*150).toString(16).padStart(2, '0')}` });
+      });
+    });
+    return rings;
+  }, [layersData, activeSystems, conflictsData]);
+
+  // ── Dynamic Atmosphere Color ──────────
+  const getAtmosphereColor = useCallback(() => {
+    if (activeSystems['conflicts']) return '#DC2626'; // crimson
+    if (activeSystems['food']) return '#34D399';      // soft green
+    if (activeSystems['minerals']) return '#A78BFA';  // soft purple
+    if (activeSystems['energy']) return '#FBBF24';    // amber
+    if (activeSystems['cables']) return '#818CF8';    // electric blue
+    return '#4BB3FD'; // default
+  }, [activeSystems]);
+
   // ── Build energy hexbin points (for 3D bar extrusion) ──────────
   const buildEnergyHexPoints = useCallback(() => {
     if (!activeSystems['energy']) return [];
@@ -175,14 +210,15 @@ export default function GlobeComponent({
       const GlobeFactory = GlobeLib as any;
       const g = GlobeFactory()(containerRef.current)
         .width(w).height(h)
-        .backgroundColor('#020B18')
+        .backgroundColor('#020617')
 
-        // ── Sleek dark data-viz globe (matches airline-routes example) ──
+        // ── Sleek dark data-viz globe with stars & atmosphere ──
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .showAtmosphere(true)
         .atmosphereColor('#4BB3FD')
-        .atmosphereAltitude(0.18)
+        .atmosphereAltitude(0.25)
 
         // ── Points (shrink energy to nothing; it gets hex-bars instead) ──
         .pointsData([])
@@ -193,6 +229,14 @@ export default function GlobeComponent({
         .onPointHover((p: any) => {
           if (containerRef.current) (containerRef.current as any).style.cursor = p ? 'pointer' : 'default';
         })
+        
+        // ── Pulsing Rings around Nodes ──
+        .ringsData([])
+        .ringLat('lat').ringLng('lng')
+        .ringColor('color')
+        .ringMaxRadius('maxRadius')
+        .ringPropagationSpeed('speed')
+        .ringRepeatPeriod('period')
 
         // ── Unified arcs with per-arc accessor functions ──
         .arcsData([])
@@ -225,35 +269,46 @@ export default function GlobeComponent({
         // High resolution for needle-like spikes, colored by intensity
         .hexBinPointsData([])
         .hexBinPointWeight('weight')
-        .hexBinResolution(5)
+        .hexBinResolution(3)
         .hexTopColor((d: any) => {
           const v = d.sumWeight;
-          if (v > 10000) return '#FF0000';    // pure red
-          if (v > 3000)  return '#FF5500';    // intense orange
-          if (v > 500)   return '#FFB300';    // bright amber
-          return '#FFE066';                   // yellow 
+          if (v > 10000) return '#EF4444';    // pure red
+          if (v > 3000)  return '#F97316';    // intense orange
+          if (v > 500)   return '#FBBF24';    // bright amber
+          return '#FDE047';                   // yellow 
         })
         .hexSideColor((d: any) => {
           const v = d.sumWeight;
-          if (v > 10000) return 'rgba(255,0,0,0.8)';
-          if (v > 3000)  return 'rgba(255,85,0,0.6)';
-          return 'rgba(255,179,0,0.3)';
+          if (v > 10000) return 'rgba(239,68,68,0.6)';
+          if (v > 3000)  return 'rgba(249,115,22,0.6)';
+          return 'rgba(251,191,36,0.3)';
         })
-        .hexBinMerge(false)
+        .hexBinMerge(true)
         .hexAltitude((d: any) => Math.min(0.80, d.sumWeight / 15000))   // much taller spikes
+        .onHexBinClick((bin: any) => {
+           // Provide info for the heaviest energy node in that bin
+           if (bin?.points?.length > 0) {
+              const pts = [...bin.points].sort((a,b) => b.weight - a.weight);
+              if (pts[0].props) onNodeClick(pts[0].props);
+           }
+        })
+        .onHexBinHover((bin: any) => {
+          if (containerRef.current) (containerRef.current as any).style.cursor = bin ? 'pointer' : 'default';
+        })
 
         // ── Country labels (visible on zoom) ──
         .labelsData(COUNTRY_LABELS)
         .labelLat('lat').labelLng('lng').labelText('text').labelSize('size')
-        .labelColor(() => 'rgba(255,255,255,0.50)')
+        .labelColor(() => 'rgba(255,255,255,0.40)')
         .labelResolution(3).labelAltitude(0.01).labelDotRadius(0);
 
       globeRef.current = g;
 
-      // Gentle auto-rotation
+      // Deep space inertia and auto-rotate
       g.controls().autoRotate = true;
-      g.controls().autoRotateSpeed = 0.25;
+      g.controls().autoRotateSpeed = 0.5;
       g.controls().enableDamping = true;
+      g.controls().dampingFactor = 0.05;
       g.controls().minDistance = 150;
     };
 
@@ -266,9 +321,11 @@ export default function GlobeComponent({
   useEffect(() => {
     if (!globeRef.current) return;
     globeRef.current.pointsData(buildPoints());
+    globeRef.current.ringsData(buildRings());
     globeRef.current.arcsData(buildArcs());
     globeRef.current.hexBinPointsData(buildEnergyHexPoints());
-  }, [buildPoints, buildArcs, buildEnergyHexPoints]);
+    globeRef.current.atmosphereColor(getAtmosphereColor());
+  }, [buildPoints, buildRings, buildArcs, buildEnergyHexPoints, getAtmosphereColor]);
 
   return (
     <div ref={containerRef}
