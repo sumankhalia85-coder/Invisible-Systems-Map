@@ -69,10 +69,15 @@ export default function Home() {
     const systems = ['shipping', 'cables', 'energy', 'minerals', 'food', 'oil_gas', 'semiconductors', 'aviation', 'climate'];
     const store: Record<string, any> = {};
 
+    // Auto-detect production backend (Railway) if not localhost
+    const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+    const fallbackApiUrl = isLocal ? 'http://localhost:8000' : 'https://invisible-systems-map-production.up.railway.app';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || fallbackApiUrl;
+
     const fetchAll = async () => {
       await Promise.all(systems.map(async sys => {
         try {
-          const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/systems/${sys}`);
+          const r = await fetch(`${API_URL}/systems/${sys}`);
           store[sys] = r.ok ? await r.json() : { nodes: { features: [] }, connections: { features: [] } };
         } catch {
           store[sys] = { nodes: { features: [] }, connections: { features: [] } };
@@ -82,7 +87,7 @@ export default function Home() {
 
       // Real-time conflicts from GDELT / Pipeline
       try {
-        const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/conflicts/realtime?t=${Date.now()}`, { cache: 'no-store' });
+        const r = await fetch(`${API_URL}/conflicts/realtime?t=${Date.now()}`, { cache: 'no-store' });
         if (r.ok) {
           const d = await r.json();
           setConflictsData(d.features || []);
@@ -91,7 +96,7 @@ export default function Home() {
       } catch {
         // fallback to static
         try {
-          const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/conflicts`);
+          const r = await fetch(`${API_URL}/conflicts`);
           if (r.ok) { const d = await r.json(); setConflictsData(d.features || []); }
         } catch { /* ignore */ }
       }
