@@ -19,6 +19,7 @@ const SYSTEM_META: Record<string, { color: string; bg: string; label: string }> 
   oil_gas:        { color: '#F97316', bg: 'rgba(249,115,22,0.1)',  label: 'Oil & Gas' },
   semiconductors: { color: '#06B6D4', bg: 'rgba(6,182,212,0.1)',   label: 'Semiconductors' },
   aviation:       { color: '#8B5CF6', bg: 'rgba(139,92,246,0.1)', label: 'Aviation' },
+  climate:        { color: '#2DD4BF', bg: 'rgba(45,212,191,0.1)', label: 'Climate' },
 };
 
 const EVENT_TYPE_META: Record<string, { label: string; color: string }> = {

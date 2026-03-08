@@ -39,6 +39,7 @@ export default function Home() {
     shipping: true, cables: true, energy: false,
     minerals: false, food: false, conflicts: false,
     oil_gas: false, semiconductors: false, aviation: false,
+    climate: false,
   });
   const [layersData, setLayersData] = useState<Record<string, any>>({});
   const [conflictsData, setConflictsData] = useState<any[]>([]);
@@ -53,7 +54,7 @@ export default function Home() {
 
   const handleModeChange = (mode: string) => {
     setActiveMode(mode);
-    const off = { shipping: false, cables: false, energy: false, minerals: false, food: false, conflicts: false, oil_gas: false, semiconductors: false, aviation: false };
+    const off = { shipping: false, cables: false, energy: false, minerals: false, food: false, conflicts: false, oil_gas: false, semiconductors: false, aviation: false, climate: false };
     if (mode === 'conflicts')
       setActiveSystems({ ...off, conflicts: true });
     else if (mode === 'systems')
@@ -61,14 +62,14 @@ export default function Home() {
     else if (mode === 'comms')
       setActiveSystems({ ...off, cables: true });
     else if (mode === 'climate')
-      setActiveSystems({ ...off, energy: true, food: true });
+      setActiveSystems({ ...off, energy: true, food: true, climate: true });
     else if (mode === 'data')
       setActiveSystems({ ...off, oil_gas: true, semiconductors: true, aviation: true });
   };
 
   // Fetch all backend data in parallel
   useEffect(() => {
-    const systems = ['shipping', 'cables', 'energy', 'minerals', 'food', 'oil_gas', 'semiconductors', 'aviation'];
+    const systems = ['shipping', 'cables', 'energy', 'minerals', 'food', 'oil_gas', 'semiconductors', 'aviation', 'climate'];
     const store: Record<string, any> = {};
 
     const fetchAll = async () => {

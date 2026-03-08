@@ -20,6 +20,7 @@ const SYSTEM_COLORS: Record<string, string> = {
   oil_gas:        '#F97316',
   semiconductors: '#06B6D4',
   aviation:       '#8B5CF6',
+  climate:        '#2DD4BF',
 };
 
 // ── Cable rainbow — each cable gets a distinct luminous color ──────
@@ -34,13 +35,13 @@ const CABLE_RAINBOW = [
 // cables:   very thin, glowing, elegant sweeping curves
 // shipping: thick, low, fast
 const ARC_STYLE: Record<string, { stroke: number; alt: number; dashLen: number; dashGap: number; animMs: number }> = {
-  cables:         { stroke: 0.2, alt: 0.35, dashLen: 0.1, dashGap: 0.05, animMs: 2000 },
-  shipping:       { stroke: 0.8, alt: 0.08, dashLen: 0.05, dashGap: 0.8, animMs: 3000 },
-  oil_gas:        { stroke: 0.9, alt: 0.06, dashLen: 0.06, dashGap: 0.8, animMs: 3500 },
-  food:           { stroke: 0.4, alt: 0.12, dashLen: 0.08, dashGap: 0.6, animMs: 4000 },
-  minerals:       { stroke: 0.3, alt: 0.14, dashLen: 0.07, dashGap: 0.7, animMs: 3800 },
-  semiconductors: { stroke: 0.2, alt: 0.20, dashLen: 0.15, dashGap: 0.4, animMs: 1500 },
-  aviation:       { stroke: 0.3, alt: 0.45, dashLen: 0.20, dashGap: 0.5, animMs: 2000 },
+  cables:         { stroke: 0.4, alt: 0.35, dashLen: 0.4,  dashGap: 0.15, animMs: 3000 },
+  shipping:       { stroke: 1.0, alt: 0.08, dashLen: 0.35, dashGap: 0.2,  animMs: 2500 },
+  oil_gas:        { stroke: 1.0, alt: 0.06, dashLen: 0.4,  dashGap: 0.2,  animMs: 2800 },
+  food:           { stroke: 0.6, alt: 0.12, dashLen: 0.3,  dashGap: 0.25, animMs: 3200 },
+  minerals:       { stroke: 0.5, alt: 0.14, dashLen: 0.3,  dashGap: 0.2,  animMs: 3500 },
+  semiconductors: { stroke: 0.4, alt: 0.20, dashLen: 0.35, dashGap: 0.15, animMs: 1800 },
+  aviation:       { stroke: 0.5, alt: 0.45, dashLen: 0.5,  dashGap: 0.15, animMs: 1500 },
 };
 
 // ── Conflict colors by event type ────────────────────────────────
@@ -139,6 +140,7 @@ export default function GlobeComponent({
   // ── Dynamic Atmosphere Color ──────────
   const getAtmosphereColor = useCallback(() => {
     if (activeSystems['conflicts']) return '#DC2626'; // crimson
+    if (activeSystems['climate']) return '#2DD4BF';   // teal
     if (activeSystems['food']) return '#34D399';      // soft green
     if (activeSystems['minerals']) return '#A78BFA';  // soft purple
     if (activeSystems['energy']) return '#FBBF24';    // amber
@@ -212,13 +214,13 @@ export default function GlobeComponent({
         .width(w).height(h)
         .backgroundColor('#020617')
 
-        // ── Sleek dark data-viz globe with stars & atmosphere ──
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        // ── Bright Earth with city lights, stars & atmosphere ──
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .showAtmosphere(true)
         .atmosphereColor('#4BB3FD')
-        .atmosphereAltitude(0.25)
+        .atmosphereAltitude(0.28)
 
         // ── Points (shrink energy to nothing; it gets hex-bars instead) ──
         .pointsData([])
@@ -288,8 +290,11 @@ export default function GlobeComponent({
         .onHexBinClick((bin: any) => {
            // Provide info for the heaviest energy node in that bin
            if (bin?.points?.length > 0) {
-              const pts = [...bin.points].sort((a,b) => b.weight - a.weight);
-              if (pts[0].props) onNodeClick(pts[0].props);
+              const pts = [...bin.points].sort((a: any, b: any) => b.weight - a.weight);
+              if (pts[0].props) {
+                const p = pts[0];
+                onNodeClick({ ...p.props, system: 'energy', coordinates: [p.lng, p.lat] });
+              }
            }
         })
         .onHexBinHover((bin: any) => {

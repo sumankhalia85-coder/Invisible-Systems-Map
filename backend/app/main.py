@@ -125,6 +125,47 @@ def read_root():
 @app.get("/systems/{system_name}")
 def get_system_data(system_name: str):
     """Returns GeoJSON data for a specific infrastructure system."""
+
+    # ── Climate: special real-time handler ──
+    if system_name == "climate":
+        try:
+            # Try live fetch using the climate script
+            sys_path = os.path.join(os.path.dirname(__file__), '..', 'scripts')
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("fetch_climate", os.path.join(sys_path, "fetch_climate.py"))
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)  # type: ignore
+            climate_nodes = mod.fetch_climate_data()
+        except Exception as e:
+            print(f"Climate live fetch failed: {e}, using cached")
+            climate_nodes = load_json('climate.json')
+            if not climate_nodes:
+                climate_nodes = []
+
+        node_features = []
+        for cn in climate_nodes:
+            props = cn.get("properties", cn)
+            coords = cn.get("coordinates", props.get("coordinates", [0, 0]))
+            node_features.append({
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": coords},
+                "properties": {
+                    "id": cn.get("id", ""),
+                    "name": props.get("name", cn.get("name", "Climate Station")),
+                    "type": props.get("type", "climate"),
+                    "system": "climate",
+                    **{k: v for k, v in props.items() if k not in ("id", "name", "type", "system")},
+                }
+            })
+
+        return {
+            "system": "climate",
+            "node_count": len(node_features),
+            "connection_count": 0,
+            "nodes": {"type": "FeatureCollection", "features": node_features},
+            "connections": {"type": "FeatureCollection", "features": []},
+        }
+
     system_nodes = [n for n in nodes_data if n.get('system') == system_name]
 
     node_features = []
@@ -260,82 +301,63 @@ def get_conflicts_realtime():
     }
 
 
-# ── Premium AI Analysis ──────────────────────────────────────
+# ── AI Analysis (Free teaser via Groq, Premium LOCKED) ───────
 
 class AnalyzeRequest(BaseModel):
     node: dict
-    premium: bool = False  # True = full 3-para analysis; False = 1-sentence teaser
+    premium: bool = False
 
 @app.post("/analyze")
 async def analyze_node(req: AnalyzeRequest):
     """
     Returns AI analysis of an infrastructure node.
-    - Free: 1-sentence teaser (no API call needed if cached)
-    - Premium: full 3-paragraph geopolitical analysis + risk score
+    - Free: 1-sentence teaser via Groq (free LLM)
+    - Premium: LOCKED — always returns lock message
     """
     node = req.node
-    api_key = os.getenv("OPENAI_API_KEY")
     node_name = node.get('name', 'Unknown')
     system = node.get('system', 'infrastructure')
 
-    if not api_key:
+    # Premium is always locked
+    if req.premium:
         return {
             "teaser": f"{node_name} is a critical node in the global {system} network.",
             "full_analysis": None,
             "has_api_key": False,
             "premium": False,
+            "locked": True,
+            "message": "Premium Intelligence Brief is a Pro feature. Upgrade to unlock."
         }
 
-    try:
-        client = openai.OpenAI(api_key=api_key)
-
-        if req.premium:
-            # Full premium analysis
-            _node_data = json.dumps(
-                {k: v for k, v in node.items() if k not in ['id', 'coordinates']},
-                default=str
+    # Free teaser — try Groq first, then static fallback
+    groq_key = os.getenv("GROQ_API_KEY")
+    if groq_key:
+        try:
+            import httpx
+            resp = httpx.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
+                json={
+                    "model": "llama3-8b-8192",
+                    "messages": [
+                        {"role": "system", "content": "You are a concise geopolitical infrastructure analyst."},
+                        {"role": "user", "content": f"In exactly one sentence, explain why {node_name} ({node.get('type','node')} in the global {system} network) is strategically important. Be specific and compelling."}
+                    ],
+                    "max_tokens": 80,
+                    "temperature": 0.7,
+                },
+                timeout=10.0,
             )
-            _node_data_snippet: str = str(_node_data)[0:500]  # type: ignore
-            prompt = f"""You are a senior intelligence analyst at a global risk firm.
+            data = resp.json()
+            text = data["choices"][0]["message"]["content"].strip()
+            return {"teaser": text, "full_analysis": None, "has_api_key": False, "premium": False}
+        except Exception as e:
+            print(f"Groq teaser error: {e}")
 
-Node: {node_name}
-Type: {node.get('type', 'unknown')}
-System: {system}
-Location: {node.get('coordinates')}
-Data: {_node_data_snippet}
-
-Provide a structured intelligence brief with:
-1. STRATEGIC IMPORTANCE: 2 sentences on why this node matters globally.
-2. DISRUPTION SCENARIO: What happens in the first 48 hours if this goes offline?
-3. RISK SCORE: Rate 1-10 with one reason (format: "Risk Score: X/10 — [reason]")
-Keep the total response under 200 words. Be specific, analytical, and sharp."""
-            max_tokens = 280
-        else:
-            # Free teaser — short, engaging
-            prompt = f"""In exactly one sentence, explain why {node_name} ({node.get('type','node')} in the global {system} network) is strategically important. Be specific and compelling."""
-            max_tokens = 80
-
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a concise geopolitical infrastructure analyst."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=max_tokens,
-            temperature=0.7,
-        )
-        text = response.choices[0].message.content.strip()
-
-        if req.premium:
-            return {"teaser": text[:100] + "...", "full_analysis": text, "has_api_key": True, "premium": True}
-        else:
-            return {"teaser": text, "full_analysis": None, "has_api_key": True, "premium": False}
-
-    except Exception as e:
-        return {
-            "teaser": f"{node_name} is a key node in global {system} infrastructure.",
-            "full_analysis": None,
-            "has_api_key": bool(api_key),
-            "premium": False,
-            "error": str(e)
-        }
+    # Static fallback
+    return {
+        "teaser": f"{node_name} is a critical node in the global {system} network.",
+        "full_analysis": None,
+        "has_api_key": False,
+        "premium": False,
+    }

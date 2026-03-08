@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Ship, Wifi, Zap, Mountain, Wheat, Siren, ChevronDown, ChevronUp, Info, X, Flame, Cpu, Plane } from 'lucide-react';
+import { Ship, Wifi, Zap, Mountain, Wheat, Siren, ChevronDown, ChevronUp, Info, X, Flame, Cpu, Plane, CloudRain } from 'lucide-react';
 
 interface LayerPanelProps {
   activeSystems: Record<string, boolean>;
@@ -80,6 +80,15 @@ const SYSTEM_CONFIG = [
       title: 'Real-Time Global Conflict Events',
       desc: 'Live geo-tagged conflict events: Iran-Israel war, Russia-Ukraine, Gaza, Red Sea Houthi attacks, Sudan, Myanmar. GDELT-powered + curated intelligence.',
       source: 'GDELT Project (Live) + Curated Intel',
+    },
+    isLive: true,
+  },
+  {
+    id: 'climate', name: 'Climate Monitor', icon: CloudRain, color: '#2DD4BF', accent: 'rgba(45,212,191,0.15)',
+    info: {
+      title: 'Real-Time Climate & Weather',
+      desc: 'Live temperature, wind, and precipitation data from 30+ global cities. Identifies heat waves, cold snaps, severe storms, and anomalies in real time.',
+      source: 'Open-Meteo (Live)',
     },
     isLive: true,
   },
@@ -201,9 +210,9 @@ export default function LayerPanel({ activeSystems, toggleSystem, liveConflictCo
                     </button>
                   </div>
 
-                  {/* Info tooltip */}
+                  {/* Info tooltip — drops below on mobile, right on desktop */}
                   {tooltip === sys.id && (
-                    <div className="absolute left-full top-0 ml-2 z-50 w-64 glass-panel rounded-xl p-3 slide-in-right"
+                    <div className="absolute left-0 sm:left-full top-full sm:top-0 mt-1 sm:mt-0 sm:ml-2 z-[100] w-64 glass-panel rounded-xl p-3 slide-in-right shadow-xl"
                          style={{ border: `1px solid ${sys.color}30` }}>
                       <div className="flex justify-between items-start mb-2">
                         <h4 style={{ color: sys.color }} className="text-xs font-bold leading-snug flex-1">

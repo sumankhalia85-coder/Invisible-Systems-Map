@@ -18,44 +18,22 @@ const MODES = [
 
 export default function TopNav({ activeMode, onModeChange }: TopNavProps) {
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    let ctx: AudioContext;
     if (audioEnabled) {
-      ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      
-      const gain = ctx.createGain();
-      gain.gain.value = 0.03; // very soft ambient low hum
-      gain.connect(ctx.destination);
-
-      // Low A base
-      const osc1 = ctx.createOscillator();
-      osc1.type = 'sine';
-      osc1.frequency.value = 55;
-      osc1.connect(gain);
-      
-      // Slight detune for slow modulation
-      const osc2 = ctx.createOscillator();
-      osc2.type = 'triangle';
-      osc2.frequency.value = 55.4;
-      osc2.connect(gain);
-
-      // E harmonic
-      const osc3 = ctx.createOscillator();
-      osc3.type = 'sine';
-      osc3.frequency.value = 82.5; 
-      const gain3 = ctx.createGain();
-      gain3.gain.value = 0.01;
-      gain3.connect(ctx.destination);
-      osc3.connect(gain3);
-
-      osc1.start();
-      osc2.start();
-      osc3.start();
+      if (!audioRef.current) {
+        const audio = new Audio('/audio/ambient.mp3');
+        audio.loop = true;
+        audio.volume = 0.15;
+        audioRef.current = audio;
+      }
+      audioRef.current.play().catch(() => {});
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
     }
-    return () => {
-      if (ctx) ctx.close();
-    };
   }, [audioEnabled]);
 
   return (
