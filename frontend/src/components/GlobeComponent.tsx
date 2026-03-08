@@ -246,6 +246,7 @@ export default function GlobeComponent({
     }
 
     g.arcsData(arcs);
+    console.log(`[Globe Debug] Sync complete: ${pts.length} pts, ${rings.length} rings, ${arcs.length} arcs`);
 
     // ── Energy & Carbon hexbins ──
     let hexPts: any[] = [];
@@ -309,7 +310,7 @@ export default function GlobeComponent({
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .showAtmosphere(true)
         .atmosphereColor('#4BB3FD')
-        .atmosphereAltitude(0.08) // Drastically reduced from 0.28 to prevent hiding data
+        .atmosphereAltitude(0.02) // Ultra-low for debugging
 
         .pointsData([])
         .pointLat('lat').pointLng('lng')
@@ -331,7 +332,7 @@ export default function GlobeComponent({
         .arcStartLat('startLat').arcStartLng('startLng')
         .arcEndLat('endLat').arcEndLng('endLng')
         .arcColor('color')
-        .arcAltitude((d: any) => d.alt ?? 0.21) // Raised default altitude to 0.21
+        .arcAltitude((d: any) => Math.max(0.1, d.alt ?? 0.25)) // Guaranteed minimum altitude
         .arcStroke((d: any) => d.stroke ?? 0.5)
         .arcDashLength((d: any) => d.dashLen ?? 0.4)
         .arcDashGap((d: any) => d.dashGap ?? 0.2)
