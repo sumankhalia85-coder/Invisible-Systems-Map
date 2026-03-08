@@ -129,18 +129,21 @@ def get_system_data(system_name: str):
     # ── Climate: special real-time handler ──
     if system_name == "climate":
         try:
-            # Try live fetch using the climate script
-            sys_path = os.path.join(os.path.dirname(__file__), '..', 'scripts')
+            # Robust absolute path binding for docker
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            sys_path = os.path.join(base_dir, 'scripts')
+            
             import importlib.util
             spec = importlib.util.spec_from_file_location("fetch_climate", os.path.join(sys_path, "fetch_climate.py"))
-            mod = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(mod)  # type: ignore
-            climate_nodes = mod.fetch_climate_data()
+            if spec and spec.loader:
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)  # type: ignore
+                climate_nodes = mod.fetch_climate_data()
+            else:
+                raise ImportError("Could not load fetch_climate.py module")
         except Exception as e:
-            print(f"Climate live fetch failed: {e}, using cached")
-            climate_nodes = load_json('climate.json')
-            if not climate_nodes:
-                climate_nodes = []
+            print(f"Climate live fetch failed: {e}")
+            climate_nodes = []
 
         node_features = []
         for cn in climate_nodes:
