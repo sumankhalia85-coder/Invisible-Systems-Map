@@ -14,10 +14,7 @@ const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   loading: () => <LoadingScreen />,
 });
 
-const GlobeComponent = dynamic(() => import('@/components/GlobeComponent'), {
-  ssr: false,
-  loading: () => <LoadingScreen />,
-});
+import GlobeComponent from '@/components/GlobeComponent';
 
 function LoadingScreen() {
   return (

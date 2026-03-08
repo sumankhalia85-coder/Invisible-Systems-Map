@@ -97,6 +97,9 @@ export default function GlobeComponent({
   const globeRef = useRef<any>(null);
   const [globeReady, setGlobeReady] = useState(false);
 
+  // Safely avoid SSR for globe.gl
+  const isServer = typeof window === 'undefined';
+
   // ── Store props in refs so the async init closure always gets FRESH data ──
   const propsRef = useRef({ layersData, activeSystems, onNodeClick, conflictsData });
   propsRef.current = { layersData, activeSystems, onNodeClick, conflictsData };
@@ -106,6 +109,8 @@ export default function GlobeComponent({
   // ════════════════════════════════════════════════════════════
   const syncDataToGlobe = (g: any) => {
     const { layersData: ld, activeSystems: as2, conflictsData: cd } = propsRef.current;
+
+    console.log("GLOBE SYNC TICK", { activeSystems: as2, layersDataKeys: Object.keys(ld), climateData: ld['climate'] });
 
     // ── Points ──
     const pts: any[] = [];
@@ -384,6 +389,8 @@ export default function GlobeComponent({
     syncDataToGlobe(globeRef.current);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globeReady, layersData, activeSystems, conflictsData]);
+
+  if (isServer) return null;
 
   return (
     <div ref={containerRef}
