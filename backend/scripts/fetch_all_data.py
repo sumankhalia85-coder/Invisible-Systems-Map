@@ -14,34 +14,38 @@ Run from: backend/ directory
   python scripts/fetch_all_data.py
 """
 
-import json, os, requests, csv, io, math
-from typing import Optional
+import json, os, csv, io, math
+import requests # pyre-ignore
+from typing import Optional, Dict, List, Any
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 DATASETS_DIR = os.path.join(ROOT, 'datasets')
 os.makedirs(DATASETS_DIR, exist_ok=True)
 
-nodes = []
-connections = []
-node_id = 1
+nodes: List[Dict[str, Any]] = []
+connections: List[Dict[str, Any]] = []
+NODE_COUNTER: List[int] = [1]
 
-def nid():
-    global node_id
-    n = node_id; node_id += 1; return n
+def nid() -> int:
+    n = NODE_COUNTER[0]
+    NODE_COUNTER[0] += 1
+    return n
 
-def add_node(name, system, node_type, lng, lat, **props):
+def add_node(name: str, system: str, node_type: str, lng: float, lat: float, **props: Any) -> Dict[str, Any]:
     n = {'id': nid(), 'name': name, 'system': system, 'type': node_type,
-         'coordinates': [round(lng,4), round(lat,4)], 'properties': props}
+         'coordinates': [float(f"{lng:.4f}"), float(f"{lat:.4f}")], 'properties': props}
     nodes.append(n)
     return n
 
-def add_connection(src_id, tgt_id, system, **props):
+def add_connection(src_id: int, tgt_id: int, system: str, **props: Any) -> None:
     connections.append({'id': nid(), 'source_node_id': src_id, 'target_node_id': tgt_id,
                         'system': system, 'properties': props})
 
-def find_node(system, name_substr):
+def find_node(system: str, name_substr: str) -> Optional[Dict[str, Any]]:
     for n in nodes:
-        if n['system'] == system and name_substr.lower() in n['name'].lower():
+        node_sys = str(n.get('system', ''))
+        node_name = str(n.get('name', ''))
+        if node_sys == system and name_substr.lower() in node_name.lower():
             return n
     return None
 
@@ -161,7 +165,7 @@ for (a, b) in shipping_lanes:
 # 2. ENERGY — WRI Global Power Plant Database
 # ═══════════════════════════════════════════
 print("\n⚡ Fetching Energy Grid (WRI Global Power Plant Database)...")
-energy_nodes_added = 0
+energy_nodes_added: int = 0
 try:
     # WRI publishes this on GitHub as a CSV
     url = "https://raw.githubusercontent.com/wri/global-power-plant-database/master/output_database/global_power_plant_database.csv"
@@ -189,11 +193,12 @@ try:
 
         # Sort by capacity descending, take top N each to create dense globe visualization
         for lst, limit in [(nuclear, 300), (hydro, 1500), (solar_wind, 1500), (other, 1500)]:
-            lst.sort(key=lambda x: -x[0])
-            for cap, name, lng, lat, country, fuel in lst[:limit]:
+            lst.sort(key=lambda x: -float(x[0]))
+            for i in range(min(len(lst), limit)):
+                cap, name, lng, lat, country, fuel = lst[i]
                 add_node(name, 'energy', fuel.replace(' and tidal',''), lng, lat,
                          country=country, capacity_mw=cap, fuel_type=fuel)
-                energy_nodes_added += 1
+                energy_nodes_added = energy_nodes_added + 1 # pyre-ignore
         print(f"  ✅ WRI: {energy_nodes_added} power plants (nuclear/hydro/solar/wind/coal/gas)")
     if energy_nodes_added < 10:
         raise Exception("Too few rows")
@@ -384,10 +389,11 @@ json.dump(connections, open(conn_path, 'w', encoding='utf-8'), indent=2, ensure_
 print(f"✅ Saved to {DATASETS_DIR}/")
 print(f"   nodes.json     → {len(nodes)} nodes")
 print(f"   connections.json → {len(connections)} connections")
-summary = {}
+summary: Dict[str, int] = {}
 for n in nodes:
-    sys = n['system']
-    summary[sys] = summary.get(sys, 0) + 1
+    sys = str(n.get('system', ''))
+    if sys:
+        summary[sys] = summary.get(sys, 0) + 1
 print("\n📍 By system:")
 for sys, cnt in sorted(summary.items()):
     print(f"   {sys}: {cnt}")

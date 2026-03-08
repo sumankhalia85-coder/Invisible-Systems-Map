@@ -6,33 +6,41 @@ Run: python scripts/fetch_cables.py
 
 import json, os
 from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 DATASETS_DIR = os.path.join(ROOT, 'datasets')
 
 nodes_path = os.path.join(DATASETS_DIR, 'nodes.json')
 conn_path = os.path.join(DATASETS_DIR, 'connections.json')
-nodes = json.load(open(nodes_path, encoding='utf-8'))
-connections = json.load(open(conn_path, encoding='utf-8'))
+with open(nodes_path, encoding='utf-8') as f:
+    nodes: List[Dict[str, Any]] = json.load(f)
+with open(conn_path, encoding='utf-8') as f:
+    connections: List[Dict[str, Any]] = json.load(f)
 
 # Remove old cables entries
 nodes = [n for n in nodes if n.get('system') != 'cables']
 connections = [c for c in connections if c.get('system') != 'cables']
 
-next_id = max((n['id'] for n in nodes), default=0) + 1
-next_cid = max((c['id'] for c in connections), default=0) + 1
+next_id_list: List[int] = [max((int(n.get('id', 0)) for n in nodes), default=0) + 1]
+next_cid_list: List[int] = [max((int(c.get('id', 0)) for c in connections), default=0) + 1]
 
-def nid():
-    global next_id; n = next_id; next_id += 1; return n
-def cid():
-    global next_cid; n = next_cid; next_cid += 1; return n
+def nid() -> int:
+    n = next_id_list[0]
+    next_id_list[0] += 1
+    return n
 
-def add_node(name, ntype, lng, lat, **props):
+def cid() -> int:
+    n = next_cid_list[0]
+    next_cid_list[0] += 1
+    return n
+
+def add_node(name: str, ntype: str, lng: float, lat: float, **props: Any) -> Dict[str, Any]:
     n = {'id': nid(), 'name': name, 'system': 'cables', 'type': ntype,
-         'coordinates': [round(lng,4), round(lat,4)], 'properties': props}
+         'coordinates': [float(f"{lng:.4f}"), float(f"{lat:.4f}")], 'properties': props}
     nodes.append(n); return n
 
-def add_conn(src_id, tgt_id, cable_name, **props):
+def add_conn(src_id: int, tgt_id: int, cable_name: str, **props: Any) -> None:
     connections.append({
         'id': cid(), 'source_node_id': src_id, 'target_node_id': tgt_id,
         'system': 'cables',

@@ -1,0 +1,970 @@
+[
+  {
+    "id": "ukr-001",
+    "name": "Russia-Ukraine Front — Donetsk",
+    "event_type": "battle",
+    "date": "2024-03-01",
+    "country": "UA",
+    "location": "Donetsk Oblast",
+    "coordinates": [
+      37.8,
+      48.0
+    ],
+    "actors": [
+      "Ukraine Armed Forces",
+      "Russian Armed Forces"
+    ],
+    "fatalities": 50,
+    "severity": "critical",
+    "description": "Ongoing ground combat across eastern front.",
+    "source": "ISW",
+    "system": "conflicts"
+  },
+  {
+    "id": "gz-001",
+    "name": "Israel-Gaza Ground Operations",
+    "event_type": "battle",
+    "date": "2024-03-01",
+    "country": "PS",
+    "location": "Gaza",
+    "coordinates": [
+      34.47,
+      31.5
+    ],
+    "actors": [
+      "Israel Defense Forces",
+      "Hamas"
+    ],
+    "fatalities": 100,
+    "severity": "critical",
+    "description": "Ongoing military operations targeting military infrastructure.",
+    "source": "IDF",
+    "system": "conflicts"
+  },
+  {
+    "id": "sdn-001",
+    "name": "Sudan Civil War — Khartoum",
+    "event_type": "battle",
+    "date": "2024-02-25",
+    "country": "SD",
+    "location": "Khartoum",
+    "coordinates": [
+      32.52,
+      15.55
+    ],
+    "actors": [
+      "Sudan Armed Forces",
+      "Rapid Support Forces"
+    ],
+    "fatalities": 200,
+    "severity": "critical",
+    "description": "Largest humanitarian crisis. Heavy fighting for control of Khartoum.",
+    "source": "UN OCHA",
+    "system": "conflicts"
+  },
+  {
+    "id": "lbn-001",
+    "name": "Israel-Hezbollah Cross-Border Fire",
+    "event_type": "missile",
+    "date": "2024-03-05",
+    "country": "LB",
+    "location": "South Lebanon",
+    "coordinates": [
+      35.2,
+      33.27
+    ],
+    "actors": [
+      "Israel Defense Forces",
+      "Hezbollah"
+    ],
+    "fatalities": 15,
+    "severity": "high",
+    "description": "Continuous exchange of airstrikes and rocket artillery.",
+    "source": "UNIFIL",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-tehran",
+    "name": "Waves of Strikes on Capital",
+    "event_type": "airstrike",
+    "date": "2026-03-04",
+    "country": "IR",
+    "location": "Tehran",
+    "coordinates": [
+      51.38,
+      35.68
+    ],
+    "actors": [
+      "US Armed Forces",
+      "Israel Defense Forces",
+      "Iranian Government"
+    ],
+    "fatalities": 500,
+    "severity": "critical",
+    "description": "Pasteur Street district, Supreme National Security Council headquarters, presidential office, and Ali Khamenei bunker targeted in capital.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-minab",
+    "name": "School Airstrike — Mass Civilian Casualties",
+    "event_type": "airstrike",
+    "date": "2026-03-01",
+    "country": "IR",
+    "location": "Minab (Hormozgan)",
+    "coordinates": [
+      57.08,
+      27.14
+    ],
+    "actors": [
+      "US/Israel Armed Forces"
+    ],
+    "fatalities": 180,
+    "severity": "critical",
+    "description": "Deadliest single incident reported. Airstrike on a girls school resulted in approx 180 child fatalities.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-bandar",
+    "name": "Chemical Port Explosion",
+    "event_type": "bombing",
+    "date": "2026-03-02",
+    "country": "IR",
+    "location": "Bandar Abbas",
+    "coordinates": [
+      56.28,
+      27.18
+    ],
+    "actors": [
+      "US/Israel Armed Forces"
+    ],
+    "fatalities": 40,
+    "severity": "critical",
+    "description": "Chemical blast at the strategic port resulting in 40+ deaths and over 1,200 injuries. Widespread infrastructure damage.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-isfahan",
+    "name": "Natanz Nuclear Facility Strike",
+    "event_type": "missile",
+    "date": "2026-03-03",
+    "country": "IR",
+    "location": "Natanz / Isfahan",
+    "coordinates": [
+      51.72,
+      33.72
+    ],
+    "actors": [
+      "Israel Defense Forces",
+      "IRGC"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Nuclear facility struck with structural damage to multiple buildings.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-bushehr",
+    "name": "Airport Infrastructure Destroyed",
+    "event_type": "missile",
+    "date": "2026-03-03",
+    "country": "IR",
+    "location": "Bushehr",
+    "coordinates": [
+      50.84,
+      28.92
+    ],
+    "actors": [
+      "Israel Defense Forces",
+      "IRGC"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "International airport hit by precision strikes, destroying an Iran Air aircraft and terminal infrastructure.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-khorramabad",
+    "name": "Imam Ali Missile Base Bunkers Destroyed",
+    "event_type": "airstrike",
+    "date": "2026-03-02",
+    "country": "IR",
+    "location": "Khorramabad (Lorestan)",
+    "coordinates": [
+      48.35,
+      33.48
+    ],
+    "actors": [
+      "US Armed Forces",
+      "IRGC Aerospace"
+    ],
+    "fatalities": 50,
+    "severity": "critical",
+    "description": "Imam Ali Missile Base targeted and deep subterranean storage damaged by bunker-buster bombs.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-kurdish",
+    "name": "Border Posts & Police Stations Targeted",
+    "event_type": "missile",
+    "date": "2026-03-04",
+    "country": "IR",
+    "location": "Sanandaj & Saqqez",
+    "coordinates": [
+      46.99,
+      35.31
+    ],
+    "actors": [
+      "US/Israel Armed Forces",
+      "Iranian Police"
+    ],
+    "fatalities": 25,
+    "severity": "high",
+    "description": "Multiple strikes hitting police stations and border posts across the Northwest Kurdish regions.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-missilesites",
+    "name": "Missile & Drone Hubs Targeted",
+    "event_type": "missile",
+    "date": "2026-03-05",
+    "country": "IR",
+    "location": "Ahvaz / Karaj / Yazd",
+    "coordinates": [
+      48.66,
+      31.32
+    ],
+    "actors": [
+      "US/Israel Armed Forces",
+      "IRGC"
+    ],
+    "fatalities": 15,
+    "severity": "high",
+    "description": "Coordinated attacks on critical missile manufacturing and drone launch infrastructure.",
+    "source": "Al Jazeera",
+    "system": "conflicts"
+  },
+  {
+    "id": "twn-001",
+    "name": "China PLA Exercises — Taiwan Strait",
+    "event_type": "geopolitical",
+    "date": "2024-03-01",
+    "country": "TW",
+    "location": "Taiwan Strait",
+    "coordinates": [
+      120.5,
+      24.0
+    ],
+    "actors": [
+      "PLA Air Force",
+      "RoC Air Force"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "PLA conducts joint patrols encircling Taiwan.",
+    "source": "MND Taiwan",
+    "system": "conflicts"
+  },
+  {
+    "id": "yem-001",
+    "name": "Houthi Missile — Red Sea Shipping",
+    "event_type": "missile",
+    "date": "2024-03-01",
+    "country": "YE",
+    "location": "Red Sea",
+    "coordinates": [
+      43.0,
+      15.0
+    ],
+    "actors": [
+      "Houthi Movement"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Attacks on commercial vessels disrupting trade.",
+    "source": "US CENTCOM",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293076986",
+    "name": "Airstrike incident in Dubai, Dubayy, United Arab Emirates",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "AE",
+    "location": "Dubai, Dubayy, United Arab Emirates",
+    "coordinates": [
+      25.2522,
+      28575.0
+    ],
+    "actors": [
+      "UNITED ARAB EMIRATES",
+      "BAHRAIN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED ARAB EMIRATES and BAHRAIN.",
+    "source": "https://www.lebanondemocrat.com/news/national/kuwait-airport-bahrain-desalination-unit-struck-as-iran-presses-gulf-attacks/article_dd9a4652-44f1-529b-9889-49794f43caeb.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077083",
+    "name": "Airstrike incident in Bertoua, Est, Cameroon",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "CM",
+    "location": "Bertoua, Est, Cameroon",
+    "coordinates": [
+      4.58333,
+      18585.0
+    ],
+    "actors": [
+      "CAMEROON",
+      "UNIVERSITY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CAMEROON and UNIVERSITY.",
+    "source": "https://www.universityworldnews.com/post.php?story=20260304085745989",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077092",
+    "name": "Airstrike incident in Gloucestershire, Gloucestershire, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Gloucestershire, Gloucestershire, United Kingdom",
+    "coordinates": [
+      51.8333,
+      40113.0
+    ],
+    "actors": [
+      "DETECTIVE"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving DETECTIVE",
+    "source": "https://www.tvguide.co.uk/articles/gone-itv-thriller-inspired-by-true-story-of-real-life-detective-who-solved-one-of-bristols-most-infamous-cold-case-murders/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077096",
+    "name": "Airstrike incident in Bristol, Bristol, City of, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Bristol, Bristol, City of, United Kingdom",
+    "coordinates": [
+      51.45,
+      40094.0
+    ],
+    "actors": [
+      "DETECTIVE",
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving DETECTIVE and UNITED KINGDOM.",
+    "source": "https://www.tvguide.co.uk/articles/gone-itv-thriller-inspired-by-true-story-of-real-life-detective-who-solved-one-of-bristols-most-infamous-cold-case-murders/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077165",
+    "name": "Missile/Artillery Strike in Shahrud, Semnan, Iran",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Shahrud, Semnan, Iran",
+    "coordinates": [
+      36.4182,
+      41108.0
+    ],
+    "actors": [
+      "CAIRO",
+      "ISRAELI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CAIRO and ISRAELI.",
+    "source": "http://eng.chinamil.com.cn/2025xb/W/N/16447094.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077194",
+    "name": "Armed Clash in Bristol, Bristol, City of, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Bristol, Bristol, City of, United Kingdom",
+    "coordinates": [
+      51.45,
+      40094.0
+    ],
+    "actors": [
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED KINGDOM",
+    "source": "https://www.tvguide.co.uk/articles/gone-itv-thriller-inspired-by-true-story-of-real-life-detective-who-solved-one-of-bristols-most-infamous-cold-case-murders/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077195",
+    "name": "Airstrike incident in Belfast, Belfast, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Belfast, Belfast, United Kingdom",
+    "coordinates": [
+      54.5833,
+      40158.0
+    ],
+    "actors": [
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED KINGDOM",
+    "source": "https://www.irishtimes.com/politics/2026/03/07/gerry-adams-faces-london-court-grilling-over-ties-to-the-ira-in-high-profile-civil-case/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077229",
+    "name": "Airstrike incident in London, London, City of, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "194",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "London, London, City of, United Kingdom",
+    "coordinates": [
+      51.5,
+      40110.0
+    ],
+    "actors": [
+      "UNITED KINGDOM",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED KINGDOM and ISRAEL.",
+    "source": "https://www.newkerala.com/news/a/quentin-tarantino-set-make-directorial-comeback-old-fashioned-british-926.htm",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077308",
+    "name": "Airstrike incident in Delhi, Delhi, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Delhi, Delhi, India",
+    "coordinates": [
+      28.6667,
+      17911.0
+    ],
+    "actors": [
+      "AUTHORITIES",
+      "DELHI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AUTHORITIES and DELHI.",
+    "source": "https://www.rediff.com/news/report/mcd-demolishes-illegal-portions-after-holi-clash-death/20260308.htm",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077323",
+    "name": "Airstrike incident in Addis Ababa, (ET10), Ethiopia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "ET",
+    "location": "Addis Ababa, (ET10), Ethiopia",
+    "coordinates": [
+      9.03333,
+      47692.0
+    ],
+    "actors": [
+      "GOVERNMENT",
+      "PROTESTER"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving GOVERNMENT and PROTESTER.",
+    "source": "https://www.afriquesenlutte.org/afrique-de-l-est/ethiopie/article/interview-ethiopia-s-bloody",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077357",
+    "name": "Airstrike incident in Uttar Pradesh, Uttar Pradesh, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Uttar Pradesh, Uttar Pradesh, India",
+    "coordinates": [
+      27.25,
+      17938.0
+    ],
+    "actors": [
+      "DELHI",
+      "AUTHORITIES"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving DELHI and AUTHORITIES.",
+    "source": "https://www.rediff.com/news/report/mcd-demolishes-illegal-portions-after-holi-clash-death/20260308.htm",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077411",
+    "name": "Airstrike incident in Mehrabad, Kerman, Iran",
+    "event_type": "airstrike",
+    "sub_type": "194",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Mehrabad, Kerman, Iran",
+    "coordinates": [
+      30.064,
+      41034.0
+    ],
+    "actors": [
+      "ISFAHAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISFAHAN",
+    "source": "https://www.jpost.com/israel-news/defense-news/article-889203",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077430",
+    "name": "Airstrike incident in Tehran, Tehran, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      35.75,
+      41130.0
+    ],
+    "actors": [
+      "IRAN",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and ISRAEL.",
+    "source": "https://thefrontierpost.com/iran-says-can-fight-intense-war-for-months/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077431",
+    "name": "Airstrike incident in Gaza, Israel (general), Israel",
+    "event_type": "airstrike",
+    "sub_type": "195",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Gaza, Israel (general), Israel",
+    "coordinates": [
+      31.4167,
+      18315.0
+    ],
+    "actors": [
+      "IRAN",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and ISRAEL.",
+    "source": "https://www.rediff.com/news/report/israel-has-near-total-control-of-tehran-skies-netanyahu/20260308.htm",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077435",
+    "name": "Airstrike incident in Riyadh, Ar Riya?, Saudi Arabia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "SA",
+    "location": "Riyadh, Ar Riya?, Saudi Arabia",
+    "coordinates": [
+      24.6408,
+      25316.0
+    ],
+    "actors": [
+      "IRAN",
+      "SAUDI ARABIA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and SAUDI ARABIA.",
+    "source": "https://www.jpost.com/middle-east/article-889195",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077437",
+    "name": "Airstrike incident in Tel Aviv, Tel Aviv, Israel",
+    "event_type": "airstrike",
+    "sub_type": "194",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Tel Aviv, Tel Aviv, Israel",
+    "coordinates": [
+      32.0667,
+      18316.0
+    ],
+    "actors": [
+      "IRANIAN",
+      "TURKISH"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRANIAN and TURKISH.",
+    "source": "https://www.dailysabah.com/opinion/columns/anatomy-of-a-phone-call-from-tel-aviv",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077461",
+    "name": "Armed Clash in Tehran, Tehran, Iran",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      35.75,
+      41130.0
+    ],
+    "actors": [
+      "IRAN",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRAN and IRAN.",
+    "source": "https://www.rediff.com/news/report/israel-has-near-total-control-of-tehran-skies-netanyahu/20260308.htm",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077468",
+    "name": "Missile/Artillery Strike in Tel Aviv, Tel Aviv, Israel",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Tel Aviv, Tel Aviv, Israel",
+    "coordinates": [
+      32.0667,
+      18316.0
+    ],
+    "actors": [
+      "ISRAELI",
+      "CAIRO"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAELI and CAIRO.",
+    "source": "http://eng.chinamil.com.cn/2025xb/W/N/16447094.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077514",
+    "name": "Airstrike incident in Nablus, West Bank (general), West Bank",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "WE",
+    "location": "Nablus, West Bank (general), West Bank",
+    "coordinates": [
+      32.2199,
+      32684.0
+    ],
+    "actors": [
+      "ISRAELI",
+      "PALESTINIAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAELI and PALESTINIAN.",
+    "source": "https://english.wafa.ps/Pages/Details/168100",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077516",
+    "name": "Airstrike incident in Basij, Fars, Iran",
+    "event_type": "airstrike",
+    "sub_type": "194",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Basij, Fars, Iran",
+    "coordinates": [
+      30.608,
+      41029.0
+    ],
+    "actors": [
+      "ISRAELI",
+      "OCCUPIED TERRITORIES"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAELI and OCCUPIED TERRITORIES.",
+    "source": "https://www.presstv.ir/Detail/2026/03/08/765105/Pezeshkian-Iran-has-to-respond-to-enemy-attacks-originated-from-any-country",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077550",
+    "name": "Missile/Artillery Strike in Dubai, Dubayy, United Arab Emirates",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "AE",
+    "location": "Dubai, Dubayy, United Arab Emirates",
+    "coordinates": [
+      25.2522,
+      28575.0
+    ],
+    "actors": [
+      "KUWAIT",
+      "CANADA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving KUWAIT and CANADA.",
+    "source": "https://www.irishtimes.com/opinion/2026/03/07/has-the-dubai-dream-been-shattered-for-irish-expats/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077563",
+    "name": "Airstrike incident in Bekaa, Béa, Lebanon",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "LE",
+    "location": "Bekaa, Béa, Lebanon",
+    "coordinates": [
+      33.6667,
+      18792.0
+    ],
+    "actors": [
+      "LEBANESE",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving LEBANESE and ISRAEL.",
+    "source": "https://www.jwire.com.au/israeli-commandos-hunt-for-clues-in-four-decade-ron-arad-mystery/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077599",
+    "name": "Airstrike incident in Akobo, Wilayat Junqoley, South Sudan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "OD",
+    "location": "Akobo, Wilayat Junqoley, South Sudan",
+    "coordinates": [
+      7.78775,
+      37051.0
+    ],
+    "actors": [
+      "INFANTRY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving INFANTRY",
+    "source": "https://www.eyeradio.org/sspdf-questions-unmiss-over-2013-armored-vehicle-seizure/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077601",
+    "name": "Airstrike incident in Jonglei State, Wilayat Junqoley, South Sudan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "OD",
+    "location": "Jonglei State, Wilayat Junqoley, South Sudan",
+    "coordinates": [
+      7.4,
+      37057.0
+    ],
+    "actors": [
+      "INFANTRY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving INFANTRY",
+    "source": "https://www.eyeradio.org/sspdf-questions-unmiss-over-2013-armored-vehicle-seizure/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077649",
+    "name": "Armed Clash in Ramallah, West Bank (general), West Bank",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "WE",
+    "location": "Ramallah, West Bank (general), West Bank",
+    "coordinates": [
+      31.9026,
+      68767.0
+    ],
+    "actors": [
+      "WEST BANK",
+      "VILLAGE"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving WEST BANK and VILLAGE.",
+    "source": "https://english.wafa.ps/Pages/Details/168103",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077650",
+    "name": "Airstrike incident in Ramallah, West Bank (general), West Bank",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "WE",
+    "location": "Ramallah, West Bank (general), West Bank",
+    "coordinates": [
+      31.9026,
+      68767.0
+    ],
+    "actors": [
+      "WEST BANK",
+      "VILLAGE"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving WEST BANK and VILLAGE.",
+    "source": "https://english.wafa.ps/Pages/Details/168103",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077685",
+    "name": "Armed Clash in Hebron, Israel (general), Israel",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Hebron, Israel (general), Israel",
+    "coordinates": [
+      31.5333,
+      18315.0
+    ],
+    "actors": [
+      "TERRORIST",
+      "VILLAGE"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving TERRORIST and VILLAGE.",
+    "source": "https://english.wafa.ps/Pages/Details/168103",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077689",
+    "name": "Airstrike incident in Jerusalem, Israel (general), Israel",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Jerusalem, Israel (general), Israel",
+    "coordinates": [
+      31.7667,
+      18315.0
+    ],
+    "actors": [
+      "FIGHTER",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving FIGHTER and ISRAEL.",
+    "source": "https://www.jpost.com/middle-east/article-889214",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077691",
+    "name": "Airstrike incident in Hebron, Israel (general), Israel",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Hebron, Israel (general), Israel",
+    "coordinates": [
+      31.5333,
+      18315.0
+    ],
+    "actors": [
+      "TERRORIST",
+      "ISRAELI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving TERRORIST and ISRAELI.",
+    "source": "https://english.wafa.ps/Pages/Details/168103",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077744",
+    "name": "Armed Clash in Natanz, Esfahan, Iran",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Natanz, Esfahan, Iran",
+    "coordinates": [
+      33.4964,
+      41048.0
+    ],
+    "actors": [
+      "UNITED STATES",
+      "SPECIAL FORCES"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED STATES and SPECIAL FORCES.",
+    "source": "https://www.i24news.tv/en/news/middle-east/iran-eastern-states/artc-us-israel-discuss-special-forces-mission-to-secure-iran-s-enriched-uranium-report",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293077745",
+    "name": "Armed Clash in Basij, Fars, Iran",
+    "event_type": "battle",
+    "sub_type": "186",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Basij, Fars, Iran",
+    "coordinates": [
+      30.608,
+      41029.0
+    ],
+    "actors": [
+      "THE US",
+      "ISLAMIC"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving THE US and ISLAMIC.",
+    "source": "https://www.presstv.ir/Detail/2026/03/08/765105/Pezeshkian-Iran-has-to-respond-to-enemy-attacks-originated-from-any-country",
+    "system": "conflicts"
+  }
+]

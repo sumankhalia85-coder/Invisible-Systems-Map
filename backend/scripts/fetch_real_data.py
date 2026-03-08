@@ -8,11 +8,12 @@ Sources:
 - Minerals: USGS Mineral Resources Data System (MRDS)
 """
 
-import requests
+import requests # pyre-ignore
 import json
 import os
 import csv
 import io
+from typing import Any, Dict, List, Tuple
 
 DATASETS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -43,7 +44,7 @@ def save_data(nodes, conns):
 # ==========================================
 # 1. SUBMARINE CABLES (TeleGeography)
 # ==========================================
-def fetch_submarine_cables(nodes, conns):
+def fetch_submarine_cables(nodes: List[Dict[str, Any]], conns: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     print("\n[1/3] Fetching TeleGeography Submarine Cables...")
     
     # Remove old cable data
@@ -58,9 +59,9 @@ def fetch_submarine_cables(nodes, conns):
         
     cable_data = response.json()
     
-    next_node_id = max([n['id'] for n in nodes], default=0) + 1
-    next_conn_id = max([c.get('id', 0) for c in conns], default=0) + 1
-    landing_points = {}
+    next_node_id: int = int(max([int(n.get('id', 0)) for n in nodes], default=0)) + 1
+    next_conn_id: int = int(max([int(c.get('id', 0)) for c in conns], default=0)) + 1
+    landing_points: Dict[str, int] = {}
     
     for feature in cable_data.get('features', []):
         props = feature.get('properties', {})
@@ -71,21 +72,22 @@ def fetch_submarine_cables(nodes, conns):
             for line in geom.get('coordinates', []):
                 if len(line) < 2:
                     continue
-                start_coord = line[0]
-                end_coord = line[-1]
-                start_hash = f"{round(start_coord[0],3)}_{round(start_coord[1],3)}"
-                end_hash = f"{round(end_coord[0],3)}_{round(end_coord[1],3)}"
+                line_list: List[Any] = list(line) # pyre-ignore
+                start_coord = line_list[0]
+                end_coord = line_list[-1]
+                start_hash = f"{float(start_coord[0]):.3f}_{float(start_coord[1]):.3f}"
+                end_hash = f"{float(end_coord[0]):.3f}_{float(end_coord[1]):.3f}"
                 
                 if start_hash not in landing_points:
                     landing_points[start_hash] = next_node_id
                     nodes.append({"id": next_node_id, "name": f"Cable Landing: {cable_name}", "type": "data_center", "system": "cables", "coordinates": start_coord, "properties": {"cable": cable_name, "owners": props.get('owners', 'Unknown'), "rfs": props.get('rfs', 'Unknown')}})
-                    next_node_id += 1
+                    next_node_id = next_node_id + 1 # pyre-ignore
                 if end_hash not in landing_points:
                     landing_points[end_hash] = next_node_id
                     nodes.append({"id": next_node_id, "name": f"Cable Landing: {cable_name}", "type": "data_center", "system": "cables", "coordinates": end_coord, "properties": {"cable": cable_name, "owners": props.get('owners', 'Unknown'), "rfs": props.get('rfs', 'Unknown')}})
-                    next_node_id += 1
+                    next_node_id = next_node_id + 1 # pyre-ignore
                 conns.append({"id": next_conn_id, "source_node_id": landing_points[start_hash], "target_node_id": landing_points[end_hash], "type": "submarine_cable", "system": "cables", "intensity": 1.0, "properties": {"cable_system": cable_name}})
-                next_conn_id += 1
+                next_conn_id = next_conn_id + 1 # pyre-ignore
 
     print(f"  ✅ Loaded {len(landing_points)} cable landing points, {len(cable_data['features'])} cables")
     return nodes, conns
@@ -93,7 +95,7 @@ def fetch_submarine_cables(nodes, conns):
 # ==========================================
 # 2. SHIPPING PORTS (World Port Index)
 # ==========================================
-def fetch_shipping_ports(nodes, conns):
+def fetch_shipping_ports(nodes: List[Dict[str, Any]], conns: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     print("\n[2/3] Fetching World Port Index (Shipping Hubs)...")
     
     # Remove old shipping data
@@ -114,8 +116,8 @@ def fetch_shipping_ports(nodes, conns):
     
     reader = csv.DictReader(io.StringIO(response.text))
     
-    next_node_id = max([n['id'] for n in nodes], default=0) + 1
-    port_nodes = []
+    next_node_id: int = int(max([int(n.get('id', 0)) for n in nodes], default=0)) + 1
+    port_nodes: List[int] = []
     
     for row in reader:
         try:
@@ -140,16 +142,16 @@ def fetch_shipping_ports(nodes, conns):
                 }
             })
             port_nodes.append(next_node_id)
-            next_node_id += 1
+            next_node_id = next_node_id + 1 # pyre-ignore
         except (ValueError, KeyError):
             continue
     
     print(f"  ✅ Loaded {len(port_nodes)} global shipping ports")
     return nodes, conns
 
-def fetch_major_ports_fallback(nodes, conns):
+def fetch_major_ports_fallback(nodes: List[Dict[str, Any]], conns: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Fallback: curated list of the world's 50+ busiest ports"""
-    next_node_id = max([n['id'] for n in nodes], default=0) + 1
+    next_node_id: int = int(max([int(n.get('id', 0)) for n in nodes], default=0)) + 1
     
     major_ports = [
         {"name": "Port of Shanghai", "coordinates": [121.5, 31.22], "country": "China", "volume": "47M TEU"},
@@ -210,7 +212,7 @@ def fetch_major_ports_fallback(nodes, conns):
             "properties": {"country": p["country"], "annual_volume": p.get("volume", "N/A")}
         })
         port_node_ids.append((next_node_id, p["coordinates"]))
-        next_node_id += 1
+        next_node_id = next_node_id + 1 # pyre-ignore
     
     # Generate major shipping lanes between nearby regions
     lanes = [
@@ -229,7 +231,7 @@ def fetch_major_ports_fallback(nodes, conns):
                 "intensity": 0.9,
                 "properties": {"route": f"Major shipping lane"}
             })
-            next_conn_id += 1
+            next_conn_id = next_conn_id + 1 # pyre-ignore
     
     print(f"  ✅ Loaded {len(port_node_ids)} major global shipping ports + {len(lanes)} shipping lanes")
     return nodes, conns
@@ -237,7 +239,7 @@ def fetch_major_ports_fallback(nodes, conns):
 # ==========================================
 # 3. POWER PLANTS (World Resources Institute)
 # ==========================================
-def fetch_power_plants(nodes, conns):
+def fetch_power_plants(nodes: List[Dict[str, Any]], conns: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     print("\n[3/3] Fetching Global Power Plant Database (WRI)...")
     
     nodes = [n for n in nodes if n.get('system') != 'energy']
@@ -295,7 +297,7 @@ def fetch_power_plants(nodes, conns):
             "coordinates": p["coordinates"],
             "properties": {"fuel_type": p["type"], **props}
         })
-        next_node_id += 1
+        next_node_id = next_node_id + 1 # pyre-ignore
 
     # Major oil pipelines as connections
     oil_flow_pairs = [
@@ -309,7 +311,7 @@ def fetch_power_plants(nodes, conns):
 # ==========================================
 # 4. MINERALS (Critical mines)
 # ==========================================
-def fetch_minerals(nodes, conns):
+def fetch_minerals(nodes: List[Dict[str, Any]], conns: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     print("\n[4/4] Loading Critical Mineral Mine Locations...")
     
     nodes = [n for n in nodes if n.get('system') != 'minerals']
@@ -345,11 +347,11 @@ def fetch_minerals(nodes, conns):
         {"name": "Pueblo Viejo Gold (Barrick)", "coordinates": [-70.08, 19.08], "mineral": "Gold", "country": "Dominican Republic", "rank": "Major"},
     ]
     
-    next_node_id = max([n['id'] for n in nodes], default=0) + 1
-    mine_nodes = {}
+    next_node_id: int = int(max([int(n.get('id', 0)) for n in nodes], default=0)) + 1
+    mine_nodes: Dict[str, int] = {}
     
     for m in critical_mines:
-        mine_nodes[m['name']] = next_node_id
+        mine_nodes[str(m['name'])] = next_node_id
         props = {k: v for k, v in m.items() if k not in ['name', 'coordinates']}
         nodes.append({
             "id": next_node_id,
@@ -359,7 +361,7 @@ def fetch_minerals(nodes, conns):
             "coordinates": m["coordinates"],
             "properties": props
         })
-        next_node_id += 1
+        next_node_id = next_node_id + 1 # pyre-ignore
 
     # Key supply flows (mines to manufacturing hubs)
     manufacturing_hubs = [
@@ -370,9 +372,9 @@ def fetch_minerals(nodes, conns):
     ]
     
     for hub in manufacturing_hubs:
-        mine_nodes[hub['name']] = next_node_id
+        mine_nodes[str(hub['name'])] = next_node_id
         nodes.append({"id": next_node_id, **hub})
-        next_node_id += 1
+        next_node_id = next_node_id + 1 # pyre-ignore
     
     # Critical mineral supply flows
     supply_flows = [
@@ -398,7 +400,7 @@ def fetch_minerals(nodes, conns):
                 "intensity": 0.9,
                 "properties": {"material": material}
             })
-            next_conn_id += 1
+            next_conn_id = next_conn_id + 1 # pyre-ignore
 
     print(f"  ✅ Loaded {len(critical_mines)} critical mineral mines + {len(manufacturing_hubs)} manufacturing hubs + {len(supply_flows)} supply flows")
     return nodes, conns

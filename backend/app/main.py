@@ -9,10 +9,47 @@ import time
 from dotenv import load_dotenv  # type: ignore[import-not-found]
 from typing import Optional
 from datetime import datetime, timedelta
+import subprocess
+import sys
+from apscheduler.schedulers.background import BackgroundScheduler # type: ignore
+from contextlib import asynccontextmanager
 
 load_dotenv()
 
-app = FastAPI(title="Invisible Systems Map API", version="2.0.0")
+# ── GDELT in-memory cache ────────────────────────────────────
+_gdelt_cache: dict = {"data": [], "fetched_at": None}
+
+# Background job to run the pipeline
+def run_conflict_pipeline():
+    print(f"[{datetime.utcnow()}] Running background conflict data ingestion pipeline...")
+    script_path = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'fetch_conflicts.py')
+    try:
+        subprocess.run([sys.executable, script_path], check=True)
+        # Reload cache globally
+        global conflicts_data
+        conflicts_data = load_json('conflicts.json')
+        _gdelt_cache["fetched_at"] = datetime.utcnow()
+        print("✅ Background pipeline completed successfully.")
+    except Exception as e:
+        print(f"❌ Background pipeline failed: {e}")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: start the background scheduler
+    scheduler = BackgroundScheduler()
+    # Run every 30 minutes
+    scheduler.add_job(run_conflict_pipeline, 'interval', minutes=30)
+    scheduler.start()
+    
+    # Run once at startup
+    run_conflict_pipeline()
+    
+    yield
+    # Shutdown: cleanly shut down the scheduler
+    scheduler.shutdown()
+
+app = FastAPI(title="Invisible Systems Map API", version="2.0.0", lifespan=lifespan)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,9 +60,10 @@ app.add_middleware(
 )
 
 # ── Data paths ──────────────────────────────────────────────
-# main.py is at backend/app/ → go up 2 dirs to project root → datasets/
+# main.py is at backend/app/ → go up 1 dir to backend/ → datasets/datasets/
+# JSON files live inside the nested datasets/datasets/ structure
 DATASETS_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets')
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets', 'datasets')
 )
 
 def load_json(filename):
@@ -44,8 +82,6 @@ conflicts_data = load_json('conflicts.json')
 print(f"✅ Loaded: {len(nodes_data)} nodes, {len(connections_data)} connections, {len(conflicts_data)} conflict events")
 print(f"   DATASETS_DIR = {DATASETS_DIR}")
 
-# ── GDELT in-memory cache ────────────────────────────────────
-_gdelt_cache: dict = {"data": [], "fetched_at": None}
 GDELT_CACHE_TTL_SECONDS = 3600  # 1 hour
 
 EVENT_TYPE_MAP = {

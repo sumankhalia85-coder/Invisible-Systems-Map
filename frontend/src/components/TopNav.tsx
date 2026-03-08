@@ -18,7 +18,7 @@ const MODES = [
 
 export default function TopNav({ activeMode, onModeChange }: TopNavProps) {
   return (
-    <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10 glass-panel rounded-2xl px-2 py-1.5 flex items-center gap-1">
+    <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10 glass-panel rounded-2xl px-2 py-1.5 flex items-center gap-1 max-w-[calc(100vw-2rem)] overflow-x-auto scrollbar-hide">
       {MODES.map(m => {
         const Icon = m.icon;
         const isActive = activeMode === m.id;

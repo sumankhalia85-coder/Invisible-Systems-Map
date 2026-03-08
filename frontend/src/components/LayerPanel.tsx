@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Ship, Wifi, Zap, Mountain, Wheat, Siren, ChevronDown, Info, X, Flame, Cpu, Plane } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Ship, Wifi, Zap, Mountain, Wheat, Siren, ChevronDown, ChevronUp, Info, X, Flame, Cpu, Plane } from 'lucide-react';
 
 interface LayerPanelProps {
   activeSystems: Record<string, boolean>;
@@ -90,138 +90,177 @@ const SYSTEM_COLORS = SYSTEM_CONFIG.map(s => ({ id: s.id, color: s.color, name: 
 
 export default function LayerPanel({ activeSystems, toggleSystem, liveConflictCount }: LayerPanelProps) {
   const [tooltip, setTooltip] = useState<string | null>(null);
+  // Mobile: panel starts collapsed; Desktop: always expanded
+  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState(true);
+
+  useEffect(() => {
+    const check = () => {
+      const mobile = window.innerWidth < 640;
+      setIsMobile(mobile);
+      if (mobile) setExpanded(false); // collapse on mobile by default
+      else setExpanded(true);         // always open on desktop
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const toggleExpand = () => {
+    if (isMobile) setExpanded(prev => !prev);
+  };
 
   return (
-    <div className="absolute top-20 sm:top-5 left-4 sm:left-5 z-10 w-[calc(100vw-2rem)] sm:w-64 glass-panel rounded-2xl overflow-visible slide-in-left select-none flex flex-col max-h-[45vh] sm:max-h-none">
+    <div className={`absolute top-20 sm:top-5 left-2 sm:left-5 z-10 glass-panel rounded-2xl overflow-visible slide-in-left select-none flex flex-col
+      ${isMobile ? 'w-[56px]' : 'w-64'}
+      ${expanded && isMobile ? '!w-[calc(100vw-1rem)] max-h-[55vh]' : ''}
+      transition-all duration-300`}
+    >
 
-      {/* Header */}
-      <div className="glass-panel-header px-4 py-3 flex items-center gap-2.5">
+      {/* Header — tappable on mobile to expand/collapse */}
+      <button
+        onClick={toggleExpand}
+        className="glass-panel-header px-3 sm:px-4 py-3 flex items-center gap-2.5 w-full text-left"
+      >
         <div className="w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0"
              style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.5), rgba(34,211,238,0.3))' }}>
           <Zap size={13} className="text-white" />
         </div>
-        <div className="flex-1 min-w-0">
-          <h2 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
-              className="text-xs font-bold text-white tracking-widest uppercase leading-none">
-            Invisible Systems
-          </h2>
-          <p className="text-[9px] text-slate-500 tracking-widest uppercase mt-0.5">Intelligence Platform</p>
-        </div>
-        <ChevronDown size={12} className="text-slate-600" />
-      </div>
+        {(expanded || !isMobile) && (
+          <div className="flex-1 min-w-0">
+            <h2 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
+                className="text-xs font-bold text-white tracking-widest uppercase leading-none">
+              Invisible Systems
+            </h2>
+            <p className="text-[9px] text-slate-500 tracking-widest uppercase mt-0.5">Intelligence Platform</p>
+          </div>
+        )}
+        {isMobile && (
+          <div className="ml-auto flex-shrink-0">
+            {expanded ? <ChevronUp size={12} className="text-slate-400" /> : <ChevronDown size={12} className="text-slate-400" />}
+          </div>
+        )}
+        {!isMobile && <ChevronDown size={12} className="text-slate-600" />}
+      </button>
 
-      <div className="px-2 py-1 border-b border-white/5">
-        <p className="text-[9px] text-slate-600 uppercase tracking-widest px-1">Active Layers</p>
-      </div>
+      {/* Collapsible body */}
+      {expanded && (
+        <>
+          <div className="px-2 py-1 border-b border-white/5">
+            <p className="text-[9px] text-slate-600 uppercase tracking-widest px-1">Active Layers</p>
+          </div>
 
-      {/* Layer toggles */}
-      <div className="p-1.5 space-y-0.5 overflow-y-auto custom-scrollbar flex-1 sm:max-h-[55vh]">
-        {SYSTEM_CONFIG.map((sys) => {
-          const Icon = sys.icon;
-          const isActive = activeSystems[sys.id];
+          {/* Layer toggles */}
+          <div className="p-1.5 space-y-0.5 overflow-y-auto custom-scrollbar flex-1 max-h-[35vh] sm:max-h-[55vh]">
+            {SYSTEM_CONFIG.map((sys) => {
+              const Icon = sys.icon;
+              const isActive = activeSystems[sys.id];
 
-          return (
-            <div key={sys.id} className="relative">
-              <div className="flex items-center gap-0.5">
-                <button
-                  onClick={() => toggleSystem(sys.id)}
-                  className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-xl transition-all duration-200"
-                  style={{
-                    background: isActive ? sys.accent : 'transparent',
-                    border: isActive ? `1px solid ${sys.color}25` : '1px solid transparent',
-                  }}
-                >
-                  <div className="w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0"
-                       style={{
-                         background: isActive ? `${sys.color}28` : 'rgba(51,65,85,0.4)',
-                         boxShadow: isActive ? `0 0 8px ${sys.color}25` : 'none',
-                       }}>
-                    <Icon size={11} style={{ color: isActive ? sys.color : '#475569' }} />
-                  </div>
-                  <div className="flex-1 min-w-0 text-left">
-                    <span className="text-[11px] font-medium transition-colors duration-200 block leading-tight"
-                          style={{ color: isActive ? '#e2e8f0' : '#64748b' }}>
-                      {sys.name}
-                    </span>
-                    {sys.isLive && isActive && (
-                      <span className="text-[9px] text-emerald-400 flex items-center gap-1 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
-                        {liveConflictCount ? `${liveConflictCount} events` : 'Live feed'}
-                      </span>
-                    )}
-                  </div>
-                  <div className="w-8 h-4 rounded-full relative flex-shrink-0 transition-all duration-300"
-                       style={{ background: isActive ? sys.color : 'rgba(51,65,85,0.8)' }}>
-                    <div className="absolute top-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-all duration-300"
-                         style={{ left: isActive ? '17px' : '2px' }} />
-                  </div>
-                </button>
+              return (
+                <div key={sys.id} className="relative">
+                  <div className="flex items-center gap-0.5">
+                    <button
+                      onClick={() => toggleSystem(sys.id)}
+                      className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-xl transition-all duration-200"
+                      style={{
+                        background: isActive ? sys.accent : 'transparent',
+                        border: isActive ? `1px solid ${sys.color}25` : '1px solid transparent',
+                      }}
+                    >
+                      <div className="w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0"
+                           style={{
+                             background: isActive ? `${sys.color}28` : 'rgba(51,65,85,0.4)',
+                             boxShadow: isActive ? `0 0 8px ${sys.color}25` : 'none',
+                           }}>
+                        <Icon size={11} style={{ color: isActive ? sys.color : '#475569' }} />
+                      </div>
+                      <div className="flex-1 min-w-0 text-left">
+                        <span className="text-[11px] font-medium transition-colors duration-200 block leading-tight"
+                              style={{ color: isActive ? '#e2e8f0' : '#64748b' }}>
+                          {sys.name}
+                        </span>
+                        {sys.isLive && isActive && (
+                          <span className="text-[9px] text-emerald-400 flex items-center gap-1 mt-0.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+                            {liveConflictCount ? `${liveConflictCount} events` : 'Live feed'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="w-8 h-4 rounded-full relative flex-shrink-0 transition-all duration-300"
+                           style={{ background: isActive ? sys.color : 'rgba(51,65,85,0.8)' }}>
+                        <div className="absolute top-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-all duration-300"
+                             style={{ left: isActive ? '17px' : '2px' }} />
+                      </div>
+                    </button>
 
-                <button
-                  onClick={() => setTooltip(tooltip === sys.id ? null : sys.id)}
-                  className="w-6 h-6 flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-300 transition-colors"
-                >
-                  <Info size={11} />
-                </button>
-              </div>
-
-              {/* Info tooltip */}
-              {tooltip === sys.id && (
-                <div className="absolute left-full top-0 ml-2 z-50 w-64 glass-panel rounded-xl p-3 slide-in-right"
-                     style={{ border: `1px solid ${sys.color}30` }}>
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 style={{ color: sys.color }} className="text-xs font-bold leading-snug flex-1">
-                      {sys.info.title}
-                    </h4>
-                    <button onClick={() => setTooltip(null)} className="text-slate-600 hover:text-slate-300 ml-1">
-                      <X size={11} />
+                    <button
+                      onClick={() => setTooltip(tooltip === sys.id ? null : sys.id)}
+                      className="w-6 h-6 flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-300 transition-colors"
+                    >
+                      <Info size={11} />
                     </button>
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed mb-2">{sys.info.desc}</p>
-                  <div className="flex items-center gap-1 text-[9px] text-slate-600">
-                    <Info size={8} />
-                    <span>{sys.info.source}</span>
-                  </div>
+
+                  {/* Info tooltip */}
+                  {tooltip === sys.id && (
+                    <div className="absolute left-full top-0 ml-2 z-50 w-64 glass-panel rounded-xl p-3 slide-in-right"
+                         style={{ border: `1px solid ${sys.color}30` }}>
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 style={{ color: sys.color }} className="text-xs font-bold leading-snug flex-1">
+                          {sys.info.title}
+                        </h4>
+                        <button onClick={() => setTooltip(null)} className="text-slate-600 hover:text-slate-300 ml-1">
+                          <X size={11} />
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed mb-2">{sys.info.desc}</p>
+                      <div className="flex items-center gap-1 text-[9px] text-slate-600">
+                        <Info size={8} />
+                        <span>{sys.info.source}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
 
-      {/* Layer color legend */}
-      <div className="px-3 py-2 border-t border-white/5">
-        <p className="text-[9px] text-slate-600 uppercase tracking-widest mb-2">Layer Colors</p>
-        <div className="grid grid-cols-3 gap-x-2 gap-y-1">
-          {SYSTEM_COLORS.map(s => (
-            <div key={s.id} className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full flex-shrink-0"
-                   style={{ background: s.color, boxShadow: `0 0 4px ${s.color}80` }} />
-              <span className="text-[9px] text-slate-500 truncate">{s.name}</span>
+          {/* Layer color legend */}
+          <div className="px-3 py-2 border-t border-white/5">
+            <p className="text-[9px] text-slate-600 uppercase tracking-widest mb-2">Layer Colors</p>
+            <div className="grid grid-cols-3 gap-x-2 gap-y-1">
+              {SYSTEM_COLORS.map(s => (
+                <div key={s.id} className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full flex-shrink-0"
+                       style={{ background: s.color, boxShadow: `0 0 4px ${s.color}80` }} />
+                  <span className="text-[9px] text-slate-500 truncate">{s.name}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* Conflict severity legend */}
-      <div className="px-3 py-2 border-t border-white/5">
-        <p className="text-[9px] text-slate-600 uppercase tracking-widest mb-1.5">Conflict Severity</p>
-        <div className="flex items-center gap-2">
-          {[
-            { label: 'Low', color: '#6B7280', size: 'w-1.5 h-1.5' },
-            { label: 'Med', color: '#F59E0B', size: 'w-2 h-2' },
-            { label: 'High', color: '#EF4444', size: 'w-2.5 h-2.5' },
-            { label: 'Crit', color: '#DC2626', size: 'w-3 h-3' },
-          ].map(s => (
-            <div key={s.label} className="flex items-center gap-1">
-              <div className={`${s.size} rounded-full`}
-                   style={{ background: s.color, boxShadow: `0 0 4px ${s.color}80` }} />
-              <span className="text-[9px] text-slate-500">{s.label}</span>
+          {/* Conflict severity legend */}
+          <div className="px-3 py-2 border-t border-white/5">
+            <p className="text-[9px] text-slate-600 uppercase tracking-widest mb-1.5">Conflict Severity</p>
+            <div className="flex items-center gap-2">
+              {[
+                { label: 'Low', color: '#6B7280', size: 'w-1.5 h-1.5' },
+                { label: 'Med', color: '#F59E0B', size: 'w-2 h-2' },
+                { label: 'High', color: '#EF4444', size: 'w-2.5 h-2.5' },
+                { label: 'Crit', color: '#DC2626', size: 'w-3 h-3' },
+              ].map(s => (
+                <div key={s.label} className="flex items-center gap-1">
+                  <div className={`${s.size} rounded-full`}
+                       style={{ background: s.color, boxShadow: `0 0 4px ${s.color}80` }} />
+                  <span className="text-[9px] text-slate-500">{s.label}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
 
     </div>
   );
 }
+
