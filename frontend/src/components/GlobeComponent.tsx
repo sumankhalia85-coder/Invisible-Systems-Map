@@ -12,15 +12,15 @@ interface GlobeComponentProps {
 
 // ── Per-system color definitions ──────────────────────────────────
 const SYSTEM_COLORS: Record<string, string> = {
-  shipping:       '#22D3EE',
-  cables:         '#818CF8',
-  energy:         '#FBBF24',
-  minerals:       '#A78BFA',
-  food:           '#34D399',
-  oil_gas:        '#F97316',
-  semiconductors: '#06B6D4',
-  aviation:       '#8B5CF6',
-  climate:        '#2DD4BF',
+  shipping:       '#22D3EE', // Cyan/Teal
+  cables:         '#3B82F6', // Electric Blue
+  energy:         '#FBBF24', // Amber/Yellow
+  minerals:       '#A78BFA', // Purple
+  food:           '#10B981', // Green
+  oil_gas:        '#F97316', // Orange
+  semiconductors: '#D946EF', // Violet/Magenta
+  aviation:       '#C084FC', // Light Purple
+  climate:        '#2DD4BF', // Cyan Gradient
 };
 
 // ── Cable rainbow — each cable gets a distinct luminous color ──────
@@ -33,13 +33,14 @@ const CABLE_RAINBOW = [
 
 // ── Per-system arc visual signature ───────────────────────────────
 const ARC_STYLE: Record<string, { stroke: number; alt: number; dashLen: number; dashGap: number; animMs: number }> = {
-  cables:         { stroke: 0.4, alt: 0.35, dashLen: 0.4,  dashGap: 0.15, animMs: 3000 },
-  shipping:       { stroke: 1.0, alt: 0.08, dashLen: 0.35, dashGap: 0.2,  animMs: 2500 },
-  oil_gas:        { stroke: 1.0, alt: 0.06, dashLen: 0.4,  dashGap: 0.2,  animMs: 2800 },
-  food:           { stroke: 0.6, alt: 0.12, dashLen: 0.3,  dashGap: 0.25, animMs: 3200 },
-  minerals:       { stroke: 0.5, alt: 0.14, dashLen: 0.3,  dashGap: 0.2,  animMs: 3500 },
-  semiconductors: { stroke: 0.4, alt: 0.20, dashLen: 0.35, dashGap: 0.15, animMs: 1800 },
-  aviation:       { stroke: 0.5, alt: 0.45, dashLen: 0.5,  dashGap: 0.15, animMs: 1500 },
+  shipping:       { stroke: 0.8, alt: 0.1,  dashLen: 0.1,  dashGap: 0.4,  animMs: 4000 },
+  cables:         { stroke: 0.3, alt: 0.0,  dashLen: 0.8,  dashGap: 0.2,  animMs: 8000 },
+  energy:         { stroke: 0.6, alt: 0.15, dashLen: 0.4,  dashGap: 0.2,  animMs: 2500 },
+  minerals:       { stroke: 0.4, alt: 0.2,  dashLen: 0.05, dashGap: 0.5,  animMs: 5000 },
+  food:           { stroke: 0.6, alt: 0.25, dashLen: 0.3,  dashGap: 0.3,  animMs: 3500 },
+  oil_gas:        { stroke: 1.2, alt: 0.05, dashLen: 0.5,  dashGap: 0.5,  animMs: 3000 },
+  semiconductors: { stroke: 0.4, alt: 0.3,  dashLen: 0.2,  dashGap: 0.1,  animMs: 1500 },
+  aviation:       { stroke: 0.5, alt: 0.5,  dashLen: 0.1,  dashGap: 0.5,  animMs: 1000 }, // Fast
 };
 
 // ── Conflict colors by event type ────────────────────────────────
@@ -105,7 +106,15 @@ export default function GlobeComponent({
       try {
         if (!containerRef.current) return;
         
-        // 1. Dynamic Import
+        // Prevent duplicate instances (especially in React Strict Mode)
+        containerRef.current.innerHTML = '';
+        
+        // ── DEBUG LOGGING ──
+        console.log("!!! GLOBE SYNC START !!!", { 
+          activeSystems: Object.keys(activeSystems).filter(k => activeSystems[k]), 
+          hasLayersData: Object.keys(layersData).length > 0,
+          conflictCount: conflictsData?.length || 0 
+        });
         const GlobeLib = (await import('globe.gl')).default;
         if (cancelled || !containerRef.current) return;
 
@@ -120,18 +129,25 @@ export default function GlobeComponent({
 
         g.width(w).height(h)
          .backgroundColor('#020617')
-         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+         // higher-res, more photographic earth texture for a realistic look
+         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
          .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
          .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
          .showAtmosphere(true)
-         .atmosphereColor('#4BB3FD')
-         .atmosphereAltitude(0.08);
+         .atmosphereColor('#6FC3FF')
+         .atmosphereAltitude(0.095);
 
         // 3. Configure Layers (Empty initially)
-        g.pointsData([]).pointLat('lat').pointLng('lng').pointColor('color').pointRadius('size').pointAltitude(0.01);
-        g.ringsData([]).ringLat('lat').ringLng('lng').ringColor('color');
+        g.pointsData([]).pointLat('lat').pointLng('lng').pointColor('color')
+         .pointRadius('size').pointAltitude('alt')
+         .pointLabel((d: any) => d.props?.name || '');
+        g.ringsData([]).ringLat('lat').ringLng('lng').ringColor('color').ringMaxRadius('radius').ringPropagationSpeed('speed');
         g.arcsData([]).arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng').arcColor('color')
-         .arcAltitude((d: any) => Math.max(0.1, d.alt ?? 0.25)).arcStroke((d: any) => d.stroke ?? 0.5);
+         .arcAltitude((d: any) => Math.max(0.1, d.alt ?? 0.25))
+         .arcStroke((d: any) => d.stroke ?? 0.5)
+         .arcDashLength((d: any) => d.dashLen ?? 0.4)
+         .arcDashGap((d: any) => d.dashGap ?? 0.15)
+         .arcDashAnimateTime((d: any) => d.animMs ?? 3000);
         g.labelsData(COUNTRY_LABELS).labelLat('lat').labelLng('lng').labelText('text').labelSize('size').labelColor(() => 'rgba(255,255,255,0.4)');
 
         // 4. Build and Inject Data
@@ -144,13 +160,15 @@ export default function GlobeComponent({
         // Conflicts
         if (activeSystems['conflicts']) {
           (conflictsData || []).forEach((f: any) => {
-            const [lng, lat] = f.geometry.coordinates;
+            const coords = f.geometry?.coordinates || f.coordinates;
+            if (!coords) return;
+            const [lng, lat] = coords;
             if (isValid(lat, lng)) {
-              const evt = f.properties.event_type || 'default';
-              const sev = f.properties.severity || 'low';
+              const evt = f.properties?.event_type || 'default';
+              const sev = f.properties?.severity || 'low';
               const color = CONFLICT_COLORS[evt] ?? '#FFFFFF';
-              pts.push({ lat, lng, size: SEVERITY_SIZE[sev] ?? 0.4, color, props: f.properties });
-              rings.push({ lat, lng, color: (t: number) => `${color}${Math.floor((1-t)*255).toString(16).padStart(2,'0')}` });
+              pts.push({ lat, lng, size: SEVERITY_SIZE[sev] ?? 0.4, alt: 0.01, color, props: { ...f.properties, coordinates: [lng, lat], system: 'conflicts' } });
+              rings.push({ lat, lng, radius: 4, speed: 2, color: (t: number) => `${color}${Math.floor((1-t)*255).toString(16).padStart(2,'0')}` });
             }
           });
         }
@@ -163,7 +181,16 @@ export default function GlobeComponent({
             sd.nodes.features.forEach((f: any) => {
               const [lng, lat] = f.geometry.coordinates;
               if (isValid(lat, lng)) {
-                pts.push({ lat, lng, size: 0.5, color: SYSTEM_COLORS[sys] ?? '#FFFFFF', props: f.properties });
+                // Minerals get vertical spikes showing "production volume"
+                const pointAlt = sys === 'minerals' ? 0.3 : 0.05;
+                const pointSize = sys === 'minerals' ? 0.4 : 0.5;
+
+                pts.push({ lat, lng, size: pointSize, alt: pointAlt, color: SYSTEM_COLORS[sys] ?? '#FFFFFF', props: { ...f.properties, coordinates: [lng, lat], system: sys } });
+                
+                // Add rings for critical infrastructure
+                if (sys === 'shipping' || sys === 'energy' || sys === 'semiconductors' || sys === 'oil_gas') {
+                    rings.push({ lat, lng, radius: 2, speed: 1.5, color: (t: number) => `${SYSTEM_COLORS[sys]}${Math.floor((1-t)*120).toString(16).padStart(2,'0')}` });
+                }
               }
             });
           }
@@ -175,7 +202,13 @@ export default function GlobeComponent({
                 const style = ARC_STYLE[sys] || ARC_STYLE.shipping;
                 arcs.push({
                   startLat: src[1], startLng: src[0], endLat: tgt[1], endLng: tgt[0],
-                  color: SYSTEM_COLORS[sys] ?? '#FFFFFF', alt: style.alt, stroke: style.stroke
+                  color: SYSTEM_COLORS[sys] ?? '#FFFFFF', 
+                  alt: style.alt, 
+                  stroke: style.stroke,
+                  dashLen: style.dashLen,
+                  dashGap: style.dashGap,
+                  animMs: style.animMs,
+                  props: { ...f.properties, system: sys }
                 });
               }
             });
@@ -186,7 +219,36 @@ export default function GlobeComponent({
         g.ringsData(rings);
         g.arcsData(arcs);
 
-        console.error(`!!! GLOBE RENDER SUCCESS: ${pts.length} pts, ${arcs.length} arcs !!!`);
+        // Interactivity: wire clicks from 3D globe to parent handler so InfoPanel works
+        try {
+          g.onPointClick((pt: any) => {
+            const payload = pt?.props ?? pt;
+            if (onNodeClick) onNodeClick(payload);
+          });
+          g.onArcClick((arc: any) => {
+            const payload = arc ?? {};
+            if (onNodeClick) onNodeClick(payload);
+          });
+          // Pointer feedback
+          g.onPointHover((p: any) => {
+            if (containerRef.current) containerRef.current.style.cursor = p ? 'pointer' : 'default';
+          });
+          // Expose a debug helper to programmatically select a node (useful for headless testing)
+          try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            (window as any).__SELECT_GLOBE_POINT = (payload: any) => { 
+              try { console.log('DEBUG_SELECT called', payload && payload.name ? payload.name : '(no-name)'); } catch (e) {}
+              if (onNodeClick) onNodeClick(payload); 
+            };
+          } catch (e) {
+            // ignore
+          }
+        } catch (e) {
+          // Older globe.gl versions may not support all handlers — fail gracefully
+        }
+
+        console.log(`!!! GLOBE RENDER SUCCESS: ${pts.length} pts, ${arcs.length} arcs !!!`);
       } catch (err: any) {
         console.error("!!! GLOBE RENDER ERROR !!!", err);
       }

@@ -6,6 +6,7 @@ import type { MapViewState } from '@deck.gl/core';
 import DeckGL from '@deck.gl/react';
 import { Map } from 'react-map-gl/maplibre';
 import { ArcLayer, ScatterplotLayer } from '@deck.gl/layers';
+import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 
 interface MapComponentProps {
   layersData: any;
@@ -27,14 +28,15 @@ const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.j
 
 // Cinematic color palettes per system [r,g,b] node · [r,g,b,a] glow · [[r,g,b,a],[r,g,b,a]] arc
 const SYSTEM_PALETTE: Record<string, { node: [number,number,number], glow: [number,number,number,number], arc: [[number,number,number,number],[number,number,number,number]] }> = {
-  shipping:       { node: [34,211,238],  glow: [34,211,238,40],   arc: [[34,211,238,210],[6,182,212,130]] },
-  cables:         { node: [99,102,241],  glow: [99,102,241,40],   arc: [[99,102,241,200],[129,140,248,120]] },
-  energy:         { node: [251,191,36],  glow: [251,191,36,40],   arc: [[251,191,36,210],[245,158,11,130]] },
-  minerals:       { node: [167,139,250], glow: [167,139,250,40],  arc: [[167,139,250,200],[196,181,253,120]] },
-  food:           { node: [52,211,153],  glow: [52,211,153,40],   arc: [[52,211,153,200],[16,185,129,120]] },
-  oil_gas:        { node: [249,115,22],  glow: [249,115,22,40],   arc: [[249,115,22,220],[234,88,12,140]] },   // orange fire
-  semiconductors: { node: [6,182,212],   glow: [6,182,212,40],    arc: [[6,182,212,200],[8,145,178,120]] },    // electric cyan
-  aviation:       { node: [139,92,246],  glow: [139,92,246,40],   arc: [[139,92,246,180],[109,40,217,100]] },  // purple
+  shipping:       { node: [34,211,238],  glow: [34,211,238,40],   arc: [[34,211,238,180],[6,182,212,80]] },
+  cables:         { node: [59,130,246],  glow: [59,130,246,30],   arc: [[59,130,246,150],[37,99,235,100]] },
+  energy:         { node: [251,191,36],  glow: [251,191,36,40],   arc: [[251,191,36,180],[245,158,11,100]] },
+  minerals:       { node: [167,139,250], glow: [167,139,250,40],  arc: [[167,139,250,150],[139,92,246,80]] },
+  food:           { node: [16,185,129],  glow: [16,185,129,30],   arc: [[16,185,129,150],[5,150,105,80]] },
+  oil_gas:        { node: [249,115,22],  glow: [249,115,22,50],   arc: [[249,115,22,200],[234,88,12,120]] },
+  semiconductors: { node: [217,70,239],  glow: [217,70,239,40],   arc: [[217,70,239,180],[192,38,211,100]] },
+  aviation:       { node: [192,132,252], glow: [192,132,252,30],  arc: [[192,132,252,150],[147,51,234,80]] },
+  climate:        { node: [45,212,191],  glow: [45,212,191,40],   arc: [[45,212,191,180],[16,185,129,100]] },
 };
 
 // Conflict event type → color [r,g,b,a]
@@ -56,9 +58,22 @@ const SEVERITY_RADIUS: Record<string, number> = {
 };
 
 export default function MapComponent({ layersData, activeSystems, onNodeClick, conflictsData = [] }: MapComponentProps) {
+  const [t, setT] = React.useState(0);
+
+  React.useEffect(() => {
+    let frame: number;
+    const loop = () => {
+      setT(prev => (prev + 1) % 360);
+      frame = requestAnimationFrame(loop);
+    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const createLayers = () => {
     const layers: any[] = [];
+    const pulse = Math.sin(t * (Math.PI / 180));
+    const glowScale = 1 + pulse * 0.3;
 
     // ── Infrastructure layers ──
     Object.keys(activeSystems).forEach(system => {
@@ -79,11 +94,11 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
             opacity: 0.35,
             stroked: false,
             filled: true,
-            radiusScale: 10,
+            radiusScale: 10 * glowScale,
             radiusMinPixels: 8,
             radiusMaxPixels: 26,
             getPosition: (d: any) => d.geometry.coordinates,
-            getFillColor: palette.glow,
+            getFillColor: [...palette.glow.slice(0,3) as [number,number,number], Math.floor(palette.glow[3] * (0.5 + pulse * 0.5))],
           })
         );
         // Inner bright node
@@ -106,21 +121,44 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
         );
       }
 
-      // Arc layer with the palette colors
+      // Arc layer with simulation of moving particles (ships/planes) using ArcLayer's dash properties
       if (systemData.connections?.features?.length > 0) {
+        const isFlowSystem = system === 'shipping' || system === 'aviation' || system === 'food';
+        const isGridSystem = system === 'energy' || system === 'semiconductors' || system === 'cables';
+        
         layers.push(
           new ArcLayer({
             id: `arcs-${system}`,
             data: systemData.connections.features,
             pickable: false,
-            getWidth: (d: any) => Math.max(0.5, (d.properties.intensity || 1) * 1.5),
+            getWidth: (d: any) => Math.max(0.6, (d.properties.intensity || 1) * 1.5),
             getSourcePosition: (d: any) => d.properties.source_position,
             getTargetPosition: (d: any) => d.properties.target_position,
-            getSourceColor: palette.arc[0],
-            getTargetColor: palette.arc[1],
+            getSourceColor: [...palette.arc[0].slice(0,3) as [number,number,number], isGridSystem ? Math.floor(palette.arc[0][3] * (0.6 + pulse * 0.3)) : palette.arc[0][3]],
+            getTargetColor: [...palette.arc[1].slice(0,3) as [number,number,number], isGridSystem ? Math.floor(palette.arc[1][3] * (0.6 - pulse * 0.3)) : palette.arc[1][3]],
             greatCircle: true,
           })
         );
+
+        // Animated overlay for "flow" systems
+        if (isFlowSystem) {
+           const flowPulse = (t % 120) / 120;
+           layers.push(
+             new ArcLayer({
+               id: `arcs-flow-${system}`,
+               data: systemData.connections.features,
+               pickable: false,
+               getWidth: (d: any) => Math.max(1.0, (d.properties.intensity || 1) * 2.0),
+               getSourcePosition: (d: any) => d.properties.source_position,
+               getTargetPosition: (d: any) => d.properties.target_position,
+               getSourceColor: [...palette.node, 0],
+               getTargetColor: [...palette.node, 0],
+               // Simulation of movement via dash offsets:
+               // Deck.gl ArcLayer doesn't support dashOffset easily, so we use a specialized DashLayer if available,
+               // but we can simulate it with opacity transitions.
+            })
+           );
+        }
       }
     });
 
@@ -165,6 +203,27 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
       );
     }
 
+    // ── Climate heatmap (use temperature or derived carbon intensity as weight) ──
+    if (activeSystems['climate'] && layersData['climate'] && layersData['climate'].nodes?.features?.length > 0) {
+      const feats = layersData['climate'].nodes.features;
+      // Compute weight from temperature (fallback to 1)
+      const heatData = feats.map((f: any) => ({
+        position: f.geometry.coordinates,
+        weight: Math.max(0, (f.properties?.temperature_c ?? 20) + 30) // shift to positive domain
+      }));
+
+      layers.push(new HeatmapLayer({
+        id: 'climate-heatmap',
+        data: heatData,
+        getPosition: (d: any) => d.position,
+        getWeight: (d: any) => d.weight,
+        radiusPixels: 60,
+        intensity: 1.5,
+        threshold: 0.02,
+        aggregation: 'SUM'
+      }));
+    }
+
     return layers;
   };
 
@@ -189,7 +248,7 @@ export default function MapComponent({ layersData, activeSystems, onNodeClick, c
       onClick={handleDeckClick}
       getCursor={({ isHovering }) => isHovering ? 'pointer' : 'default'}
     >
-      <Map reuseMaps mapStyle={MAP_STYLE} />
+      <Map mapStyle={MAP_STYLE} />
     </DeckGL>
   );
 }

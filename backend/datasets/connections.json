@@ -1,0 +1,903 @@
+[
+  {
+    "id": 62,
+    "source_node_id": 1,
+    "target_node_id": 13,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Shanghai",
+      "to_name": "Port of Los Angeles",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 63,
+    "source_node_id": 2,
+    "target_node_id": 8,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Singapore",
+      "to_name": "Port of Rotterdam",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 64,
+    "source_node_id": 8,
+    "target_node_id": 20,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Rotterdam",
+      "to_name": "Port of New York",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 65,
+    "source_node_id": 2,
+    "target_node_id": 7,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Singapore",
+      "to_name": "Port of Hong Kong",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 66,
+    "source_node_id": 6,
+    "target_node_id": 13,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Busan",
+      "to_name": "Port of Los Angeles",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 67,
+    "source_node_id": 39,
+    "target_node_id": 8,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Santos",
+      "to_name": "Port of Rotterdam",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 68,
+    "source_node_id": 43,
+    "target_node_id": 8,
+    "system": "shipping",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Port of Durban",
+      "to_name": "Port of Rotterdam",
+      "type": "shipping_lane"
+    }
+  },
+  {
+    "id": 2348,
+    "source_node_id": 2314,
+    "target_node_id": 2342,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Katanga Copper Belt (DRC)",
+      "to_name": "China Manufacturing Hub (Shenzhen)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2349,
+    "source_node_id": 2307,
+    "target_node_id": 2342,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Atacama Lithium (SQM/Albemarle)",
+      "to_name": "China Manufacturing Hub (Shenzhen)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2350,
+    "source_node_id": 2323,
+    "target_node_id": 2346,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Escondida Copper Mine",
+      "to_name": "Tesla Gigafactory Texas",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2351,
+    "source_node_id": 2317,
+    "target_node_id": 2343,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Bayan Obo REE Mine (China)",
+      "to_name": "South Korea Battery Hub (Ulsan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2352,
+    "source_node_id": 2329,
+    "target_node_id": 2345,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Norilsk Nickel (Russia)",
+      "to_name": "Germany Automotive Hub (Stuttgart)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2353,
+    "source_node_id": 2318,
+    "target_node_id": 2346,
+    "system": "minerals",
+    "properties": {
+      "intensity": 1.5,
+      "from_name": "Mountain Pass Mine (USA)",
+      "to_name": "Tesla Gigafactory Texas",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2374,
+    "source_node_id": 2354,
+    "target_node_id": 2361,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Ukraine Black Sea Port (Odesa)",
+      "to_name": "Egypt Grain Imports (Alexandria)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2375,
+    "source_node_id": 2355,
+    "target_node_id": 2365,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Russia Novorossiysk Grain",
+      "to_name": "Turkey Grain (Istanbul)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2376,
+    "source_node_id": 2356,
+    "target_node_id": 2361,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "US Gulf Grain (New Orleans)",
+      "to_name": "Egypt Grain Imports (Alexandria)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2377,
+    "source_node_id": 2357,
+    "target_node_id": 2362,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Brazil Soy Terminal (Santos)",
+      "to_name": "China Soy Imports (Tianjin)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2378,
+    "source_node_id": 2358,
+    "target_node_id": 2363,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Argentina Grain (Rosario)",
+      "to_name": "Indonesia Food Imports (Jakarta)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2379,
+    "source_node_id": 2359,
+    "target_node_id": 2363,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Australia Wheat (Fremantle)",
+      "to_name": "Indonesia Food Imports (Jakarta)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2380,
+    "source_node_id": 2356,
+    "target_node_id": 2366,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "US Gulf Grain (New Orleans)",
+      "to_name": "Japan Food Imports (Yokohama)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2381,
+    "source_node_id": 2357,
+    "target_node_id": 2366,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Brazil Soy Terminal (Santos)",
+      "to_name": "Japan Food Imports (Yokohama)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2382,
+    "source_node_id": 2369,
+    "target_node_id": 2362,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Palm Oil Hub (Kuala Lumpur)",
+      "to_name": "China Soy Imports (Tianjin)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2383,
+    "source_node_id": 2371,
+    "target_node_id": 2356,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Cocoa Hub (Abidjan)",
+      "to_name": "US Gulf Grain (New Orleans)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2384,
+    "source_node_id": 2355,
+    "target_node_id": 2361,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Russia Novorossiysk Grain",
+      "to_name": "Egypt Grain Imports (Alexandria)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2385,
+    "source_node_id": 2360,
+    "target_node_id": 2366,
+    "system": "food",
+    "properties": {
+      "intensity": 2.0,
+      "from_name": "Canada Grain (Thunder Bay)",
+      "to_name": "Japan Food Imports (Yokohama)",
+      "flow_type": "trade_route"
+    }
+  },
+  {
+    "id": 2386,
+    "source_node_id": 2382,
+    "target_node_id": 2388,
+    "system": "oil_gas",
+    "properties": {
+      "from_name": "Ras Laffan LNG (Qatar)",
+      "to_name": "South Hook LNG (UK)",
+      "flow_type": "lng_trade"
+    }
+  },
+  {
+    "id": 2387,
+    "source_node_id": 2382,
+    "target_node_id": 2389,
+    "system": "oil_gas",
+    "properties": {
+      "from_name": "Ras Laffan LNG (Qatar)",
+      "to_name": "Brunsbuttel LNG (Germany)",
+      "flow_type": "lng_trade"
+    }
+  },
+  {
+    "id": 2388,
+    "source_node_id": 2383,
+    "target_node_id": 2388,
+    "system": "oil_gas",
+    "properties": {
+      "from_name": "Sabine Pass LNG (USA)",
+      "to_name": "South Hook LNG (UK)",
+      "flow_type": "lng_trade"
+    }
+  },
+  {
+    "id": 2389,
+    "source_node_id": 2384,
+    "target_node_id": 2389,
+    "system": "oil_gas",
+    "properties": {
+      "from_name": "Corpus Christi LNG (USA)",
+      "to_name": "Brunsbuttel LNG (Germany)",
+      "flow_type": "lng_trade"
+    }
+  },
+  {
+    "id": 2390,
+    "source_node_id": 2385,
+    "target_node_id": 2386,
+    "system": "oil_gas",
+    "properties": {
+      "from_name": "Prelude FLNG (Australia)",
+      "to_name": "Tangguh LNG (Indonesia)",
+      "flow_type": "lng_trade"
+    }
+  },
+  {
+    "id": 2391,
+    "source_node_id": 2400,
+    "target_node_id": 2404,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "Spruce Pine Quartz Mine (NC, USA)",
+      "to_name": "Shin-Etsu Chemical (Japan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2392,
+    "source_node_id": 2404,
+    "target_node_id": 2406,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "Shin-Etsu Chemical (Japan)",
+      "to_name": "TSMC Fab 18 (3nm, Taiwan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2393,
+    "source_node_id": 2417,
+    "target_node_id": 2406,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "ASML HQ (Veldhoven, Netherlands)",
+      "to_name": "TSMC Fab 18 (3nm, Taiwan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2394,
+    "source_node_id": 2417,
+    "target_node_id": 2409,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "ASML HQ (Veldhoven, Netherlands)",
+      "to_name": "Samsung S3 Fab (Hwaseong)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2395,
+    "source_node_id": 2406,
+    "target_node_id": 2422,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "TSMC Fab 18 (3nm, Taiwan)",
+      "to_name": "ASE Group (Kaohsiung, Taiwan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2396,
+    "source_node_id": 2407,
+    "target_node_id": 2422,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "TSMC Fab — Hsinchu Science Park",
+      "to_name": "ASE Group (Kaohsiung, Taiwan)",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2397,
+    "source_node_id": 2409,
+    "target_node_id": 2424,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "Samsung S3 Fab (Hwaseong)",
+      "to_name": "Silicon Valley Cluster",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2398,
+    "source_node_id": 2408,
+    "target_node_id": 2424,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "TSMC Arizona Fab (Phoenix)",
+      "to_name": "Silicon Valley Cluster",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2399,
+    "source_node_id": 2415,
+    "target_node_id": 2424,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "SK Hynix Fab (Icheon)",
+      "to_name": "Silicon Valley Cluster",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2400,
+    "source_node_id": 2413,
+    "target_node_id": 2407,
+    "system": "semiconductors",
+    "properties": {
+      "from_name": "SMIC N+1 Fab (Shanghai)",
+      "to_name": "TSMC Fab — Hsinchu Science Park",
+      "flow_type": "supply_chain"
+    }
+  },
+  {
+    "id": 2401,
+    "source_node_id": 2427,
+    "target_node_id": 2438,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Hong Kong International (HKG)",
+      "to_name": "Los Angeles (LAX)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2402,
+    "source_node_id": 2429,
+    "target_node_id": 2430,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Shanghai Pudong (PVG)",
+      "to_name": "Anchorage (ANC)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2403,
+    "source_node_id": 2430,
+    "target_node_id": 2428,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Anchorage (ANC)",
+      "to_name": "Memphis International (MEM)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2404,
+    "source_node_id": 2431,
+    "target_node_id": 2438,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Incheon International (ICN)",
+      "to_name": "Los Angeles (LAX)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2405,
+    "source_node_id": 2432,
+    "target_node_id": 2433,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Dubai World Central (DWC)",
+      "to_name": "Frankfurt Airport (FRA)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2406,
+    "source_node_id": 2433,
+    "target_node_id": 2427,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Frankfurt Airport (FRA)",
+      "to_name": "Hong Kong International (HKG)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2407,
+    "source_node_id": 2436,
+    "target_node_id": 2432,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Singapore Changi (SIN)",
+      "to_name": "Dubai World Central (DWC)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2408,
+    "source_node_id": 2429,
+    "target_node_id": 2433,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Shanghai Pudong (PVG)",
+      "to_name": "Frankfurt Airport (FRA)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2409,
+    "source_node_id": 2427,
+    "target_node_id": 2439,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Hong Kong International (HKG)",
+      "to_name": "Amsterdam Schiphol (AMS)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2410,
+    "source_node_id": 2442,
+    "target_node_id": 2434,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Zhengzhou (CGO)",
+      "to_name": "Louisville (SDF)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2411,
+    "source_node_id": 2437,
+    "target_node_id": 2430,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Tokyo Narita (NRT)",
+      "to_name": "Anchorage (ANC)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2412,
+    "source_node_id": 2434,
+    "target_node_id": 2433,
+    "system": "aviation",
+    "properties": {
+      "from_name": "Louisville (SDF)",
+      "to_name": "Frankfurt Airport (FRA)",
+      "flow_type": "air_corridor",
+      "intensity": 2.0,
+      "route_type": "great_circle"
+    }
+  },
+  {
+    "id": 2413,
+    "source_node_id": 2459,
+    "target_node_id": 2448,
+    "system": "cables",
+    "properties": {
+      "cable_name": "Apollo",
+      "from_name": "Land's End Cornwall (UK)",
+      "to_name": "Hermosa Beach Submarine Cable Station",
+      "capacity_gbps": 320,
+      "route": "US-UK",
+      "intensity": 1.6
+    }
+  },
+  {
+    "id": 2414,
+    "source_node_id": 2460,
+    "target_node_id": 2449,
+    "system": "cables",
+    "properties": {
+      "cable_name": "AEConnect-1",
+      "from_name": "Bude Cable Station (Cornwall UK)",
+      "to_name": "Land's End (San Francisco) Cable Station",
+      "capacity_gbps": 140,
+      "route": "US-UK",
+      "intensity": 0.7
+    }
+  },
+  {
+    "id": 2415,
+    "source_node_id": 2462,
+    "target_node_id": 2448,
+    "system": "cables",
+    "properties": {
+      "cable_name": "FLAG Atlantic",
+      "from_name": "La Manche (France)",
+      "to_name": "Hermosa Beach Submarine Cable Station",
+      "capacity_gbps": 280,
+      "route": "France-US",
+      "intensity": 1.4
+    }
+  },
+  {
+    "id": 2416,
+    "source_node_id": 2464,
+    "target_node_id": 2454,
+    "system": "cables",
+    "properties": {
+      "cable_name": "Atlantis-2",
+      "from_name": "Sesimbra Cable Station (Portugal)",
+      "to_name": "Fortaleza Cable Station (Brazil)",
+      "capacity_gbps": 260,
+      "route": "Portugal-Brazil",
+      "intensity": 1.3
+    }
+  },
+  {
+    "id": 2417,
+    "source_node_id": 2451,
+    "target_node_id": 2475,
+    "system": "cables",
+    "properties": {
+      "cable_name": "FASTER",
+      "from_name": "Makaha Cable Station (Hawaii)",
+      "to_name": "Chikura Cable Station (Japan)",
+      "capacity_gbps": 960,
+      "route": "US-Japan",
+      "intensity": 3.0
+    }
+  },
+  {
+    "id": 2418,
+    "source_node_id": 2448,
+    "target_node_id": 2475,
+    "system": "cables",
+    "properties": {
+      "cable_name": "TPC-5",
+      "from_name": "Hermosa Beach Submarine Cable Station",
+      "to_name": "Chikura Cable Station (Japan)",
+      "capacity_gbps": 590,
+      "route": "US-Japan",
+      "intensity": 2.95
+    }
+  },
+  {
+    "id": 2419,
+    "source_node_id": 2450,
+    "target_node_id": 2473,
+    "system": "cables",
+    "properties": {
+      "cable_name": "PC-1",
+      "from_name": "Nedonna Beach Cable Station (Oregon)",
+      "to_name": "Changi Beach (Singapore)",
+      "capacity_gbps": 880,
+      "route": "US-Singapore",
+      "intensity": 3.0
+    }
+  },
+  {
+    "id": 2420,
+    "source_node_id": 2472,
+    "target_node_id": 2469,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEA-ME-WE 5",
+      "from_name": "Tuas Cable Station (Singapore)",
+      "to_name": "Fujairah Cable Station (UAE)",
+      "capacity_gbps": 500,
+      "route": "Singapore-UAE",
+      "intensity": 2.5
+    }
+  },
+  {
+    "id": 2421,
+    "source_node_id": 2469,
+    "target_node_id": 2465,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEA-ME-WE 5",
+      "from_name": "Fujairah Cable Station (UAE)",
+      "to_name": "Marseille Cable Station (France)",
+      "capacity_gbps": 480,
+      "route": "UAE-France",
+      "intensity": 2.4
+    }
+  },
+  {
+    "id": 2422,
+    "source_node_id": 2470,
+    "target_node_id": 2469,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEA-ME-WE 4",
+      "from_name": "Mumbai Cable Station (India)",
+      "to_name": "Fujairah Cable Station (UAE)",
+      "capacity_gbps": 320,
+      "route": "India-UAE",
+      "intensity": 1.6
+    }
+  },
+  {
+    "id": 2423,
+    "source_node_id": 2467,
+    "target_node_id": 2465,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEA-ME-WE 3",
+      "from_name": "Alexandria Cable Station (Egypt)",
+      "to_name": "Marseille Cable Station (France)",
+      "capacity_gbps": 300,
+      "route": "Egypt-France",
+      "intensity": 1.5
+    }
+  },
+  {
+    "id": 2424,
+    "source_node_id": 2474,
+    "target_node_id": 2475,
+    "system": "cables",
+    "properties": {
+      "cable_name": "APCN-2",
+      "from_name": "Cable Landing Station Hong Kong",
+      "to_name": "Chikura Cable Station (Japan)",
+      "capacity_gbps": 370,
+      "route": "HK-Japan",
+      "intensity": 1.85
+    }
+  },
+  {
+    "id": 2425,
+    "source_node_id": 2474,
+    "target_node_id": 2472,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SJC",
+      "from_name": "Cable Landing Station Hong Kong",
+      "to_name": "Tuas Cable Station (Singapore)",
+      "capacity_gbps": 290,
+      "route": "HK-Singapore",
+      "intensity": 1.45
+    }
+  },
+  {
+    "id": 2426,
+    "source_node_id": 2473,
+    "target_node_id": 2471,
+    "system": "cables",
+    "properties": {
+      "cable_name": "i2i",
+      "from_name": "Changi Beach (Singapore)",
+      "to_name": "Chennai Cable Station (India)",
+      "capacity_gbps": 200,
+      "route": "Singapore-India",
+      "intensity": 1.0
+    }
+  },
+  {
+    "id": 2427,
+    "source_node_id": 2481,
+    "target_node_id": 2479,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEACOM",
+      "from_name": "Mtunzini Landing (South Africa)",
+      "to_name": "Mombasa Landing Station (Kenya)",
+      "capacity_gbps": 190,
+      "route": "SA-Kenya",
+      "intensity": 0.95
+    }
+  },
+  {
+    "id": 2428,
+    "source_node_id": 2480,
+    "target_node_id": 2464,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SAT-3/WASC",
+      "from_name": "St. Helena Landing (Yzerfontein, SA)",
+      "to_name": "Sesimbra Cable Station (Portugal)",
+      "capacity_gbps": 380,
+      "route": "SA-Portugal",
+      "intensity": 1.9
+    }
+  },
+  {
+    "id": 2429,
+    "source_node_id": 2462,
+    "target_node_id": 2479,
+    "system": "cables",
+    "properties": {
+      "cable_name": "LION",
+      "from_name": "La Manche (France)",
+      "to_name": "Mombasa Landing Station (Kenya)",
+      "capacity_gbps": 350,
+      "route": "France-Kenya",
+      "intensity": 1.75
+    }
+  },
+  {
+    "id": 2430,
+    "source_node_id": 2454,
+    "target_node_id": 2456,
+    "system": "cables",
+    "properties": {
+      "cable_name": "SEABRAS-1",
+      "from_name": "Fortaleza Cable Station (Brazil)",
+      "to_name": "Balboa Cable Station (Panama)",
+      "capacity_gbps": 280,
+      "route": "Brazil-Panama",
+      "intensity": 1.4
+    }
+  },
+  {
+    "id": 2431,
+    "source_node_id": 2456,
+    "target_node_id": 2448,
+    "system": "cables",
+    "properties": {
+      "cable_name": "Maya-1",
+      "from_name": "Balboa Cable Station (Panama)",
+      "to_name": "Hermosa Beach Submarine Cable Station",
+      "capacity_gbps": 320,
+      "route": "Panama-US",
+      "intensity": 1.6
+    }
+  },
+  {
+    "id": 2432,
+    "source_node_id": 2458,
+    "target_node_id": 2459,
+    "system": "cables",
+    "properties": {
+      "cable_name": "Columbus-III",
+      "from_name": "St. Croix (USVI)",
+      "to_name": "Land's End Cornwall (UK)",
+      "capacity_gbps": 260,
+      "route": "USVI-UK",
+      "intensity": 1.3
+    }
+  }
+]

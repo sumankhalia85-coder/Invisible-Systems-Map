@@ -1,0 +1,554 @@
+{
+  "delhi, delhi, india": {
+    "lat": 28.6138954,
+    "lon": 77.2090057
+  },
+  "kyiv, kyyiv, misto, ukraine": {
+    "lat": 50.4509739,
+    "lon": 30.5147795
+  },
+  "khost, khowst, afghanistan": {
+    "lat": 33.3391402,
+    "lon": 69.9206359
+  },
+  "nangarhar, nangarhar, afghanistan": {
+    "lat": 34.4747094,
+    "lon": 70.3681243
+  },
+  "paktika, paktika, afghanistan": {
+    "lat": 33.1695169,
+    "lon": 68.7848348
+  },
+  "kabul, kabol, afghanistan": {
+    "lat": 34.4619447,
+    "lon": 69.1197273
+  },
+  "forest hill, lewisham, united kingdom": {
+    "lat": 51.439108,
+    "lon": -0.0539538
+  },
+  "london, london, city of, united kingdom": {
+    "lat": 51.5146063,
+    "lon": -0.1164509
+  },
+  "edo state, edo, nigeria": {
+    "lat": 6.3097431,
+    "lon": 5.6113983
+  },
+  "gaza, israel (general), israel": {
+    "lat": null,
+    "lon": null
+  },
+  "nilgiri, orissa, india": {
+    "lat": 21.4263126,
+    "lon": 86.8555381
+  },
+  "odisha, orissa, india": {
+    "lat": 20.2558788,
+    "lon": 85.8411761
+  },
+  "poonch, azad kashmir, pakistan": {
+    "lat": 33.7550374,
+    "lon": 73.9530286
+  },
+  "tehran, tehran, iran": {
+    "lat": 35.6892523,
+    "lon": 51.3896004
+  },
+  "soham, cambridgeshire, united kingdom": {
+    "lat": 52.3333453,
+    "lon": 0.3387475
+  },
+  "jerusalem, israel (general), israel": {
+    "lat": null,
+    "lon": null
+  },
+  "minab, sistan va baluchestan, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "universitas jenderal achmad yani, jawa barat, indonesia": {
+    "lat": -6.8886472,
+    "lon": 107.5257719
+  },
+  "allahu akbar, khorasan-e ra?avi, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "philippine, benguet, philippines": {
+    "lat": 16.3608554,
+    "lon": 120.6196663
+  },
+  "ilocos norte, ilocos norte, philippines": {
+    "lat": 18.2281966,
+    "lon": 120.6484823
+  },
+  "qeshm, kordestan, iran": {
+    "lat": 35.4421,
+    "lon": 47.3506
+  },
+  "karaj, tehran, iran": {
+    "lat": 35.9492217,
+    "lon": 51.0901713
+  },
+  "shuaiba, kuwait (general), kuwait": {
+    "lat": null,
+    "lon": null
+  },
+  "gazan, esfahan, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "amman, (jo11), jordan": {
+    "lat": 31.9515694,
+    "lon": 35.9239625
+  },
+  "tel aviv, tel aviv, israel": {
+    "lat": 32.0852997,
+    "lon": 34.7818064
+  },
+  "red crescent, west bank (general), west bank": {
+    "lat": null,
+    "lon": null
+  },
+  "falah, h_efa, israel": {
+    "lat": null,
+    "lon": null
+  },
+  "muharraq, al mu?arraq, bahrain": {
+    "lat": null,
+    "lon": null
+  },
+  "beirut, beyrouth, lebanon": {
+    "lat": 33.8892265,
+    "lon": 35.5025585
+  },
+  "toronto, ontario, canada": {
+    "lat": 43.6534817,
+    "lon": -79.3839347
+  },
+  "hiroshima, hiroshima, japan": {
+    "lat": 34.3971933,
+    "lon": 132.4767339
+  },
+  "davao city, davao city, philippines": {
+    "lat": null,
+    "lon": null
+  },
+  "riyadh, ar riya?, saudi arabia": {
+    "lat": null,
+    "lon": null
+  },
+  "ilocos sur, ilocos sur, philippines": {
+    "lat": null,
+    "lon": null
+  },
+  "manila, manila, philippines": {
+    "lat": null,
+    "lon": null
+  },
+  "kashmiri, punjab, pakistan": {
+    "lat": null,
+    "lon": null
+  },
+  "kuala lumpur, kuala lumpur, malaysia": {
+    "lat": null,
+    "lon": null
+  },
+  "palawan, dapitan, philippines": {
+    "lat": null,
+    "lon": null
+  },
+  "dhaka, dhaka, bangladesh": {
+    "lat": null,
+    "lon": null
+  },
+  "repparfjord, finnmark, norway": {
+    "lat": null,
+    "lon": null
+  },
+  "hebron, israel (general), israel": {
+    "lat": null,
+    "lon": null
+  },
+  "illushi, edo, nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "riau, indonesia (general), indonesia": {
+    "lat": null,
+    "lon": null
+  },
+  "kharkiv, kharkivs'ka oblast', ukraine": {
+    "lat": null,
+    "lon": null
+  },
+  "tijuana, baja california, mexico": {
+    "lat": null,
+    "lon": null
+  },
+  "karbi anglong, assam, india": {
+    "lat": null,
+    "lon": null
+  },
+  "nagpur, maharashtra, india": {
+    "lat": null,
+    "lon": null
+  },
+  "lima, lima, peru": {
+    "lat": null,
+    "lon": null
+  },
+  "khirbet abu falah, west bank (general), west bank": {
+    "lat": null,
+    "lon": null
+  },
+  "seoul, soul-t'ukpyolsi, south korea": {
+    "lat": null,
+    "lon": null
+  },
+  "istanbul, istanbul, turkey": {
+    "lat": null,
+    "lon": null
+  },
+  "hindustan, india (general), india": {
+    "lat": null,
+    "lon": null
+  },
+  "brecon beacons, powys, united kingdom": {
+    "lat": 51.8428145,
+    "lon": -3.4352993
+  },
+  "beijing, beijing, china": {
+    "lat": 39.9011168,
+    "lon": 116.4210134
+  },
+  "jakarta, jakarta raya, indonesia": {
+    "lat": -6.2628908,
+    "lon": 106.8822289
+  },
+  "bengaluru, karnataka, india": {
+    "lat": 12.9767936,
+    "lon": 77.590082
+  },
+  "arunachal, assam, india": {
+    "lat": 24.8665733,
+    "lon": 92.7667954
+  },
+  "akobo, wilayat junqoley, south sudan": {
+    "lat": null,
+    "lon": null
+  },
+  "colchester, essex, united kingdom": {
+    "lat": 51.8896903,
+    "lon": 0.8994651
+  },
+  "fosu, ghana (general), ghana": {
+    "lat": null,
+    "lon": null
+  },
+  "ramallah, west bank (general), west bank": {
+    "lat": null,
+    "lon": null
+  },
+  "kuwait international, kuwait (general), kuwait": {
+    "lat": null,
+    "lon": null
+  },
+  "islamabad, islamabad, pakistan": {
+    "lat": null,
+    "lon": null
+  },
+  "sulaymaniyah, as sulaymaniyah, iraq": {
+    "lat": null,
+    "lon": null
+  },
+  "erbil, liwa' irbil, iraq": {
+    "lat": null,
+    "lon": null
+  },
+  "teheran, iran (general), iran": {
+    "lat": null,
+    "lon": null
+  },
+  "isfahan, esfahan, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "barcelona, comunidad autonoma de cataluna, spain": {
+    "lat": null,
+    "lon": null
+  },
+  "jalisco, baja california, mexico": {
+    "lat": null,
+    "lon": null
+  },
+  "sumy oblast, sums'ka oblast', ukraine": {
+    "lat": null,
+    "lon": null
+  },
+  "adamawa, nigeria (general), nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "kano, kano, nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "ogere, ogun, nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "sokoto state, sokoto, nigeria": {
+    "lat": 13.7351527,
+    "lon": 5.0043081
+  },
+  "zahle, béa, lebanon": {
+    "lat": null,
+    "lon": null
+  },
+  "paris, france (general), france": {
+    "lat": 48.8379298,
+    "lon": 2.2723527
+  },
+  "kidderminster, worcestershire, united kingdom": {
+    "lat": 52.3880787,
+    "lon": -2.2478582
+  },
+  "dublin, dublin, ireland": {
+    "lat": 53.3437061,
+    "lon": -6.2544278
+  },
+  "basij, fars, iran": {
+    "lat": 29.6039128,
+    "lon": 52.5158273
+  },
+  "al kharj, ar riya?, saudi arabia": {
+    "lat": null,
+    "lon": null
+  },
+  "meru, eastern, kenya": {
+    "lat": 0.3007653,
+    "lon": 37.5332265
+  },
+  "nairobi, nairobi area, kenya": {
+    "lat": -1.2564111,
+    "lon": 36.8989686
+  },
+  "bekaa valley, béa, lebanon": {
+    "lat": null,
+    "lon": null
+  },
+  "zaki-biam, nigeria (general), nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "palestinian red crescent, west bank (general), west bank": {
+    "lat": null,
+    "lon": null
+  },
+  "benue, nigeria (general), nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "north cotabato, north cotabato, philippines": {
+    "lat": 7.0102249,
+    "lon": 125.0909698
+  },
+  "zamboanga, zamboanga, philippines": {
+    "lat": 6.9222638,
+    "lon": 122.0598324
+  },
+  "kaduna, kaduna, nigeria": {
+    "lat": 10.5182899,
+    "lon": 7.4359863
+  },
+  "dubai, dubayy, united arab emirates": {
+    "lat": 25.0742823,
+    "lon": 55.1885387
+  },
+  "khulna, khulna, bangladesh": {
+    "lat": 22.8171664,
+    "lon": 89.563759
+  },
+  "berlin, berlin, germany": {
+    "lat": 52.503379,
+    "lon": 13.3386522
+  },
+  "west midlands, united kingdom (general), united kingdom": {
+    "lat": null,
+    "lon": null
+  },
+  "sargodha, punjab, pakistan": {
+    "lat": 32.0836514,
+    "lon": 72.676461
+  },
+  "chauchina, andalucísp, spain": {
+    "lat": null,
+    "lon": null
+  },
+  "granada, andalucísp, spain": {
+    "lat": null,
+    "lon": null
+  },
+  "hyderabad, andhra pradesh, india": {
+    "lat": 15.8142294,
+    "lon": 78.0268079
+  },
+  "kolkata, west bengal, india": {
+    "lat": 22.5726459,
+    "lon": 88.3638953
+  },
+  "federal capital territory, abuja federal capital territory, nigeria": {
+    "lat": 9.0805107,
+    "lon": 7.4969005
+  },
+  "bangaon, west bengal, india": {
+    "lat": 23.0434655,
+    "lon": 88.8317765
+  },
+  "azraq, khuzestan, iran": {
+    "lat": null,
+    "lon": null
+  },
+  "bushehr, bushehr, iran": {
+    "lat": 28.9310786,
+    "lon": 50.8458443
+  },
+  "al-kharj, ar riya?, saudi arabia": {
+    "lat": null,
+    "lon": null
+  },
+  "lagos, lagos, nigeria": {
+    "lat": 6.4550575,
+    "lon": 3.3941795
+  },
+  "eleko, oyo, nigeria": {
+    "lat": null,
+    "lon": null
+  },
+  "glasgow, glasgow city, united kingdom": {
+    "lat": 55.861155,
+    "lon": -4.2501687
+  },
+  "oslo, oslo, norway": {
+    "lat": 59.9723975,
+    "lon": 10.7757292
+  },
+  "havana, ciudad de la habana, cuba": {
+    "lat": 23.135305,
+    "lon": -82.3589631
+  },
+  "alhambra, castilla-la manacha, spain": {
+    "lat": null,
+    "lon": null
+  },
+  "gwent, united kingdom (general), united kingdom": {
+    "lat": null,
+    "lon": null
+  },
+  "ferozepur jhirka, haryana, india": {
+    "lat": 27.83295,
+    "lon": 77.0255225
+  },
+  "haryana, haryana, india": {
+    "lat": 28.4808629,
+    "lon": 77.0848883
+  },
+  "moscow, moskva, russia": {
+    "lat": 55.7505412,
+    "lon": 37.6174782
+  },
+  "owerri, imo, nigeria": {
+    "lat": 5.489736,
+    "lon": 7.0341973
+  },
+  "dagestan, dagestan, russia": {
+    "lat": 42.1152434,
+    "lon": 48.1864201
+  },
+  "niger state, niger, nigeria": {
+    "lat": 9.58272,
+    "lon": 6.5661385
+  },
+  "mugu, nepal (general), nepal": {
+    "lat": null,
+    "lon": null
+  },
+  "rivers state, rivers, nigeria": {
+    "lat": 4.3871446,
+    "lon": 7.1789057
+  },
+  "omuma, imo, nigeria": {
+    "lat": 5.7565793,
+    "lon": 6.9457363
+  },
+  "winnipeg, manitoba, canada": {
+    "lat": 49.8955367,
+    "lon": -97.1384584
+  },
+  "gwana, kebbi, nigeria": {
+    "lat": 11.8267369,
+    "lon": 3.8907453
+  },
+  "baku, baki*, azerbaijan": {
+    "lat": 40.3732763,
+    "lon": 49.8139975
+  },
+  "tokyo, tokyo, japan": {
+    "lat": 35.6812546,
+    "lon": 139.766706
+  },
+  "rome, lazio, italy": {
+    "lat": 41.8933203,
+    "lon": 12.4829321
+  },
+  "fairford, gloucestershire, united kingdom": {
+    "lat": 51.7107733,
+    "lon": -1.782001
+  },
+  "telangana, andhra pradesh, india": {
+    "lat": null,
+    "lon": null
+  },
+  "kayakent, dagestan, russia": {
+    "lat": 42.3889552,
+    "lon": 47.902104
+  },
+  "lucknow, uttar pradesh, india": {
+    "lat": 26.8381,
+    "lon": 80.9346001
+  },
+  "bhubaneswar, orissa, india": {
+    "lat": 20.2602964,
+    "lon": 85.8394521
+  },
+  "manipur, uttar pradesh, india": {
+    "lat": null,
+    "lon": null
+  },
+  "ferdowsi, yazd, iran": {
+    "lat": 31.853167,
+    "lon": 54.3514365
+  },
+  "gaza city, israel (general), israel": {
+    "lat": null,
+    "lon": null
+  },
+  "ingushetia, chechnya and ingushetiya, russia": {
+    "lat": null,
+    "lon": null
+  },
+  "abuja, abuja federal capital territory, nigeria": {
+    "lat": 9.0643305,
+    "lon": 7.4892974
+  },
+  "shanghai, shanghai, china": {
+    "lat": 31.2312707,
+    "lon": 121.4700152
+  },
+  "new delhi, delhi, india": {
+    "lat": 28.6138954,
+    "lon": 77.2090057
+  }
+}

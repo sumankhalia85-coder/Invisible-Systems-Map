@@ -966,5 +966,2124 @@
     "description": "Sources report an incident involving THE US and ISLAMIC.",
     "source": "https://www.presstv.ir/Detail/2026/03/08/765105/Pezeshkian-Iran-has-to-respond-to-enemy-attacks-originated-from-any-country",
     "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116783",
+    "name": "Airstrike incident in Delhi, Delhi, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Delhi, Delhi, India",
+    "coordinates": [
+      77.2090057,
+      28.6138954
+    ],
+    "actors": [
+      "SUPREME COURT"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving SUPREME COURT",
+    "source": "https://consortiumnews.com/2026/03/08/us-lets-india-buy-russian-oil-after-iran-attack/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116790",
+    "name": "Airstrike incident in Kyiv, Kyyiv, Misto, Ukraine",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UP",
+    "location": "Kyiv, Kyyiv, Misto, Ukraine",
+    "coordinates": [
+      30.5147795,
+      50.4509739
+    ],
+    "actors": [
+      "ISRAELI",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAELI and ISRAEL.",
+    "source": "https://www.reflector.com/news/national/the-latest-iran-accused-of-attacks-in-uae-and-bahrain-smoke-blankets-tehran-from-israeli/article_8637121b-070e-5620-acbf-122c08034f0d.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116871",
+    "name": "Airstrike incident in Khost, Khowst, Afghanistan",
+    "event_type": "airstrike",
+    "sub_type": "195",
+    "date": "2026-03-08",
+    "country": "AF",
+    "location": "Khost, Khowst, Afghanistan",
+    "coordinates": [
+      69.9206359,
+      33.3391402
+    ],
+    "actors": [
+      "AFGHANISTAN",
+      "MILITANT"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AFGHANISTAN and MILITANT.",
+    "source": "https://www.pakistantimes.com/security-forces-kill-13-india-backed-militants-in-five-operations-across-kp-12271/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116872",
+    "name": "Airstrike incident in Nangarhar, Nangarhar, Afghanistan",
+    "event_type": "airstrike",
+    "sub_type": "195",
+    "date": "2026-03-08",
+    "country": "AF",
+    "location": "Nangarhar, Nangarhar, Afghanistan",
+    "coordinates": [
+      70.3681243,
+      34.4747094
+    ],
+    "actors": [
+      "AFGHANISTAN",
+      "MILITANT"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AFGHANISTAN and MILITANT.",
+    "source": "https://www.pakistantimes.com/security-forces-kill-13-india-backed-militants-in-five-operations-across-kp-12271/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116873",
+    "name": "Airstrike incident in Paktika, Paktika, Afghanistan",
+    "event_type": "airstrike",
+    "sub_type": "195",
+    "date": "2026-03-08",
+    "country": "AF",
+    "location": "Paktika, Paktika, Afghanistan",
+    "coordinates": [
+      68.7848348,
+      33.1695169
+    ],
+    "actors": [
+      "AFGHANISTAN",
+      "MILITANT"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AFGHANISTAN and MILITANT.",
+    "source": "https://www.pakistantimes.com/security-forces-kill-13-india-backed-militants-in-five-operations-across-kp-12271/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116875",
+    "name": "Airstrike incident in Kabul, Kabol, Afghanistan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "AF",
+    "location": "Kabul, Kabol, Afghanistan",
+    "coordinates": [
+      69.1197273,
+      34.4619447
+    ],
+    "actors": [
+      "TALIBAN",
+      "TALIBAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving TALIBAN and TALIBAN.",
+    "source": "https://thefrontierpost.com/chinas-envoy-urges-dialogue-to-ease-taliban-pakistan-tensions/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293116999",
+    "name": "Airstrike incident in Forest Hill, Lewisham, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Forest Hill, Lewisham, United Kingdom",
+    "coordinates": [
+      -0.0539538,
+      51.439108
+    ],
+    "actors": [
+      "POLICE",
+      "LONDON"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving POLICE and LONDON.",
+    "source": "https://www.londontheatre1.com/reviews/the-wrong-they-knew-chickenshed-review/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117000",
+    "name": "Airstrike incident in London, London, City of, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "London, London, City of, United Kingdom",
+    "coordinates": [
+      -0.1164509,
+      51.5146063
+    ],
+    "actors": [
+      "POLICE",
+      "LONDON"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving POLICE and LONDON.",
+    "source": "https://www.londontheatre1.com/reviews/the-wrong-they-knew-chickenshed-review/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117016",
+    "name": "Missile/Artillery Strike in Edo State, Edo, Nigeria",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Edo State, Edo, Nigeria",
+    "coordinates": [
+      5.6113983,
+      6.3097431
+    ],
+    "actors": [
+      "KIDNAPPER"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving KIDNAPPER",
+    "source": "https://punchng.com/police-arrest-nigerien-two-others-for-kidnapping-in-edo/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117036",
+    "name": "Armed Clash in London, London, City of, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "London, London, City of, United Kingdom",
+    "coordinates": [
+      -0.1164509,
+      51.5146063
+    ],
+    "actors": [
+      "SETTLEMENT"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving SETTLEMENT",
+    "source": "https://radaronline.com/p/rosanna-arquette-doesnt-believe-jeffrey-epstein-virginia-giuffre-suicide/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117042",
+    "name": "Armed Clash in Nilgiri, Orissa, India",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Nilgiri, Orissa, India",
+    "coordinates": [
+      86.8555381,
+      21.4263126
+    ],
+    "actors": [
+      "RESIDENTS",
+      "CHHATTISGARH"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving RESIDENTS and CHHATTISGARH.",
+    "source": "https://www.freepressjournal.in/analysis/beyond-the-silver-bullet-keralas-elephant-conundrum-and-the-urgent-need-for-habitat-solutions-over-populist-drives",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117043",
+    "name": "Armed Clash in Odisha, Orissa, India",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Odisha, Orissa, India",
+    "coordinates": [
+      85.8411761,
+      20.2558788
+    ],
+    "actors": [
+      "RESIDENTS",
+      "CHHATTISGARH"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving RESIDENTS and CHHATTISGARH.",
+    "source": "https://www.freepressjournal.in/analysis/beyond-the-silver-bullet-keralas-elephant-conundrum-and-the-urgent-need-for-habitat-solutions-over-populist-drives",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117057",
+    "name": "Armed Clash in Poonch, Azad Kashmir, Pakistan",
+    "event_type": "battle",
+    "sub_type": "1821",
+    "date": "2026-03-08",
+    "country": "PK",
+    "location": "Poonch, Azad Kashmir, Pakistan",
+    "coordinates": [
+      73.9530286,
+      33.7550374
+    ],
+    "actors": [
+      "SCHOLAR",
+      "POLICE FORCE"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving SCHOLAR and POLICE FORCE.",
+    "source": "https://www.pakistantoday.com.pk/2026/03/08/22991-women-widowed-11275-molested-in-iiojk-since-jan-1989",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117101",
+    "name": "Airstrike incident in Tehran, Tehran, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      51.3896004,
+      35.6892523
+    ],
+    "actors": [
+      "UNITED KINGDOM",
+      "TANKER"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED KINGDOM and TANKER.",
+    "source": "https://www.newsx.com/world/israel-iran-us-conflict-war-live-global-energy-crisis-looming-us-israeli-war-with-iran-disrupts-oil-and-lng-supply-from-qatar-to-iraq-heres-what-we-know-179458/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117107",
+    "name": "Armed Clash in Soham, Cambridgeshire, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Soham, Cambridgeshire, United Kingdom",
+    "coordinates": [
+      0.3387475,
+      52.3333453
+    ],
+    "actors": [
+      "UNITED KINGDOM",
+      "HOSPITAL"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED KINGDOM and HOSPITAL.",
+    "source": "https://www.mirror.co.uk/news/uk-news/i-sat-through-ian-huntleys-36835287",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117297",
+    "name": "Political Protest in Universitas Jenderal Achmad Yani, Jawa Barat, Indonesia",
+    "event_type": "protest",
+    "sub_type": "141",
+    "date": "2026-03-08",
+    "country": "ID",
+    "location": "Universitas Jenderal Achmad Yani, Jawa Barat, Indonesia",
+    "coordinates": [
+      107.5257719,
+      -6.8886472
+    ],
+    "actors": [
+      "INDONESIAN",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving INDONESIAN and IRAN.",
+    "source": "https://www.yahoo.com/news/articles/indonesian-president-us-ties-questioned-063303288.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117361",
+    "name": "Airstrike incident in Philippine, Benguet, Philippines",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "RP",
+    "location": "Philippine, Benguet, Philippines",
+    "coordinates": [
+      120.6196663,
+      16.3608554
+    ],
+    "actors": [
+      "IRAN",
+      "MANAMA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and MANAMA.",
+    "source": "https://www.bworldonline.com/the-nation/2026/03/08/734780/joint-house-panel-to-hold-iran-war-briefing-review-of-govt-response-to-aid-filipinos/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117362",
+    "name": "Airstrike incident in Ilocos Norte, Ilocos Norte, Philippines",
+    "event_type": "airstrike",
+    "sub_type": "194",
+    "date": "2026-03-08",
+    "country": "RP",
+    "location": "Ilocos Norte, Ilocos Norte, Philippines",
+    "coordinates": [
+      120.6484823,
+      18.2281966
+    ],
+    "actors": [
+      "IRAN",
+      "BAHRAIN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and BAHRAIN.",
+    "source": "https://www.bworldonline.com/the-nation/2026/03/08/734780/joint-house-panel-to-hold-iran-war-briefing-review-of-govt-response-to-aid-filipinos/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117382",
+    "name": "Airstrike incident in Qeshm, Kordestan, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Qeshm, Kordestan, Iran",
+    "coordinates": [
+      47.3506,
+      35.4421
+    ],
+    "actors": [
+      "IRANIAN",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRANIAN and IRAN.",
+    "source": "https://www.washingtonexaminer.com/policy/defense/4484687/centcom-safety-warning-iran-civilians/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117394",
+    "name": "Airstrike incident in Karaj, Tehran, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Karaj, Tehran, Iran",
+    "coordinates": [
+      51.0901713,
+      35.9492217
+    ],
+    "actors": [
+      "IRANIAN",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRANIAN and ISRAEL.",
+    "source": "https://www.bworldonline.com/world/2026/03/08/734820/trump-rejects-settling-iran-war-raises-prospect-of-killing-all-its-potential-leaders/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117419",
+    "name": "Airstrike incident in Amman, (JO11), Jordan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "JO",
+    "location": "Amman, (JO11), Jordan",
+    "coordinates": [
+      35.9239625,
+      31.9515694
+    ],
+    "actors": [
+      "IRANIAN",
+      "AMERICAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRANIAN and AMERICAN.",
+    "source": "https://www.philstar.com/headlines/2026/03/09/2512986/trump-honors-fil-am-soldier-others-killed-kuwait-attack",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117471",
+    "name": "Airstrike incident in Tel Aviv, Tel Aviv, Israel",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IS",
+    "location": "Tel Aviv, Tel Aviv, Israel",
+    "coordinates": [
+      34.7818064,
+      32.0852997
+    ],
+    "actors": [
+      "ISRAEL",
+      "TEHRAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAEL and TEHRAN.",
+    "source": "https://www.newsx.com/world/conflict-war-live-iran-israel-us-conflict-rages-across-middle-east-as-uae-reveals-astonishing-numbers-of-ballistic-missiles-and-drones-intercepted-check-details-here-dubai-blast-news-179466/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117506",
+    "name": "Airstrike incident in Beirut, Beyrouth, Lebanon",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "LE",
+    "location": "Beirut, Beyrouth, Lebanon",
+    "coordinates": [
+      35.5025585,
+      33.8892265
+    ],
+    "actors": [
+      "ISRAEL",
+      "COMMANDER"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving ISRAEL and COMMANDER.",
+    "source": "https://english.aawsat.com/arab-world/5248871-lebanese-health-ministry-says-death-toll-israeli-strikes-394",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117519",
+    "name": "Missile/Artillery Strike in Toronto, Ontario, Canada",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "CA",
+    "location": "Toronto, Ontario, Canada",
+    "coordinates": [
+      -79.3839347,
+      43.6534817
+    ],
+    "actors": [
+      "JEWISH"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving JEWISH",
+    "source": "https://www.cbc.ca/news/canada/toronto/jewish-community-reaction-synagogue-shootings-9.7119616",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117523",
+    "name": "Airstrike incident in Toronto, Ontario, Canada",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "CA",
+    "location": "Toronto, Ontario, Canada",
+    "coordinates": [
+      -79.3839347,
+      43.6534817
+    ],
+    "actors": [
+      "JEWISH",
+      "JEWISH"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving JEWISH and JEWISH.",
+    "source": "https://www.cbc.ca/news/canada/toronto/jewish-community-reaction-synagogue-shootings-9.7119616",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293117529",
+    "name": "Airstrike incident in Hiroshima, Hiroshima, Japan",
+    "event_type": "airstrike",
+    "sub_type": "195",
+    "date": "2026-03-08",
+    "country": "JA",
+    "location": "Hiroshima, Hiroshima, Japan",
+    "coordinates": [
+      132.4767339,
+      34.3971933
+    ],
+    "actors": [
+      "HIROSHIMA",
+      "EMPEROR"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving HIROSHIMA and EMPEROR.",
+    "source": "https://www.manilatimes.net/2026/03/09/opinion/columns/has-netanyahu-been-killed/2295490",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293118649",
+    "name": "Armed Clash in Tehran, Tehran, Iran",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      51.3896004,
+      35.6892523
+    ],
+    "actors": [
+      "DUBAI",
+      "IRANIAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving DUBAI and IRANIAN.",
+    "source": "https://dunyanews.tv/en/World/939421-israel-expands-iran-strikes-as-tehran-moves-to-name-new-supreme-leader",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293119247",
+    "name": "Missile/Artillery Strike in Tehran, Tehran, Iran",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      51.3896004,
+      35.6892523
+    ],
+    "actors": [
+      "HIT SQUAD",
+      "BERLIN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving HIT SQUAD and BERLIN.",
+    "source": "https://www.fairobserver.com/world-news/middle-east-news/the-great-decoupling-why-the-eu-and-iran-have-reached-the-point-of-no-return/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293119926",
+    "name": "Armed Clash in Brecon Beacons, Powys, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Brecon Beacons, Powys, United Kingdom",
+    "coordinates": [
+      -3.4352993,
+      51.8428145
+    ],
+    "actors": [
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED KINGDOM",
+    "source": "https://www.live4ever.uk.com/oasis-ringo-starr-music-news/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120048",
+    "name": "Missile/Artillery Strike in Beijing, Beijing, China",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "CH",
+    "location": "Beijing, Beijing, China",
+    "coordinates": [
+      116.4210134,
+      39.9011168
+    ],
+    "actors": [
+      "KABUL",
+      "ISLAMABAD"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving KABUL and ISLAMABAD.",
+    "source": "https://voiceofvienna.org/ten-days-of-tension-afghanistan-and-pakistan-still-refuse-to-talk/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120064",
+    "name": "Airstrike incident in Jakarta, Jakarta Raya, Indonesia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "ID",
+    "location": "Jakarta, Jakarta Raya, Indonesia",
+    "coordinates": [
+      106.8822289,
+      -6.2628908
+    ],
+    "actors": [
+      "UNITED ARAB EMIRATES",
+      "BAHRAIN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED ARAB EMIRATES and BAHRAIN.",
+    "source": "https://www.moneycontrol.com/world/explosions-in-iran-new-attacks-across-gulf-as-west-asia-conflict-widens-top-updates-article-13854240.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120098",
+    "name": "Airstrike incident in Bengaluru, Karnataka, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Bengaluru, Karnataka, India",
+    "coordinates": [
+      77.590082,
+      12.9767936
+    ],
+    "actors": [
+      "BOSS",
+      "DELHI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving BOSS and DELHI.",
+    "source": "https://www.news18.com/movies/bollywood/jr-ntrs-bengaluru-hospital-visit-turns-chaotic-anurag-dobhals-wife-visits-him-in-hospital-ws-l-9949323.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120214",
+    "name": "Airstrike incident in Arunachal, Assam, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Arunachal, Assam, India",
+    "coordinates": [
+      92.7667954,
+      24.8665733
+    ],
+    "actors": [
+      "STUDENT",
+      "DELHI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving STUDENT and DELHI.",
+    "source": "https://www.news18.com/cities/new-delhi-news/two-attacks-on-women-from-northeast-in-delhi-student-beaten-with-belt-after-resisting-racial-slurs-ws-l-9949341.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120223",
+    "name": "Political Protest in Delhi, Delhi, India",
+    "event_type": "protest",
+    "sub_type": "141",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Delhi, Delhi, India",
+    "coordinates": [
+      77.2090057,
+      28.6138954
+    ],
+    "actors": [
+      "ACTOR"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving ACTOR",
+    "source": "https://www.news18.com/movies/bollywood/jr-ntrs-bengaluru-hospital-visit-turns-chaotic-anurag-dobhals-wife-visits-him-in-hospital-ws-l-9949323.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120264",
+    "name": "Airstrike incident in Colchester, Essex, United Kingdom",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Colchester, Essex, United Kingdom",
+    "coordinates": [
+      0.8994651,
+      51.8896903
+    ],
+    "actors": [
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED KINGDOM",
+    "source": "https://www.tvguide.co.uk/schedule/cd549ac0-3a20-52cc-89b9-0b60f97f13c1/murder-uk",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120487",
+    "name": "Armed Clash in Beirut, Beyrouth, Lebanon",
+    "event_type": "battle",
+    "sub_type": "182",
+    "date": "2026-03-08",
+    "country": "LE",
+    "location": "Beirut, Beyrouth, Lebanon",
+    "coordinates": [
+      35.5025585,
+      33.8892265
+    ],
+    "actors": [
+      "IRAN",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRAN and ISRAEL.",
+    "source": "https://www.orissapost.com/iran-accused-of-gulf-attacks-israeli-strikes-engulf-tehran-in-smoke/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293120784",
+    "name": "Missile/Artillery Strike in Kabul, Kabol, Afghanistan",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "AF",
+    "location": "Kabul, Kabol, Afghanistan",
+    "coordinates": [
+      69.1197273,
+      34.4619447
+    ],
+    "actors": [
+      "PAKISTAN",
+      "AFGHANISTAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving PAKISTAN and AFGHANISTAN.",
+    "source": "https://voiceofvienna.org/ten-days-of-tension-afghanistan-and-pakistan-still-refuse-to-talk/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123276",
+    "name": "Airstrike incident in Beijing, Beijing, China",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "CH",
+    "location": "Beijing, Beijing, China",
+    "coordinates": [
+      116.4210134,
+      39.9011168
+    ],
+    "actors": [
+      "CHINA",
+      "AFGHANISTAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CHINA and AFGHANISTAN.",
+    "source": "https://www.ariananews.af/muttaqi-and-chinese-envoy-discuss-regional-developments/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123341",
+    "name": "Airstrike incident in Sokoto State, Sokoto, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Sokoto State, Sokoto, Nigeria",
+    "coordinates": [
+      5.0043081,
+      13.7351527
+    ],
+    "actors": [
+      "BANDIT",
+      "VILLAGE"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving BANDIT and VILLAGE.",
+    "source": "https://dailytrust.com/bandits-kill-one-abduct-five-in-fresh-attack-on-sokoto-community/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123381",
+    "name": "Missile/Artillery Strike in Paris, France (general), France",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "FR",
+    "location": "Paris, France (general), France",
+    "coordinates": [
+      2.2723527,
+      48.8379298
+    ],
+    "actors": [
+      "FRANCE"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving FRANCE",
+    "source": "https://www.businessoffashion.com/articles/luxury/ann-demeulemeester-autumn-winter-2026/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123396",
+    "name": "Armed Clash in Kidderminster, Worcestershire, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Kidderminster, Worcestershire, United Kingdom",
+    "coordinates": [
+      -2.2478582,
+      52.3880787
+    ],
+    "actors": [
+      "UNITED KINGDOM"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED KINGDOM",
+    "source": "https://www.dailymail.co.uk/money/mailplus/article-15626069/What-you-know-buying-new-build-home-thought-Id-got-good-deal-Ive-discovered-hidden-mortgage-trap-Im-flabbergasted-developers-Dont-make-mistake.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123564",
+    "name": "Political Protest in Dublin, Dublin, Ireland",
+    "event_type": "protest",
+    "sub_type": "141",
+    "date": "2026-03-08",
+    "country": "EI",
+    "location": "Dublin, Dublin, Ireland",
+    "coordinates": [
+      -6.2544278,
+      53.3437061
+    ],
+    "actors": [
+      "IRISH"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRISH",
+    "source": "https://www.echolive.ie/nationalnews/arid-41806430.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123570",
+    "name": "Political Protest in Basij, Fars, Iran",
+    "event_type": "protest",
+    "sub_type": "143",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Basij, Fars, Iran",
+    "coordinates": [
+      52.5158273,
+      29.6039128
+    ],
+    "actors": [
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRAN",
+    "source": "https://www.zerohedge.com/news/2026-03-08/mission-accomplished",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123571",
+    "name": "Armed Clash in Basij, Fars, Iran",
+    "event_type": "battle",
+    "sub_type": "186",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Basij, Fars, Iran",
+    "coordinates": [
+      52.5158273,
+      29.6039128
+    ],
+    "actors": [
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRAN",
+    "source": "https://www.zerohedge.com/news/2026-03-08/mission-accomplished",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123584",
+    "name": "Political Protest in Tehran, Tehran, Iran",
+    "event_type": "protest",
+    "sub_type": "141",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Tehran, Tehran, Iran",
+    "coordinates": [
+      51.3896004,
+      35.6892523
+    ],
+    "actors": [
+      "IRAN",
+      "ISRAEL"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving IRAN and ISRAEL.",
+    "source": "https://article.wn.com/view/2026/03/08/panel_picking_iran_8217s_supreme_leader_has_reached_consensu/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123665",
+    "name": "Airstrike incident in Meru, Eastern, Kenya",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "KE",
+    "location": "Meru, Eastern, Kenya",
+    "coordinates": [
+      37.5332265,
+      0.3007653
+    ],
+    "actors": [
+      "KENYA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving KENYA",
+    "source": "https://www.the-star.co.ke/news/2026-03-08-gachagua-kindiki-in-political-cat-and-mouse-battle-for-mt-kenya",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123666",
+    "name": "Airstrike incident in Nairobi, Nairobi Area, Kenya",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "KE",
+    "location": "Nairobi, Nairobi Area, Kenya",
+    "coordinates": [
+      36.8989686,
+      -1.2564111
+    ],
+    "actors": [
+      "NAIROBI"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving NAIROBI",
+    "source": "https://www.the-star.co.ke/news/2026-03-08-nairobi-governor-race-heats-up-as-rivals-mobilise",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293123779",
+    "name": "Missile/Artillery Strike in Sokoto State, Sokoto, Nigeria",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Sokoto State, Sokoto, Nigeria",
+    "coordinates": [
+      5.0043081,
+      13.7351527
+    ],
+    "actors": [
+      "NIGERIA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving NIGERIA",
+    "source": "https://dailytrust.com/bandits-kill-one-abduct-five-in-fresh-attack-on-sokoto-community/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125639",
+    "name": "Airstrike incident in North Cotabato, North Cotabato, Philippines",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "RP",
+    "location": "North Cotabato, North Cotabato, Philippines",
+    "coordinates": [
+      125.0909698,
+      7.0102249
+    ],
+    "actors": [
+      "KING",
+      "MINDANAO"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving KING and MINDANAO.",
+    "source": "https://www.philstar.com/nation/2026/03/09/2512937/isis-linked-leader-killed-north-cotabato-clash",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125645",
+    "name": "Armed Clash in North Cotabato, North Cotabato, Philippines",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "RP",
+    "location": "North Cotabato, North Cotabato, Philippines",
+    "coordinates": [
+      125.0909698,
+      7.0102249
+    ],
+    "actors": [
+      "PHILIPPINE",
+      "MILITARY"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving PHILIPPINE and MILITARY.",
+    "source": "https://www.philstar.com/nation/2026/03/09/2512937/isis-linked-leader-killed-north-cotabato-clash",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125646",
+    "name": "Armed Clash in Zamboanga, Zamboanga, Philippines",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "RP",
+    "location": "Zamboanga, Zamboanga, Philippines",
+    "coordinates": [
+      122.0598324,
+      6.9222638
+    ],
+    "actors": [
+      "ZAMBOANGA",
+      "MILITARY"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving ZAMBOANGA and MILITARY.",
+    "source": "https://www.philstar.com/nation/2026/03/09/2512937/isis-linked-leader-killed-north-cotabato-clash",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125728",
+    "name": "Airstrike incident in Kaduna, Kaduna, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Kaduna, Kaduna, Nigeria",
+    "coordinates": [
+      7.4359863,
+      10.5182899
+    ],
+    "actors": [
+      "AFRICA",
+      "CHRISTIAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AFRICA and CHRISTIAN.",
+    "source": "https://www.worthynews.com/112789-islamic-militants-turn-to-christ-in-nigeria-amid-violence-film-shows-worthy-news-in-depth",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125731",
+    "name": "Airstrike incident in Dubai, Dubayy, United Arab Emirates",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "AE",
+    "location": "Dubai, Dubayy, United Arab Emirates",
+    "coordinates": [
+      55.1885387,
+      25.0742823
+    ],
+    "actors": [
+      "UNITED ARAB EMIRATES",
+      "CIVILIAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving UNITED ARAB EMIRATES and CIVILIAN.",
+    "source": "https://www.duluthnewstribune.com/opinion/columns/pro-con-war-with-iran-promises-only-short-term-long-term-damage",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125756",
+    "name": "Missile/Artillery Strike in Khulna, Khulna, Bangladesh",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "BG",
+    "location": "Khulna, Khulna, Bangladesh",
+    "coordinates": [
+      89.563759,
+      22.8171664
+    ],
+    "actors": [
+      "DHAKA",
+      "ISLAM"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving DHAKA and ISLAM.",
+    "source": "https://www.bssnews.net/district/367082",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125809",
+    "name": "Airstrike incident in Berlin, Berlin, Germany",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "GM",
+    "location": "Berlin, Berlin, Germany",
+    "coordinates": [
+      13.3386522,
+      52.503379
+    ],
+    "actors": [
+      "CHINA",
+      "GERMANY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CHINA and GERMANY.",
+    "source": "https://www.manilatimes.net/2026/03/09/world/americas-emea/german-state-election-a-test-for-chancellor-merz/2295451",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125864",
+    "name": "Armed Clash in Sargodha, Punjab, Pakistan",
+    "event_type": "battle",
+    "sub_type": "182",
+    "date": "2026-03-08",
+    "country": "PK",
+    "location": "Sargodha, Punjab, Pakistan",
+    "coordinates": [
+      72.676461,
+      32.0836514
+    ],
+    "actors": [
+      "VILLAGE",
+      "CHRISTIAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving VILLAGE and CHRISTIAN.",
+    "source": "https://www.worthynews.com/112786-two-arrested-after-killing-of-christian-worker-sparks-protests-in-pakistan",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293125985",
+    "name": "Airstrike incident in Hyderabad, Andhra Pradesh, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Hyderabad, Andhra Pradesh, India",
+    "coordinates": [
+      78.0268079,
+      15.8142294
+    ],
+    "actors": [
+      "GOVERNMENT"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving GOVERNMENT",
+    "source": "https://www.thehindu.com/news/cities/Hyderabad/telangana-government-initiates-action-plan-to-combat-mosquito-menace-in-hyderabad/article70719438.ece",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293126000",
+    "name": "Political Protest in Kolkata, West Bengal, India",
+    "event_type": "protest",
+    "sub_type": "141",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Kolkata, West Bengal, India",
+    "coordinates": [
+      88.3638953,
+      22.5726459
+    ],
+    "actors": [
+      "PRESIDENT",
+      "ELECTOR"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving PRESIDENT and ELECTOR.",
+    "source": "https://www.thehindu.com/news/national/west-bengal/mamata-should-resign-over-protocol-breach-at-president-murmus-darjeeling-event-bjp/article70719436.ece",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293126020",
+    "name": "Airstrike incident in Sargodha, Punjab, Pakistan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "PK",
+    "location": "Sargodha, Punjab, Pakistan",
+    "coordinates": [
+      72.676461,
+      32.0836514
+    ],
+    "actors": [
+      "MINIST",
+      "LAWYER"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving MINIST and LAWYER.",
+    "source": "https://www.worthynews.com/112786-two-arrested-after-killing-of-christian-worker-sparks-protests-in-pakistan",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293126037",
+    "name": "Airstrike incident in Federal Capital Territory, Abuja Federal Capital Territory, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Federal Capital Territory, Abuja Federal Capital Territory, Nigeria",
+    "coordinates": [
+      7.4969005,
+      9.0805107
+    ],
+    "actors": [
+      "GOVERNMENT",
+      "MINIST"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving GOVERNMENT and MINIST.",
+    "source": "https://punchng.com/2027-sdp-cautions-pdp-against-turning-oyo-into-battleground/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293126068",
+    "name": "Airstrike incident in Bangaon, West Bengal, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Bangaon, West Bengal, India",
+    "coordinates": [
+      88.8317765,
+      23.0434655
+    ],
+    "actors": [
+      "WEST BENGAL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving WEST BENGAL",
+    "source": "https://www.bssnews.net/news-flash/367106",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293126237",
+    "name": "Airstrike incident in Bushehr, Bushehr, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Bushehr, Bushehr, Iran",
+    "coordinates": [
+      50.8458443,
+      28.9310786
+    ],
+    "actors": [
+      "SRI LANKA",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving SRI LANKA and IRAN.",
+    "source": "https://www.cadillacnews.com/ap/national/the-latest-iran-s-president-says-nation-will-not-bow-to-pressure-from-us-and/article_5eb92ac8-aaf7-557c-8ae6-2f9a26144328.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "usa-001",
+    "name": "Civil Unrest — Washington D.C.",
+    "event_type": "protest",
+    "date": "2026-03-08",
+    "country": "US",
+    "location": "Washington D.C.",
+    "coordinates": [
+      -77.0369,
+      38.9072
+    ],
+    "actors": [
+      "Domestic Protest Groups",
+      "National Guard"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Massive demonstrations and standoff near federal buildings.",
+    "source": "Live News",
+    "system": "conflicts"
+  },
+  {
+    "id": "usa-002",
+    "name": "Border Standoff — Eagle Pass, Texas",
+    "event_type": "battle",
+    "date": "2026-03-07",
+    "country": "US",
+    "location": "Eagle Pass, TX",
+    "coordinates": [
+      -100.4913,
+      28.7091
+    ],
+    "actors": [
+      "Texas National Guard",
+      "Federal Agents"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Escalating jurisdictional conflict over border infrastructure.",
+    "source": "Local Intel",
+    "system": "conflicts"
+  },
+  {
+    "id": "isr-001",
+    "name": "Strategic Missile Interception — Tel Aviv",
+    "event_type": "missile",
+    "date": "2026-03-08",
+    "country": "IL",
+    "location": "Tel Aviv",
+    "coordinates": [
+      34.7818,
+      32.0853
+    ],
+    "actors": [
+      "IDF Iron Dome",
+      "Regional Proxies"
+    ],
+    "fatalities": 2,
+    "severity": "critical",
+    "description": "Multiple high-altitude interceptions over metropolitan area.",
+    "source": "IDF",
+    "system": "conflicts"
+  },
+  {
+    "id": "isr-002",
+    "name": "Northern Front Skirmish — Kiryat Shmona",
+    "event_type": "battle",
+    "date": "2026-03-08",
+    "country": "IL",
+    "location": "Kiryat Shmona",
+    "coordinates": [
+      35.5684,
+      33.2078
+    ],
+    "actors": [
+      "IDF",
+      "Hezbollah"
+    ],
+    "fatalities": 5,
+    "severity": "high",
+    "description": "Heavy artillery exchanges and drone incursions across the Blue Line.",
+    "source": "UNIFIL",
+    "system": "conflicts"
+  },
+  {
+    "id": "irn-001",
+    "name": "Cyber-Kinetic Strike — Natanz Power Grid",
+    "event_type": "bombing",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Natanz",
+    "coordinates": [
+      51.72,
+      33.72
+    ],
+    "actors": [
+      "Unknown State Actor",
+      "IRGC"
+    ],
+    "fatalities": 0,
+    "severity": "critical",
+    "description": "Severe damage to nuclear facility auxiliary power systems.",
+    "source": "IAEA Watch",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127297",
+    "name": "Airstrike incident in Lagos, Lagos, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Lagos, Lagos, Nigeria",
+    "coordinates": [
+      3.3941795,
+      6.4550575
+    ],
+    "actors": [
+      "CHRISTIAN CHURCH",
+      "HOSPITAL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CHRISTIAN CHURCH and HOSPITAL.",
+    "source": "https://www.premiumtimesng.com/news/top-news/862393-one-killed-six-injured-in-lagos-road-crash.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127303",
+    "name": "Armed Clash in Glasgow, Glasgow City, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "191",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Glasgow, Glasgow City, United Kingdom",
+    "coordinates": [
+      -4.2501687,
+      55.861155
+    ],
+    "actors": [
+      "POLICE"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving POLICE",
+    "source": "https://www.el-balad.com/16873580",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127304",
+    "name": "Armed Clash in Oslo, Oslo, Norway",
+    "event_type": "battle",
+    "sub_type": "191",
+    "date": "2026-03-08",
+    "country": "NO",
+    "location": "Oslo, Oslo, Norway",
+    "coordinates": [
+      10.7757292,
+      59.9723975
+    ],
+    "actors": [
+      "POLICE"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving POLICE",
+    "source": "https://www.helsinkitimes.fi/world-int/28605-explosion-at-us-embassy-in-oslo-under-terrorism-investigation.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127325",
+    "name": "Airstrike incident in Havana, Ciudad de La Habana, Cuba",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "CU",
+    "location": "Havana, Ciudad de La Habana, Cuba",
+    "coordinates": [
+      -82.3589631,
+      23.135305
+    ],
+    "actors": [
+      "CUBA",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving CUBA and IRAN.",
+    "source": "https://nypost.com/2026/03/08/us-news/graham-teases-that-freeing-cuba-is-next-for-trump-stay-tuned/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127488",
+    "name": "Airstrike incident in Kolkata, West Bengal, India",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Kolkata, West Bengal, India",
+    "coordinates": [
+      88.3638953,
+      22.5726459
+    ],
+    "actors": [
+      "MAMATA BANERJEE",
+      "WEST BENGAL"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving MAMATA BANERJEE and WEST BENGAL.",
+    "source": "https://www.news18.com/politics/hitler-mindset-bjp-hits-back-after-mahua-moitra-says-non-tmc-supporters-are-not-bengalis-ws-l-9949315.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127551",
+    "name": "Armed Clash in Ferozepur Jhirka, Haryana, India",
+    "event_type": "battle",
+    "sub_type": "181",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Ferozepur Jhirka, Haryana, India",
+    "coordinates": [
+      77.0255225,
+      27.83295
+    ],
+    "actors": [
+      "HIGH COURT"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving HIGH COURT",
+    "source": "https://indianexpress.com/article/india/monu-manesar-bail-nasir-junaid-murder-case-rajasthan-hc-10571863/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127552",
+    "name": "Armed Clash in Haryana, Haryana, India",
+    "event_type": "battle",
+    "sub_type": "181",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Haryana, Haryana, India",
+    "coordinates": [
+      77.0848883,
+      28.4808629
+    ],
+    "actors": [
+      "HIGH COURT"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving HIGH COURT",
+    "source": "https://indianexpress.com/article/india/monu-manesar-bail-nasir-junaid-murder-case-rajasthan-hc-10571863/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293127628",
+    "name": "Airstrike incident in Moscow, Moskva, Russia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "RS",
+    "location": "Moscow, Moskva, Russia",
+    "coordinates": [
+      37.6174782,
+      55.7505412
+    ],
+    "actors": [
+      "MOSCOW"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving MOSCOW",
+    "source": "https://www.yahoo.com/news/articles/putin-cashes-trump-iran-war-095713094.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128601",
+    "name": "Missile/Artillery Strike in Delhi, Delhi, India",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Delhi, Delhi, India",
+    "coordinates": [
+      77.2090057,
+      28.6138954
+    ],
+    "actors": [
+      "PRISON",
+      "MUSLIM"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving PRISON and MUSLIM.",
+    "source": "https://www.siasat.com/up-arrested-over-holi-brawl-mohammed-shot-dead-soon-after-release-3427029/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128603",
+    "name": "Armed Clash in Owerri, Imo, Nigeria",
+    "event_type": "battle",
+    "sub_type": "1822",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Owerri, Imo, Nigeria",
+    "coordinates": [
+      7.0341973,
+      5.489736
+    ],
+    "actors": [
+      "POLICE",
+      "NIGERIA"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving POLICE and NIGERIA.",
+    "source": "https://saharareporters.com/2026/03/08/exclusive-imo-governors-cso-another-officer-get-undue-acp-promotions-amid-n10million",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128604",
+    "name": "Airstrike incident in Dagestan, Dagestan, Russia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "RS",
+    "location": "Dagestan, Dagestan, Russia",
+    "coordinates": [
+      48.1864201,
+      42.1152434
+    ],
+    "actors": [
+      "SECURITY FORCE",
+      "DAGESTAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving SECURITY FORCE and DAGESTAN.",
+    "source": "https://www.eng.kavkaz-uzel.eu/articles/73419",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128609",
+    "name": "Missile/Artillery Strike in Niger State, Niger, Nigeria",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Niger State, Niger, Nigeria",
+    "coordinates": [
+      6.5661385,
+      9.58272
+    ],
+    "actors": [
+      "GANG"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving GANG",
+    "source": "https://saharareporters.com/2026/03/08/northern-nigeria-must-wake-it-too-late-hamza-nuhu-dantani-esq",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128611",
+    "name": "Airstrike incident in Niger State, Niger, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Niger State, Niger, Nigeria",
+    "coordinates": [
+      6.5661385,
+      9.58272
+    ],
+    "actors": [
+      "BANDIT",
+      "VILLAGE"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving BANDIT and VILLAGE.",
+    "source": "https://saharareporters.com/2026/03/08/northern-nigeria-must-wake-it-too-late-hamza-nuhu-dantani-esq",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128631",
+    "name": "Armed Clash in Rivers State, Rivers, Nigeria",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Rivers State, Rivers, Nigeria",
+    "coordinates": [
+      7.1789057,
+      4.3871446
+    ],
+    "actors": [
+      "COMMUNITY"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving COMMUNITY",
+    "source": "https://saharareporters.com/2026/03/08/group-calls-justice-after-rivers-man-allegedly-kills-brother-over-witchcraft-claims",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128632",
+    "name": "Armed Clash in Omuma, Imo, Nigeria",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Omuma, Imo, Nigeria",
+    "coordinates": [
+      6.9457363,
+      5.7565793
+    ],
+    "actors": [
+      "COMMUNITY"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving COMMUNITY",
+    "source": "https://saharareporters.com/2026/03/08/group-calls-justice-after-rivers-man-allegedly-kills-brother-over-witchcraft-claims",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128633",
+    "name": "Missile/Artillery Strike in Winnipeg, Manitoba, Canada",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "CA",
+    "location": "Winnipeg, Manitoba, Canada",
+    "coordinates": [
+      -97.1384584,
+      49.8955367
+    ],
+    "actors": [
+      "COMMUNITY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving COMMUNITY",
+    "source": "https://www.winnipegfreepress.com/arts-and-life/life/faith/2026/03/08/a-threat-to-all-community-leaders-call-for-more-support-after-synagogue-shootings",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128656",
+    "name": "Airstrike incident in Gwana, Kebbi, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Gwana, Kebbi, Nigeria",
+    "coordinates": [
+      3.8907453,
+      11.8267369
+    ],
+    "actors": [
+      "VILLAGE",
+      "NIGERIA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving VILLAGE and NIGERIA.",
+    "source": "https://saharareporters.com/2026/03/08/northern-nigeria-must-wake-it-too-late-hamza-nuhu-dantani-esq",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128704",
+    "name": "Armed Clash in Baku, Baki*, Azerbaijan",
+    "event_type": "battle",
+    "sub_type": "182",
+    "date": "2026-03-08",
+    "country": "AJ",
+    "location": "Baku, Baki*, Azerbaijan",
+    "coordinates": [
+      49.8139975,
+      40.3732763
+    ],
+    "actors": [
+      "SCHOOL",
+      "IRANIAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving SCHOOL and IRANIAN.",
+    "source": "https://ejpress.org/azerbaijan-says-thwarted-irgc-terror-plot-against-jewish-targets/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128705",
+    "name": "Airstrike incident in Tokyo, Tokyo, Japan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "JA",
+    "location": "Tokyo, Tokyo, Japan",
+    "coordinates": [
+      139.766706,
+      35.6812546
+    ],
+    "actors": [
+      "SCHOOL",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving SCHOOL and IRAN.",
+    "source": "https://www.themarysue.com/dont-build-girls-schools-right-next-to-a-naval-base-donald-trumps-former-national-security-adviser-finds-no-fault-in-school-bombing-by-the-us/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128737",
+    "name": "Armed Clash in Rome, Lazio, Italy",
+    "event_type": "battle",
+    "sub_type": "192",
+    "date": "2026-03-08",
+    "country": "IT",
+    "location": "Rome, Lazio, Italy",
+    "coordinates": [
+      12.4829321,
+      41.8933203
+    ],
+    "actors": [
+      "LONDON"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving LONDON",
+    "source": "https://www.hellomagazine.com/celebrities/887899/the-capture-indira-varma-very-famous-husband/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128751",
+    "name": "Armed Clash in Fairford, Gloucestershire, United Kingdom",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "UK",
+    "location": "Fairford, Gloucestershire, United Kingdom",
+    "coordinates": [
+      -1.782001,
+      51.7107733
+    ],
+    "actors": [
+      "UNITED KINGDOM",
+      "IRAN"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving UNITED KINGDOM and IRAN.",
+    "source": "https://www.theguardian.com/world/2026/mar/08/middle-east-war-starmer-britain-us",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128788",
+    "name": "Political Protest in Hyderabad, Andhra Pradesh, India",
+    "event_type": "protest",
+    "sub_type": "145",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Hyderabad, Andhra Pradesh, India",
+    "coordinates": [
+      78.0268079,
+      15.8142294
+    ],
+    "actors": [
+      "MINIST",
+      "CRIMINAL"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving MINIST and CRIMINAL.",
+    "source": "https://www.siasat.com/telangana-to-be-a-role-model-in-future-ready-policing-sridhar-babu-3426941/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128820",
+    "name": "Airstrike incident in Kayakent, Dagestan, Russia",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "RS",
+    "location": "Kayakent, Dagestan, Russia",
+    "coordinates": [
+      47.902104,
+      42.3889552
+    ],
+    "actors": [
+      "AUTHORITIES",
+      "RUSSIA"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving AUTHORITIES and RUSSIA.",
+    "source": "https://www.eng.kavkaz-uzel.eu/articles/73419",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128844",
+    "name": "Armed Clash in Lucknow, Uttar Pradesh, India",
+    "event_type": "battle",
+    "sub_type": "180",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Lucknow, Uttar Pradesh, India",
+    "coordinates": [
+      80.9346001,
+      26.8381
+    ],
+    "actors": [
+      "HOSPITAL"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving HOSPITAL",
+    "source": "https://www.centralwesterndaily.com.au/story/9178111/man-jailed-for-orange-hospital-doctor-assault/",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128859",
+    "name": "Armed Clash in Bhubaneswar, Orissa, India",
+    "event_type": "battle",
+    "sub_type": "1821",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Bhubaneswar, Orissa, India",
+    "coordinates": [
+      85.8394521,
+      20.2602964
+    ],
+    "actors": [
+      "BHUBANESWAR"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving BHUBANESWAR",
+    "source": "https://timesofindia.indiatimes.com/city/bhubaneswar/hyd-based-engr-held-in-bhubaneswar-for-womans-rape-convert-bid/articleshow/129213066.cms",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128860",
+    "name": "Armed Clash in Hyderabad, Andhra Pradesh, India",
+    "event_type": "battle",
+    "sub_type": "1821",
+    "date": "2026-03-08",
+    "country": "IN",
+    "location": "Hyderabad, Andhra Pradesh, India",
+    "coordinates": [
+      78.0268079,
+      15.8142294
+    ],
+    "actors": [
+      "BHUBANESWAR"
+    ],
+    "fatalities": 0,
+    "severity": "medium",
+    "description": "Sources report an incident involving BHUBANESWAR",
+    "source": "https://timesofindia.indiatimes.com/city/bhubaneswar/hyd-based-engr-held-in-bhubaneswar-for-womans-rape-convert-bid/articleshow/129213066.cms",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128880",
+    "name": "Airstrike incident in Ferdowsi, Yazd, Iran",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "IR",
+    "location": "Ferdowsi, Yazd, Iran",
+    "coordinates": [
+      54.3514365,
+      31.853167
+    ],
+    "actors": [
+      "IRAN",
+      "AFGHANISTAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and AFGHANISTAN.",
+    "source": "https://www.aol.com/articles/former-joint-chiefs-chair-says-155900811.html",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128905",
+    "name": "Airstrike incident in Baku, Baki*, Azerbaijan",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "AJ",
+    "location": "Baku, Baki*, Azerbaijan",
+    "coordinates": [
+      49.8139975,
+      40.3732763
+    ],
+    "actors": [
+      "IRAN",
+      "MILITARY"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving IRAN and MILITARY.",
+    "source": "https://naharnet.com/stories/en/318768-iran-targets-us-site-in-kuwait-denies-attack-on-azerbaijan",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293128955",
+    "name": "Missile/Artillery Strike in Tokyo, Tokyo, Japan",
+    "event_type": "missile",
+    "sub_type": "193",
+    "date": "2026-03-08",
+    "country": "JA",
+    "location": "Tokyo, Tokyo, Japan",
+    "coordinates": [
+      139.766706,
+      35.6812546
+    ],
+    "actors": [
+      "TOKYO"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving TOKYO",
+    "source": "https://www.newsonjapan.com/article/148592.php",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293129100",
+    "name": "Airstrike incident in Abuja, Abuja Federal Capital Territory, Nigeria",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "NI",
+    "location": "Abuja, Abuja Federal Capital Territory, Nigeria",
+    "coordinates": [
+      7.4892974,
+      9.0643305
+    ],
+    "actors": [
+      "NIGERIAN",
+      "NIGERIAN"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving NIGERIAN and NIGERIAN.",
+    "source": "https://saharareporters.com/2026/03/08/42-nigerians-beaten-robbed-sick-mozambique-detention-nidcom-condemns-xenophobic-arrests",
+    "system": "conflicts"
+  },
+  {
+    "id": "gdelt-1293129229",
+    "name": "Airstrike incident in Shanghai, Shanghai, China",
+    "event_type": "airstrike",
+    "sub_type": "190",
+    "date": "2026-03-08",
+    "country": "CH",
+    "location": "Shanghai, Shanghai, China",
+    "coordinates": [
+      121.4700152,
+      31.2312707
+    ],
+    "actors": [
+      "THE US"
+    ],
+    "fatalities": 0,
+    "severity": "high",
+    "description": "Sources report an incident involving THE US",
+    "source": "https://www.globaltimes.cn/page/202603/1356596.shtml",
+    "system": "conflicts"
   }
 ]

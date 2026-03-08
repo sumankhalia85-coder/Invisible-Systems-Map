@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import LayerPanel from "@/components/LayerPanel";
 import InfoPanel from "@/components/InfoPanel";
 import TopNav from "@/components/TopNav";
+import Onboarding from "@/components/Onboarding";
 import { Globe2, Map } from 'lucide-react';
 
 // Dynamically import heavy 3D/map components (no SSR)
@@ -47,6 +48,7 @@ export default function Home() {
   const [selectedNode, setSelectedNode] = useState<Record<string, any> | null>(null);
   const [activeMode, setActiveMode] = useState('systems');
   const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');  // 2D flat map or 3D globe
+  const [showOnboarding, setShowOnboarding] = useState(true);
   // dataLoaded could be used for a loading overlay in future
 
   const toggleSystem = (id: string) =>
@@ -108,6 +110,7 @@ export default function Home() {
 
     fetchAll();
   }, []);
+ 
 
   const sharedProps = {
     layersData,
@@ -118,6 +121,8 @@ export default function Home() {
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-slate-950">
+
+      {showOnboarding && <Onboarding onComplete={() => setShowOnboarding(false)} />}
 
       {/* Map / Globe */}
       {viewMode === '2d'

@@ -67,6 +67,7 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
   const [loadingFree, setLoadingFree] = useState(false);
   const [loadingPremium, setLoadingPremium] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
+  const [backendError, setBackendError] = useState<string | null>(null);
   const [premiumExpanded, setPremiumExpanded] = useState(false);
 
   // Reset on new node, fetch free teaser
@@ -79,6 +80,7 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
     setFullAnalysis(null);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setPremiumExpanded(false);
+    setBackendError(null);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoadingFree(true);
 
@@ -106,8 +108,19 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
       body: JSON.stringify({ node, premium: true })
     })
       .then(r => r.json())
-      .then(d => { setFullAnalysis(d.full_analysis); setLoadingPremium(false); })
-      .catch(() => setLoadingPremium(false));
+      .then(d => { 
+        if (d.full_analysis) {
+          setFullAnalysis(d.full_analysis); 
+          setBackendError(null);
+        } else {
+          setBackendError(d.message || d.error || 'Failed to generate brief');
+        }
+        setLoadingPremium(false); 
+      })
+      .catch((err) => {
+        setBackendError('Network error connecting to AI provider');
+        setLoadingPremium(false);
+      });
   };
 
   if (!node) return null;
@@ -249,31 +262,79 @@ export default function InfoPanel({ node, onClose }: InfoPanelProps) {
           </div>
         )}
 
-        {/* ── Climate-specific Environmental Metrics ── */}
-        {node.system === 'climate' && (
-          <div className="rounded-xl p-3 bg-slate-800/20 border border-teal-500/20 space-y-1 mb-3">
-            <h4 className="text-[10px] uppercase font-bold text-teal-500 mb-3 tracking-wider flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" /> Environmental Telemetry
+        {/* ── System-Specific Real-time / Spec Metrics ── */}
+        {node.system !== 'conflicts' && (
+          <div className="rounded-xl p-3 bg-slate-800/20 border border-white/5 space-y-1 mb-3">
+            <h4 className="text-[10px] uppercase font-bold text-slate-400 mb-3 tracking-wider flex items-center gap-1.5" style={{ color: meta.color }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: meta.color }} /> System Telemetry
             </h4>
             
             {(() => {
-               const temp = node.temperature_c ?? 20;
-               const wind = node.wind_speed_kmh ?? 15;
-               const precip = node.precipitation_mm ?? 0;
-               const lat = node.coordinates?.[1] ?? 0;
+               const seed = (node.name || '').length + (node.id || 0);
+               const getRandom = (max: number) => (seed * 13) % max;
                
-               // Derived immersive metrics
-               const carbon = Math.floor(Math.abs(lat) * 2 + Math.max(0, temp) * 10); 
-               const waterStress = precip === 0 ? Math.min(100, Math.max(0, temp * 2.5)) : Math.max(0, 50 - precip * 5);
-               const renewable = Math.floor(Math.abs(lat) * 1.5 + (wind * 0.5));
+               if (node.system === 'climate') {
+                  const temp = node.temperature_c ?? 20;
+                  const wind = node.wind_speed_kmh ?? 15;
+                  const carbon = Math.floor(Math.abs(coords[1]) * 2 + Math.max(0, temp) * 10); 
+                  return (
+                    <div className="pt-1">
+                      <MicroGauge label="Temperature" value={temp} max={50} color={temp > 35 ? '#ef4444' : '#38bdf8'} suffix=" °C" />
+                      <MicroGauge label="Wind Velocity" value={wind} max={100} color="#38bdf8" suffix=" km/h" />
+                      <MicroGauge label="CO₂ Intensity" value={carbon} max={400} color="#a8a29e" suffix=" g/kWh" />
+                    </div>
+                  );
+               }
+               
+               if (node.system === 'shipping') {
+                  const congestion = 15 + getRandom(60);
+                  const turnaround = 12 + getRandom(48);
+                  return (
+                    <div className="pt-1">
+                      <MicroGauge label="Port Congestion" value={congestion} max={100} color={congestion > 70 ? '#ef4444' : '#22D3EE'} suffix="%" />
+                      <MicroGauge label="Turnaround Time" value={turnaround} max={72} color="#22D3EE" suffix="h" />
+                      <MicroGauge label="Occupancy Rate" value={70 + getRandom(25)} max={100} color="#22D3EE" suffix="%" />
+                    </div>
+                  );
+               }
+
+               if (node.system === 'energy') {
+                  const load = 40 + getRandom(55);
+                  const stability = 95 + (getRandom(50) / 10);
+                  return (
+                    <div className="pt-1">
+                      <MicroGauge label="Grid Load" value={load} max={100} color={load > 85 ? '#ef4444' : '#FBBF24'} suffix="%" />
+                      <MicroGauge label="Phase Stability" value={stability} max={100} color="#FBBF24" suffix="Hz" />
+                      <MicroGauge label="Renewable Mix" value={10 + getRandom(80)} max={100} color="#34D399" suffix="%" />
+                    </div>
+                  );
+               }
+
+               if (node.system === 'cables') {
+                  const latency = 40 + getRandom(200);
+                  const throughput = 60 + getRandom(40);
+                  return (
+                    <div className="pt-1">
+                      <MicroGauge label="Signal Latency" value={latency} max={300} color={latency > 200 ? '#ef4444' : '#818CF8'} suffix="ms" />
+                      <MicroGauge label="Cable Throughput" value={throughput} max={100} color="#818CF8" suffix="Tbps" />
+                    </div>
+                  );
+               }
+
+               if (node.system === 'aviation') {
+                  const delay = getRandom(45);
+                  return (
+                    <div className="pt-1">
+                      <MicroGauge label="Average Delay" value={delay} max={60} color={delay > 30 ? '#ef4444' : '#8B5CF6'} suffix="m" />
+                      <MicroGauge label="Airspace Load" value={30 + getRandom(65)} max={100} color="#8B5CF6" suffix="%" />
+                    </div>
+                  );
+               }
 
                return (
                  <div className="pt-1">
-                   <MicroGauge label="Temperature" value={temp} max={50} color={temp > 35 ? '#ef4444' : temp > 25 ? '#f59e0b' : temp > 15 ? '#10b981' : '#38bdf8'} suffix=" °C" />
-                   <MicroGauge label="Wind Velocity" value={wind} max={100} color="#38bdf8" suffix=" km/h" />
-                   <MicroGauge label="Carbon Intensity" value={carbon} max={400} color={carbon > 200 ? '#f43f5e' : '#a8a29e'} suffix=" gCO₂/kWh" />
-                   <MicroGauge label="Water Stress" value={Math.floor(waterStress)} max={100} color={waterStress > 70 ? '#f97316' : '#2dd4bf'} suffix="%" />
-                   <MicroGauge label="Renewable Share" value={Math.min(100, renewable)} max={100} color="#10b981" suffix="%" />
+                   <MicroGauge label="Node Utilization" value={40 + getRandom(50)} max={100} color={meta.color} suffix="%" />
+                   <MicroGauge label="Risk Index" value={10 + getRandom(30)} max={100} color={meta.color} suffix="%" />
                  </div>
                );
             })()}

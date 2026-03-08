@@ -59,12 +59,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Data paths ──────────────────────────────────────────────
-# main.py is at backend/app/ → go up 1 dir to backend/ → datasets/datasets/
-# JSON files live inside the nested datasets/datasets/ structure
+# --- Triggers Uvicorn Reload (Restored Dataflows) ---
+
+# Consistent path for all scripts and app
 DATASETS_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets', 'datasets')
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets')
 )
+os.makedirs(DATASETS_DIR, exist_ok=True)
 
 def load_json(filename):
     path = os.path.join(DATASETS_DIR, filename)
@@ -296,6 +297,63 @@ def get_conflicts_realtime():
     except Exception as ex:
         print(f"GDELT fetch error: {ex}, using static fallback")
         events = conflicts_data
+    # Optionally fetch ACLED-like real-time feed if configured via environment
+    acled_url = os.getenv('ACLED_API_URL')
+    acled_key = os.getenv('ACLED_API_KEY')
+    if acled_url:
+        try:
+            headers = {"Authorization": f"Bearer {acled_key}"} if acled_key else {}
+            r = requests.get(acled_url, headers=headers, timeout=15)
+            r.raise_for_status()
+            acled_data = r.json()
+            # Try to extract list from common wrappers
+            acled_items = []
+            if isinstance(acled_data, dict):
+                if 'data' in acled_data and isinstance(acled_data['data'], list):
+                    acled_items = acled_data['data']
+                elif 'results' in acled_data and isinstance(acled_data['results'], list):
+                    acled_items = acled_data['results']
+                else:
+                    for v in acled_data.values():
+                        if isinstance(v, list):
+                            acled_items = v
+                            break
+            elif isinstance(acled_data, list):
+                acled_items = acled_data
+
+            for it in acled_items:
+                try:
+                    if isinstance(it, dict):
+                        if it.get('latitude') is not None and it.get('longitude') is not None:
+                            lat = float(it.get('latitude'))
+                            lng = float(it.get('longitude'))
+                        elif it.get('lat') is not None and it.get('lon') is not None:
+                            lat = float(it.get('lat')); lng = float(it.get('lon'))
+                        elif 'coordinates' in it and isinstance(it.get('coordinates'), (list, tuple)):
+                            lng, lat = it.get('coordinates')[0], it.get('coordinates')[1]
+                        else:
+                            continue
+                        if lat == 0.0 and lng == 0.0: continue
+                        if not (-90 <= lat <= 90) or not (-180 <= lng <= 180): continue
+                        events.append({
+                            'id': it.get('id') or it.get('event_id') or f"acled-{len(events)}",
+                            'name': it.get('event', it.get('note', 'ACLED event')),
+                            'event_type': it.get('event_type', it.get('category', 'geopolitical')),
+                            'date': it.get('event_date', it.get('date', '')),
+                            'country': it.get('country', it.get('country_name', '')),
+                            'location': it.get('location', ''),
+                            'coordinates': [lng, lat],
+                            'actors': it.get('actors', it.get('actor1', [])),
+                            'fatalities': it.get('fatalities', 0),
+                            'severity': it.get('severity', 'medium'),
+                            'description': it.get('notes', it.get('description', '')),
+                            'source': it.get('source', 'ACLED'),
+                            'system': 'conflicts'
+                        })
+                except Exception:
+                    continue
+        except Exception as e:
+            print(f"Warning: ACLED fetch failed: {e}")
     features = _build_conflict_features(events)
     cache_age = 0
     if _gdelt_cache["fetched_at"]:
@@ -330,16 +388,61 @@ async def analyze_node(req: AnalyzeRequest):
     node_name = node.get('name', 'Unknown')
     system = node.get('system', 'infrastructure')
 
-    # Premium is always locked
+    # Premium: allow if GROQ API key present and PRO_UNLOCK is enabled in env
+    groq_key = os.getenv("GROQ_API_KEY")
+    pro_unlock = os.getenv("PRO_UNLOCK", "false").lower() in ("1", "true", "yes")
+    max_tokens = int(os.getenv("ANALYZE_MAX_TOKENS", "120"))
+
     if req.premium:
-        return {
-            "teaser": f"{node_name} is a critical node in the global {system} network.",
-            "full_analysis": None,
-            "has_api_key": False,
-            "premium": False,
-            "locked": True,
-            "message": "Premium Intelligence Brief is a Pro feature. Upgrade to unlock."
-        }
+        if not groq_key or not pro_unlock:
+            print(f"⚠️ AI Brief requested for {node_name} but GROQ_API_KEY is missing or PRO_UNLOCK is not enabled.")
+            return {
+                "teaser": f"{node_name} is a critical node in the global {system} network.",
+                "full_analysis": None,
+                "has_api_key": bool(groq_key),
+                "premium": False,
+                "locked": True,
+                "error": "Locked or Missing Key",
+                "message": "Premium Intelligence Brief is a Pro feature. Enable PRO_UNLOCK and provide GROQ_API_KEY to unlock."
+            }
+        
+        try:
+            import httpx
+            print(f"📡 Requesting Groq Brief for: {node_name}...")
+            resp = httpx.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
+                json={
+                    "model": "llama3-8b-8192",
+                    "messages": [
+                        {"role": "system", "content": "You are a concise geopolitical infrastructure analyst. Provide a short, factual premium brief (3-5 sentences)."},
+                        {"role": "user", "content": f"Provide a short (<=5 sentence) intelligence brief for {node_name} ({node.get('type','node')}), focusing on strategic importance, recent changes, and immediate risk. Be concise."}
+                    ],
+                    "max_tokens": max_tokens,
+                    "temperature": 0.2,
+                },
+                timeout=12.0,
+            )
+            
+            if resp.status_code != 200:
+                print(f"❌ Groq API Error: {resp.status_code} - {resp.text}")
+                return {
+                    "full_analysis": None,
+                    "error": f"API Error {resp.status_code}",
+                    "message": f"Groq API returned an error: {resp.status_code}. Verify your key and quota."
+                }
+
+            data = resp.json()
+            text = data.get("choices", [])[0].get("message", {}).get("content", "").strip()
+            print(f"✅ Intelligence Brief generated ({len(text)} chars)")
+            return {"teaser": None, "full_analysis": text, "has_api_key": True, "premium": True, "locked": False}
+        except Exception as e:
+            print(f"❌ Groq Analysis Failure: {str(e)}")
+            return {
+                "full_analysis": None,
+                "error": "Connection Failed",
+                "message": f"Failed to connect to AI provider: {str(e)}"
+            }
 
     # Free teaser — try Groq first, then static fallback
     groq_key = os.getenv("GROQ_API_KEY")
